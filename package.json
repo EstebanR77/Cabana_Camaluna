@@ -1,0 +1,19 @@
+{
+  "name": "camaluna",
+  "version": "1.0.0",
+  "description": "Sitio web para Camaluna - cabaña en Villa de Leyva",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.6.1",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.0"
+  }
+}
