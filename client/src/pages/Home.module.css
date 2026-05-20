@@ -1,0 +1,10 @@
+.home {
+  display: flex;
+  flex-direction: column;
+}
+
+.scrollSection {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
