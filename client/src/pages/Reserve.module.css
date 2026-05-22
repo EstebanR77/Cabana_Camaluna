@@ -1,0 +1,86 @@
+.page { display: flex; flex-direction: column; min-height: 100vh; }
+
+.hero {
+  background: var(--brown-dark);
+  padding: 8rem 2.5rem 3rem;
+  text-align: center;
+}
+
+.title {
+  font-family: var(--font-heading);
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.08em;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: rgba(255,255,255,0.6);
+  font-style: italic;
+}
+
+.scrollSection {
+  width: 100%;
+}
+
+.bookingSection {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 3rem 2.5rem;
+  width: 100%;
+}
+
+.policies {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 3rem 2.5rem 5rem;
+  width: 100%;
+}
+
+.policiesTitle {
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  color: var(--text-dark);
+  margin-bottom: 1.75rem;
+}
+
+.policiesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.policyCard {
+  padding: 1.5rem;
+  border: 1px solid rgba(77,112,64,0.15);
+  border-radius: var(--radius-md);
+  background: var(--white);
+  box-shadow: var(--shadow-card);
+}
+
+.policyTitle {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 0.5rem;
+}
+
+.policyDesc {
+  font-size: 0.88rem;
+  color: var(--text-mid);
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .bookingSection {
+    grid-template-columns: 1fr;
+    padding: 2rem 1.5rem;
+  }
+  .policies { padding: 2rem 1.5rem 4rem; }
+}

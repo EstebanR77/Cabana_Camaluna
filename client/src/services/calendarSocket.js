@@ -1,13 +1,10 @@
-// WebSocket cliente — Calendario de disponibilidad en tiempo real
-// Basado en el patrón del taller Chat_Multimedia
-
 const WS_URL = import.meta.env.DEV
   ? 'ws://localhost:3000/ws/calendar'
   : `wss://${window.location.host}/ws/calendar`;
 
 let socket = null;
 
-export function connectCalendar(onMessage) {
+export function connectCalendar(onMessage, isUnmounted) {
   socket = new WebSocket(WS_URL);
 
   socket.onopen = () => {
@@ -21,8 +18,9 @@ export function connectCalendar(onMessage) {
   };
 
   socket.onclose = () => {
+    if (isUnmounted && isUnmounted()) return;
     console.log('Desconectado del calendario. Reconectando en 3s...');
-    setTimeout(() => connectCalendar(onMessage), 3000);
+    setTimeout(() => connectCalendar(onMessage, isUnmounted), 3000);
   };
 
   socket.onerror = (err) => console.error('Error WebSocket calendario:', err);
@@ -35,5 +33,5 @@ export function sendCalendarMessage(message) {
 }
 
 export function disconnectCalendar() {
-  if (socket) socket.close();
+  if (socket) { socket.close(); socket = null; }
 }

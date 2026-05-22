@@ -1,0 +1,106 @@
+.page { display: flex; flex-direction: column; min-height: 100vh; }
+
+.hero {
+  background: var(--brown-dark);
+  padding: 10rem 2.5rem 4rem;
+  text-align: center;
+}
+
+.title {
+  font-family: var(--font-heading);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  color: var(--white);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: rgba(255,255,255,0.6);
+  font-style: italic;
+}
+
+.content {
+  max-width: 900px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 4rem 2.5rem 5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem;
+}
+
+/* Botones directos */
+.directBtns {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.whatsapp, .phone, .email {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 2rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.whatsapp:hover, .phone:hover, .email:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-soft);
+}
+
+.whatsapp { background: #25d366; color: var(--white); }
+.phone    { background: var(--green-main); color: var(--white); }
+.email    { background: var(--brown-main); color: var(--white); }
+
+/* FAQs */
+.faqTitle {
+  font-family: var(--font-heading);
+  font-size: 1.75rem;
+  color: var(--text-dark);
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+.faqItem {
+  border-bottom: 1px solid var(--cream-dark);
+  padding: 1.25rem 0;
+}
+
+.faqItem:first-of-type { border-top: 1px solid var(--cream-dark); }
+
+.faqQ {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  color: var(--text-dark);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.faqA {
+  font-size: 0.93rem;
+  color: var(--text-mid);
+  line-height: 1.7;
+}
+
+/* Chat */
+.chatTitle {
+  font-family: var(--font-heading);
+  font-size: 1.75rem;
+  color: var(--text-dark);
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.chatDesc {
+  font-size: 0.93rem;
+  color: var(--text-light);
+  margin-bottom: 1.5rem;
+}

@@ -2,7 +2,7 @@
   {
     "id": "1",
     "username": "admin",
-    "password": "camaluna2024",
+    "passwordHash": "588c713874f0c6de799e78d97a6f1f31510f30f1047c6112907124a09f77ab9d",
     "role": "host"
   }
 ]

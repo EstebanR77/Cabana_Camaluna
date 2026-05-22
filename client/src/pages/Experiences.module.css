@@ -1,0 +1,139 @@
+.page { display: flex; flex-direction: column; min-height: 100vh; }
+
+.hero {
+  background: var(--green-dark);
+  padding: 10rem 2.5rem 4rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('/images/villa-de-leyva.jpg') center/cover;
+  opacity: 0.18;
+}
+
+.title {
+  position: relative;
+  font-family: var(--font-heading);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  color: var(--white);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  position: relative;
+  font-size: 1rem;
+  color: rgba(255,255,255,0.65);
+  font-style: italic;
+}
+
+/* Grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  padding: 5rem 2.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  background: var(--cream);
+}
+
+.card {
+  background: var(--white);
+  border-radius: var(--radius-md);
+  padding: 2.25rem 2rem;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  position: relative;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-soft);
+}
+
+.tag {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--green-main);
+  background: var(--green-soft);
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  width: fit-content;
+}
+
+.icon {
+  font-size: 2.25rem;
+}
+
+.cardTitle {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  color: var(--text-dark);
+  font-weight: 600;
+}
+
+.cardDesc {
+  font-size: 0.9rem;
+  color: var(--text-mid);
+  line-height: 1.75;
+}
+
+/* CTA */
+.cta {
+  background: var(--brown-dark);
+  padding: 5rem 2.5rem;
+  text-align: center;
+}
+
+.ctaTitle {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 4vw, 3rem);
+  color: var(--white);
+  margin-bottom: 0.75rem;
+}
+
+.ctaDesc {
+  font-size: 1rem;
+  color: rgba(255,255,255,0.65);
+  margin-bottom: 2.5rem;
+}
+
+.ctaBtn {
+  display: inline-block;
+  background: var(--green-main);
+  color: var(--white);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 1rem 2.75rem;
+  border-radius: var(--radius-sm);
+  transition: background var(--transition), transform var(--transition);
+  box-shadow: 0 4px 24px rgba(77,112,64,0.35);
+}
+
+.ctaBtn:hover {
+  background: var(--green-dark);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 900px) {
+  .grid { grid-template-columns: repeat(2, 1fr); padding: 3.5rem 1.5rem; }
+}
+
+@media (max-width: 568px) {
+  .grid { grid-template-columns: 1fr; }
+}

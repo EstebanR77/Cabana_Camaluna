@@ -1,0 +1,63 @@
+/* ── Google Fonts ─────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap');
+
+/* ── Variables globales ───────────────────────────────── */
+:root {
+  --green-dark:   #3a5a2e;
+  --green-main:   #4d7040;
+  --green-light:  #6b9460;
+  --green-soft:   #dce8d4;
+  --brown-dark:   #4a2e12;
+  --brown-main:   #7a4f2e;
+  --brown-light:  #b07d56;
+  --brown-soft:   #ede0d0;
+  --cream:        #f7f3ec;
+  --cream-dark:   #eee8dc;
+  --text-dark:    #2a1f12;
+  --text-mid:     #5a4a38;
+  --text-light:   #8a7a68;
+  --white:        #ffffff;
+
+  --font-heading: 'Playfair Display', Georgia, serif;
+  --font-body:    'Lato', sans-serif;
+
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+
+  --shadow-soft: 0 4px 24px rgba(42, 31, 18, 0.10);
+  --shadow-card: 0 2px 16px rgba(42, 31, 18, 0.08);
+  --transition: 0.3s ease;
+}
+
+/* ── Reset base ───────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--cream);
+  color: var(--text-dark);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  line-height: 1.25;
+}
+
+a { color: inherit; text-decoration: none; }
+
+img { max-width: 100%; display: block; }
+
+button, input, textarea, select {
+  font-family: var(--font-body);
+  outline: none;
+}
+
+/* ── Scrollbar ────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--cream-dark); }
+::-webkit-scrollbar-thumb { background: var(--green-light); border-radius: 3px; }

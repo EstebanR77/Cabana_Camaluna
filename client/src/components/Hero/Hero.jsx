@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
 import styles from './Hero.module.css'
 
 function Hero({ title, subtitle, description, ctaText, ctaLink }) {
@@ -30,15 +31,15 @@ function Hero({ title, subtitle, description, ctaText, ctaLink }) {
         >
           {description}
         </motion.p>
-        <motion.a
-          href={ctaLink}
-          className={styles.btn}
+        <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.55 }}
         >
-          {ctaText}
-        </motion.a>
+          <Link to={ctaLink} className={styles.btn}>
+            {ctaText}
+          </Link>
+        </motion.div>
       </div>
     </section>
   )

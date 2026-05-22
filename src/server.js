@@ -4,30 +4,41 @@ import session   from 'express-session';
 import { WebSocketServer } from 'ws';
 import 'dotenv/config';
 
-import authRoutes        from './routes/auth.js';
-import reservationRoutes from './routes/reservations.js';
-import contactRoutes     from './routes/contact.js';
+import authRoutes                          from './routes/auth.js';
+import reservationRoutes, { setWss }       from './routes/reservations.js';
+import contactRoutes                       from './routes/contact.js';
 
 import handleCalendarWS from './web/calendar.js';
 import handleChatWS     from './web/chat.js';
 
 const app    = express();
 const server = http.createServer(app);
-const wss = new WebSocketServer({ server });
+const wss    = new WebSocketServer({ server });
+
+// ── Inyectar wss en reservaciones para broadcast ────────
+setWss(wss);
 
 // ── Middleware ──────────────────────────────────────────
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(session({
-  secret: process.env.SESSION_SECRET || 'camaluna_secret',
-  resave: false,
-  saveUninitialized: false
+  secret:            process.env.SESSION_SECRET || 'camaluna_secret_dev',
+  resave:            false,
+  saveUninitialized: false,
+  cookie: {
+    httpOnly: true,
+    secure:   process.env.NODE_ENV === 'production',
+    maxAge:   8 * 60 * 60 * 1000   // 8 horas
+  }
 }));
 
 // ── Rutas API ───────────────────────────────────────────
 app.use('/api', authRoutes);
 app.use('/api/reservations', reservationRoutes);
 app.use('/api/contact', contactRoutes);
+
+// ── Ruta de salud ───────────────────────────────────────
+app.get('/api/health', (_, res) => res.json({ status: 'ok' }));
 
 // ── WebSocket ───────────────────────────────────────────
 wss.on('connection', (ws, req) => {
@@ -44,5 +55,5 @@ wss.on('connection', (ws, req) => {
 // ── Servidor ────────────────────────────────────────────
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
-  console.log(`Servidor corriendo en http://localhost:${PORT}`);
+  console.log(`✅  Servidor corriendo en http://localhost:${PORT}`);
 });

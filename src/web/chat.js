@@ -1,43 +1,40 @@
-const connectedUsers = [];
+import { sanitize } from '../utils/security.js';
+import { broadcast } from '../utils/broadcast.js';
 
 export default function handleChatWS(ws, wss) {
-  let currentUser = null;
+  let userName = 'Visitante';
 
   ws.on('message', (data) => {
-    const message = JSON.parse(data);
+    let message;
+    try {
+      message = JSON.parse(data);
+    } catch {
+      return;
+    }
 
     switch (message.type) {
       case 'join':
-        currentUser = { name: message.name, ws };
-        connectedUsers.push(currentUser);
-        broadcast(wss, { type: 'user-joined', name: message.name }, ws);
+        userName = sanitize(message.name) || 'Visitante';
+        broadcast(wss, { type: 'user-joined', name: userName }, ws);
         break;
 
-      case 'chat':
+      case 'chat': {
+        const text = sanitize(message.text || '');
+        if (!text) break;
         broadcast(wss, {
-          type: 'chat',
-          name: currentUser ? currentUser.name : 'Visitante',
-          text: message.text,
+          type:      'chat',
+          name:      userName,
+          text,
           timestamp: new Date().toISOString()
-        }, null);
+        }, null); // null = enviar a todos incluyendo emisor
         break;
+      }
     }
   });
 
   ws.on('close', () => {
-    const index = connectedUsers.findIndex(u => u.ws === ws);
-    if (index !== -1) {
-      const name = connectedUsers[index].name;
-      connectedUsers.splice(index, 1);
-      broadcast(wss, { type: 'user-left', name }, ws);
-    }
+    broadcast(wss, { type: 'user-left', name: userName }, ws);
   });
-}
 
-function broadcast(wss, message, sender) {
-  wss.clients.forEach((client) => {
-    if (client !== sender && client.readyState === 1) {
-      client.send(JSON.stringify(message));
-    }
-  });
+  ws.on('error', (err) => console.error('ChatWS error:', err));
 }
