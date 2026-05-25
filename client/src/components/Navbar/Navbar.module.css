@@ -1,90 +1,77 @@
-/* ── Navbar ───────────────────────────────────────────── */
 .navbar {
-  position: fixed;
+  position: sticky;
   top: 0;
-  left: 0;
-  right: 0;
   z-index: 100;
+  width: min(1120px, calc(100% - 48px));
+  height: 76px;
+  margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 2.5rem;
-  height: 70px;
+  padding: 0 28px;
   background: var(--white);
-  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-  transition: box-shadow var(--transition);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
 }
 
-.navbar.scrolled {
-  box-shadow: 0 4px 20px rgba(0,0,0,0.12);
-}
-
-/* ── Logo ─────────────────────────────────────────────── */
 .logo {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  text-decoration: none;
+  min-width: 160px;
 }
 
 .logoImg {
-  width: 36px;
-  height: 36px;
+  width: 150px;
+  height: auto;
+  max-height: 48px;
   object-fit: contain;
 }
 
-.logoText {
-  font-family: var(--font-heading);
-  font-size: 1.1rem;
-  color: var(--olive-dark);
-  letter-spacing: 0.08em;
-}
+.logoText { display: none; }
 
-/* ── Links ────────────────────────────────────────────── */
 .links {
   display: flex;
   align-items: center;
-  gap: 0;
+  gap: 0.9rem;
   list-style: none;
 }
 
 .links a {
+  min-width: 86px;
+  min-height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   font-family: var(--font-heading);
   font-size: 0.8rem;
+  line-height: 1;
+  text-transform: uppercase;
   color: var(--black);
-  padding: 0.4rem 0.65rem;
-  border-radius: var(--radius-sm);
-  transition: background var(--transition), color var(--transition);
+  padding: 0.35rem 0.7rem;
+  border: 1px solid rgba(0,0,0,0.14);
+  border-radius: 4px;
+  background: var(--white);
   white-space: nowrap;
+  transition: background var(--transition), color var(--transition), border-color var(--transition);
 }
 
-.links a:hover {
-  background: var(--cream);
-}
-
+.links a:hover,
 .links a.active {
-  background: var(--olive-muted);
-  color: var(--white);
+  background: var(--cream);
+  border-color: rgba(73,88,33,0.35);
 }
 
-/* ── CTA Button ───────────────────────────────────────── */
 .ctaBtn {
-  margin-left: 0.75rem;
+  min-width: 100px !important;
+  margin-left: 0.35rem;
   background: var(--olive-dark) !important;
   color: var(--white) !important;
-  font-family: var(--font-heading) !important;
-  font-size: 0.8rem !important;
-  padding: 0.5rem 1.2rem !important;
-  border-radius: var(--radius-sm) !important;
-  letter-spacing: 0.05em;
-  transition: background var(--transition) !important;
+  border-color: var(--olive-dark) !important;
+  letter-spacing: 0.04em;
 }
 
-.ctaBtn:hover {
-  background: #3a4519 !important;
-}
+.ctaBtn:hover { background: #3c481b !important; }
 
-/* ── Hamburger (móvil) ────────────────────────────────── */
 .hamburger {
   display: none;
   flex-direction: column;
@@ -108,41 +95,26 @@
 .hamburger.open span:nth-child(2) { opacity: 0; }
 .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-/* ── Mobile ───────────────────────────────────────────── */
-@media (max-width: 900px) {
+@media (max-width: 1050px) {
+  .navbar { width: 100%; padding: 0 1rem; }
   .hamburger { display: flex; }
-
   .links {
     position: fixed;
-    top: 70px;
+    top: 76px;
     left: 0;
     right: 0;
     flex-direction: column;
     align-items: stretch;
-    gap: 0;
+    gap: 0.6rem;
     background: var(--white);
-    padding: 1rem 0 1.5rem;
+    padding: 1rem 1.25rem 1.5rem;
     box-shadow: 0 8px 24px rgba(0,0,0,0.12);
     transform: translateY(-110%);
     opacity: 0;
+    pointer-events: none;
     transition: transform 0.35s ease, opacity 0.35s ease;
   }
-
-  .links.open {
-    transform: translateY(0);
-    opacity: 1;
-  }
-
-  .links a {
-    padding: 0.85rem 2rem;
-    font-size: 0.95rem;
-    border-radius: 0;
-  }
-
-  .ctaBtn {
-    margin: 0.75rem 2rem 0 !important;
-    border-radius: var(--radius-sm) !important;
-    text-align: center;
-    display: block;
-  }
+  .links.open { transform: translateY(0); opacity: 1; pointer-events: auto; }
+  .links a { width: 100%; justify-content: center; }
+  .ctaBtn { margin: 0 !important; }
 }

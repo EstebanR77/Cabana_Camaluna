@@ -1,85 +1,80 @@
-/* ── Gallery Preview ──────────────────────────────────── */
 .section {
-  padding: 4rem 2.5rem;
+  width: calc(100% - 42px);
+  margin: 0 auto 0.8rem;
+  padding: 0 2.2rem 2.5rem;
   background: var(--cream);
+  border-radius: 0 0 18px 18px;
 }
 
 .header {
   text-align: center;
-  margin-bottom: 2.5rem;
+  padding-top: 1.1rem;
+  margin-bottom: 1.6rem;
 }
 
 .title {
-  font-family: var(--font-heading);
-  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-size: clamp(2.4rem, 5vw, 3.7rem);
   color: var(--brown-warm);
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.15rem;
+  letter-spacing: 0.03em;
 }
 
 .subtitle {
-  font-family: var(--font-body);
   font-size: 0.95rem;
-  color: var(--black);
+  color: #3d3d3d;
 }
 
-/* Grid de imágenes */
 .grid {
-  max-width: 1100px;
-  margin: 0 auto 2rem;
+  margin: 0 auto 1.6rem;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1.25rem;
+  gap: 1.45rem;
 }
 
-.item {
-  display: flex;
-  flex-direction: column;
-  cursor: pointer;
-}
+.item { display: flex; flex-direction: column; }
 
 .imgWrap {
-  border-radius: var(--radius-md);
+  border-radius: 16px;
   overflow: hidden;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.12);
 }
 
 .img {
   width: 100%;
-  height: 240px;
+  height: 235px;
   object-fit: cover;
-  display: block;
   transition: transform 0.45s ease;
 }
 
 .item:hover .img { transform: scale(1.04); }
 
 .caption {
-  padding: 0.6rem 0.25rem 0;
-  font-family: var(--font-body);
-  font-size: 0.9rem;
+  padding: 0.75rem 0 0;
+  font-size: 1rem;
   color: var(--black);
   text-align: center;
 }
 
-/* Botón */
-.linkWrap {
-  text-align: center;
-  margin-top: 1.5rem;
-}
+.linkWrap { text-align: center; margin-top: 1rem; }
 
 .link {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 150px;
+  background: var(--olive-main);
+  color: var(--white);
   font-family: var(--font-heading);
   font-size: 1rem;
-  color: var(--brown-warm);
-  border-bottom: 1px solid var(--brown-warm);
-  padding-bottom: 2px;
-  transition: opacity var(--transition);
+  border-radius: 999px;
+  padding: 0.45rem 1.25rem;
+  transition: background var(--transition), transform var(--transition);
 }
 
-.link:hover { opacity: 0.7; }
+.link:hover { background: var(--olive-dark); transform: translateY(-2px); }
 
 @media (max-width: 768px) {
-  .section { padding: 3rem 1.25rem; }
-  .grid { grid-template-columns: 1fr; gap: 1rem; }
+  .section { width: calc(100% - 24px); padding: 0 1rem 2rem; }
+  .grid { grid-template-columns: 1fr; gap: 1.1rem; }
   .img { height: 220px; }
 }

@@ -1,27 +1,34 @@
-import { motion } from 'framer-motion'
 import styles from './ContactButtons.module.css'
 
-function ContactButtons({ buttons = [] }) {
+const CARDS = [
+  { label: 'WhatsApp',             sub: 'Estamos para ayudarte',  href: 'https://wa.me/573107777579', color: 'whatsapp' },
+  { label: 'Teléfonos',            sub: 'Llámanos',               href: 'tel:+573107777579',          color: 'telefono' },
+  { label: 'Preguntas Frecuentes', sub: 'Resolvemos tus dudas',   href: '/contact',                  color: 'faq'      },
+  { label: 'Correo',               sub: 'Escríbenos',             href: 'mailto:info@camaluna.com',   color: 'correo'   },
+]
+
+function ContactButtons() {
   return (
     <section className={styles.section}>
-      <h2 className={styles.title}>Ayuda y Contacto</h2>
-      <p className={styles.subtitle}>¿En qué podemos ayudarte?</p>
+      {/* Encabezado */}
+      <div className={styles.header}>
+        <p className={styles.eyebrow}>¿Necesitas ayuda?</p>
+        <h2 className={styles.heading}>Ayuda y Contacto</h2>
+      </div>
+
+      {/* Grid de cards */}
       <div className={styles.grid}>
-        {buttons.map((btn, i) => (
-          <motion.a
-            key={i}
-            href={btn.href}
-            className={styles.btn}
-            target={btn.href.startsWith('http') ? '_blank' : '_self'}
+        {CARDS.map(({ label, sub, href, color }) => (
+          <a
+            key={label}
+            href={href}
+            className={`${styles.card} ${styles[color]}`}
+            target={href.startsWith('http') ? '_blank' : '_self'}
             rel="noreferrer"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: i * 0.1 }}
-            viewport={{ once: true, amount: 0.3 }}
           >
-            <span className={styles.icon}>{btn.icon}</span>
-            <span className={styles.label}>{btn.label}</span>
-          </motion.a>
+            <span className={styles.cardTitle}>{label}</span>
+            <span className={styles.cardSub}>{sub}</span>
+          </a>
         ))}
       </div>
     </section>

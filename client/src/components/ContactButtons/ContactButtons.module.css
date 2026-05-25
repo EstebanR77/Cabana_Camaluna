@@ -1,79 +1,53 @@
-/* ── Ayuda y Contacto ─────────────────────────────────── */
 .section {
-  padding: 4rem 2.5rem;
+  padding: 0.5rem 1.5rem 2.5rem;
   background: var(--white);
 }
 
-/* Encabezado */
-.header {
-  text-align: center;
-  margin-bottom: 2.5rem;
-}
-
-.eyebrow {
-  font-family: var(--font-body);
-  font-size: 0.95rem;
-  color: var(--black);
-  margin-bottom: 0.25rem;
-}
-
+.header { text-align: center; margin-bottom: 1.8rem; }
+.eyebrow { font-size: 0.9rem; color: #333; margin-bottom: 0.1rem; }
 .heading {
-  font-family: var(--font-heading);
-  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
   color: var(--black);
+  letter-spacing: 0.03em;
 }
 
-/* Grid */
 .grid {
-  max-width: 900px;
+  max-width: 920px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 1.25rem;
+  gap: 1.7rem;
 }
 
-/* Tarjetas */
 .card {
+  min-height: 118px;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  border-radius: var(--radius-md);
-  padding: 2rem 1.5rem;
-  text-decoration: none;
+  justify-content: center;
+  gap: 0.2rem;
+  border-radius: 18px;
+  padding: 1.55rem 1.15rem;
+  text-align: center;
   transition: transform var(--transition), filter var(--transition);
-  cursor: pointer;
 }
 
-.card:hover {
-  transform: translateY(-4px);
-  filter: brightness(0.93);
-}
+.card:hover { transform: translateY(-4px); filter: brightness(0.95); }
 
 .cardTitle {
   font-family: var(--font-heading);
-  font-size: 1.25rem;
+  font-size: 1.45rem;
   color: var(--black);
-  display: block;
+  line-height: 1.05;
 }
 
-.cardSub {
-  font-family: var(--font-body);
-  font-size: 0.9rem;
-  color: var(--black);
-  display: block;
-}
-
-/* Colores específicos Figma */
-.whatsapp { background: #c07c3a; }
-.telefono { background: #969f74; }
-.faq      { background: #70885f; }
-.correo   { background: #6b4835; }
+.cardSub { font-size: 0.82rem; color: rgba(0,0,0,0.67); }
+.whatsapp { background: var(--brown-orange); }
+.telefono { background: var(--olive-muted); }
+.faq { background: var(--olive-main); }
+.correo { background: #d67b24; }
 
 @media (max-width: 768px) {
-  .section { padding: 3rem 1.25rem; }
+  .section { padding: 1rem 1rem 2rem; }
   .grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
 }
-
-@media (max-width: 480px) {
-  .grid { grid-template-columns: 1fr; }
-}
+@media (max-width: 480px) { .grid { grid-template-columns: 1fr; } }

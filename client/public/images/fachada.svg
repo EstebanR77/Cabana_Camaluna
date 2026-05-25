@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="skyf" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#9bc4de"/>
+      <stop offset="100%" stop-color="#c8d8c4"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="180" fill="url(#skyf)"/>
+  <rect y="180" width="600" height="220" fill="#7a8a5a"/>
+  <!-- Casa principal blanca -->
+  <rect x="120" y="160" width="360" height="220" fill="#fafaf2"/>
+  <!-- Techo de teja -->
+  <polygon points="100,160 500,160 460,120 140,120" fill="#b86a48"/>
+  <polygon points="140,120 460,120 440,100 160,100" fill="#a35a3a"/>
+  <!-- Puerta -->
+  <rect x="270" y="270" width="60" height="110" fill="#5a3e28"/>
+  <rect x="278" y="280" width="44" height="90" fill="#3a2a1a"/>
+  <line x1="300" y1="280" x2="300" y2="370" stroke="#5a3e28" stroke-width="2"/>
+  <!-- Ventanas -->
+  <rect x="160" y="230" width="60" height="70" fill="#5a3e28"/>
+  <rect x="166" y="236" width="48" height="58" fill="#9bb0c4"/>
+  <line x1="190" y1="236" x2="190" y2="294" stroke="#5a3e28" stroke-width="2"/>
+  <line x1="166" y1="265" x2="214" y2="265" stroke="#5a3e28" stroke-width="2"/>
+
+  <rect x="380" y="230" width="60" height="70" fill="#5a3e28"/>
+  <rect x="386" y="236" width="48" height="58" fill="#9bb0c4"/>
+  <line x1="410" y1="236" x2="410" y2="294" stroke="#5a3e28" stroke-width="2"/>
+  <line x1="386" y1="265" x2="434" y2="265" stroke="#5a3e28" stroke-width="2"/>
+  <!-- Maceta -->
+  <ellipse cx="380" cy="360" rx="20" ry="8" fill="#6b4a32"/>
+  <ellipse cx="380" cy="345" rx="22" ry="20" fill="#4a6a3a"/>
+  <!-- Camino -->
+  <polygon points="270,380 330,380 360,400 240,400" fill="#a08660"/>
+</svg>

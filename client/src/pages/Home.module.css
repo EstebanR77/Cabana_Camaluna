@@ -1,11 +1,42 @@
 .home {
-  display: flex;
-  flex-direction: column;
+  width: min(1120px, calc(100% - 48px));
+  margin: 0 auto;
+  background: var(--white);
 }
 
-.scrollSection {
+.reserveWrap {
   display: flex;
-  align-items: center;
   justify-content: center;
-  width: 100%;
+  padding: 0.5rem 1.5rem 2.5rem;
+  background: var(--white);
+}
+
+.reserveButton {
+  min-width: 280px;
+  text-align: center;
+  background: var(--olive-main);
+  color: var(--white);
+  font-family: var(--font-heading);
+  font-size: 1.55rem;
+  letter-spacing: 0.04em;
+  border-radius: 6px;
+  padding: 0.7rem 2rem;
+  box-shadow: 0 8px 18px rgba(73, 88, 33, 0.18);
+  transition: transform var(--transition), background var(--transition);
+}
+
+.reserveButton:hover {
+  transform: translateY(-2px);
+  background: var(--olive-dark);
+}
+
+@media (max-width: 768px) {
+  .home {
+    width: 100%;
+  }
+
+  .reserveButton {
+    width: min(100%, 320px);
+    font-size: 1.25rem;
+  }
 }

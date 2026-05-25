@@ -1,48 +1,30 @@
-import { lazy, Suspense } from 'react'
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
-import { AnimatePresence } from 'framer-motion'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { ReservationProvider } from './context/ReservationContext'
-import Navbar from './components/Navbar/Navbar'
-import PageTransition from './components/PageTransition/PageTransition'
-import ScrollProgress from './components/ScrollProgress/ScrollProgress'
-
-const Home = lazy(() => import('./pages/Home'))
-const Cabin = lazy(() => import('./pages/Cabin'))
-const Reserve = lazy(() => import('./pages/Reserve'))
-const About = lazy(() => import('./pages/About'))
-const Contact = lazy(() => import('./pages/Contact'))
-const Gallery = lazy(() => import('./pages/Gallery'))
-const Experiences = lazy(() => import('./pages/Experiences'))
-
-function AnimatedRoutes() {
-  const location = useLocation()
-
-  return (
-    <>
-      <Navbar />
-      <Suspense fallback={<div className="routeLoader">Cargando...</div>}>
-        <AnimatePresence mode="wait">
-          <Routes location={location} key={location.pathname}>
-            <Route path="/" element={<PageTransition><Home /></PageTransition>} />
-            <Route path="/cabin" element={<PageTransition><Cabin /></PageTransition>} />
-            <Route path="/reserve" element={<PageTransition><Reserve /></PageTransition>} />
-            <Route path="/about" element={<PageTransition><About /></PageTransition>} />
-            <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
-            <Route path="/gallery" element={<PageTransition><Gallery /></PageTransition>} />
-            <Route path="/experiences" element={<PageTransition><Experiences /></PageTransition>} />
-          </Routes>
-        </AnimatePresence>
-      </Suspense>
-    </>
-  )
-}
+import Navbar      from './components/Navbar/Navbar'
+import FloatingChat from './components/chat/FloatingChat'
+import Home        from './pages/Home'
+import Cabin       from './pages/Cabin'
+import Reserve     from './pages/Reserve'
+import About       from './pages/About'
+import Contact     from './pages/Contact'
+import Gallery     from './pages/Gallery'
+import Experiences from './pages/Experiences'
 
 function App() {
   return (
     <ReservationProvider>
       <BrowserRouter>
-        <ScrollProgress />
-        <AnimatedRoutes />
+        <Navbar />
+        <Routes>
+          <Route path="/"            element={<Home />}        />
+          <Route path="/cabin"       element={<Cabin />}       />
+          <Route path="/reserve"     element={<Reserve />}     />
+          <Route path="/about"       element={<About />}       />
+          <Route path="/contact"     element={<Contact />}     />
+          <Route path="/gallery"     element={<Gallery />}     />
+          <Route path="/experiences" element={<Experiences />} />
+        </Routes>
+        <FloatingChat />
       </BrowserRouter>
     </ReservationProvider>
   )

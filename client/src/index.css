@@ -1,23 +1,20 @@
-/* ── Google Fonts ─────────────────────────────────────── */
 @import url('https://fonts.googleapis.com/css2?family=Girassol&family=Inter:wght@300;400;500;600;700&display=swap');
 
-/* ── Variables globales (Figma exacto) ────────────────── */
 :root {
-  /* Paleta Figma */
-  --olive-dark:    #495821;   /* CTA principal "RESERVA YA!" */
-  --olive-main:    #70885f;   /* Secciones Conócenos, Footer, botones */
-  --olive-muted:   #969f74;   /* Sección Equipamiento, nav activo Reservar */
-  --brown-warm:    #c07c3a;   /* Títulos de sección, acentos */
-  --brown-dark:    #6b4835;   /* Card Correo */
-  --cream:         #f9f9ef;   /* Fondos claros de sección */
+  --olive-dark:    #495821;
+  --olive-main:    #70885f;
+  --olive-muted:   #969f74;
+  --brown-warm:    #b17449;
+  --brown-orange:  #c7782e;
+  --brown-dark:    #5d3f31;
+  --cream:         #f9f8ee;
+  --cream-strong:  #f3f2e5;
   --white:         #ffffff;
-  --black:         #000000;
+  --black:         #111111;
 
-  /* Tipografía */
   --font-heading: 'Girassol', serif;
   --font-body:    'Inter', sans-serif;
 
-  /* Aliases de compatibilidad (variables antiguas → nuevas) */
   --green-dark:   var(--olive-dark);
   --green-main:   var(--olive-main);
   --green-light:  var(--olive-muted);
@@ -30,45 +27,37 @@
   --brown-light:  #c4956a;
   --brown-soft:   #f2e8da;
 
-  /* Radios */
   --radius-sm: 6px;
-  --radius-md: 12px;
-  --radius-lg: 20px;
-
-  /* Sombras */
-  --shadow-soft: 0 4px 24px rgba(0, 0, 0, 0.10);
-  --shadow-card: 0 2px 16px rgba(0, 0, 0, 0.08);
-  --transition:  0.3s ease;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+  --shadow-soft: 0 8px 24px rgba(0, 0, 0, 0.12);
+  --shadow-card: 0 4px 18px rgba(0, 0, 0, 0.10);
+  --transition:  0.28s ease;
 }
 
-/* ── Reset base ───────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html { scroll-behavior: smooth; }
 
 body {
   font-family: var(--font-body);
-  background-color: var(--white);
+  background: #1d1d1d;
   color: var(--black);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
 
-h1, h2, h3, h4 {
-  font-family: var(--font-heading);
-  line-height: 1.2;
-}
+#root { min-height: 100vh; }
 
+h1, h2, h3, h4 { font-family: var(--font-heading); line-height: 1.12; font-weight: 400; }
 a { color: inherit; text-decoration: none; }
-
 img { max-width: 100%; display: block; }
+button, input, textarea, select { font-family: var(--font-body); outline: none; }
 
-button, input, textarea, select {
-  font-family: var(--font-body);
-  outline: none;
-}
-
-/* ── Scrollbar ────────────────────────────────────────── */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--cream); }
 ::-webkit-scrollbar-thumb { background: var(--olive-main); border-radius: 3px; }
+
+@media (max-width: 768px) {
+  body { background: var(--white); }
+}
