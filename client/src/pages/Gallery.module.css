@@ -1,26 +1,5 @@
 .page { display: flex; flex-direction: column; min-height: 100vh; }
 
-.hero {
-  background: var(--brown-dark);
-  padding: 10rem 2.5rem 4rem;
-  text-align: center;
-}
-
-.title {
-  font-family: var(--font-heading);
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  color: var(--white);
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  margin-bottom: 0.5rem;
-}
-
-.subtitle {
-  font-size: 1rem;
-  color: rgba(255,255,255,0.6);
-  font-style: italic;
-}
-
 /* Filtros */
 .filters {
   display: flex;
@@ -28,18 +7,18 @@
   justify-content: center;
   gap: 0.5rem;
   flex-wrap: wrap;
-  padding: 2.5rem 1.5rem 1rem;
+  padding: 2rem 1.5rem 1rem;
   background: var(--cream);
 }
 
 .filterBtn {
   background: var(--white);
-  border: 1.5px solid var(--cream-dark);
-  color: var(--text-mid);
+  border: 1.5px solid rgba(0,0,0,0.15);
+  color: var(--black);
   font-family: var(--font-body);
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   padding: 0.5rem 1.25rem;
   border-radius: 999px;
@@ -48,13 +27,13 @@
 }
 
 .filterBtn:hover {
-  border-color: var(--green-main);
-  color: var(--green-main);
+  border-color: var(--olive-main);
+  color: var(--olive-main);
 }
 
 .filterActive {
-  background: var(--green-main) !important;
-  border-color: var(--green-main) !important;
+  background: var(--olive-main) !important;
+  border-color: var(--olive-main) !important;
   color: var(--white) !important;
 }
 
@@ -80,19 +59,19 @@
 
 .img {
   width: 100%;
-  height: 250px;
+  height: 260px;
   object-fit: cover;
   display: block;
   transition: transform 0.5s ease;
-  background: var(--green-soft);
+  background: var(--olive-muted);
 }
 
-.item:hover .img { transform: scale(1.06); }
+.item:hover .img { transform: scale(1.05); }
 
 .imgOverlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(20,12,5,0.65), transparent);
+  background: linear-gradient(to top, rgba(0,0,0,0.55), transparent);
   opacity: 0;
   transition: opacity var(--transition);
   display: flex;
@@ -104,8 +83,8 @@
 
 .imgCaption {
   color: var(--white);
-  font-size: 0.85rem;
-  font-weight: 400;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
 }
 
 /* Lightbox */
@@ -149,6 +128,6 @@
 .closeBtn:hover { background: rgba(255,255,255,0.25); }
 
 @media (max-width: 768px) {
-  .grid { grid-template-columns: repeat(2, 1fr); padding: 1rem 1.5rem 4rem; }
+  .grid { grid-template-columns: repeat(2, 1fr); padding: 1rem 1.25rem 4rem; }
   .img { height: 180px; }
 }

@@ -1,22 +1,23 @@
+/* ── Video Recorrido ──────────────────────────────────── */
 .section {
-  padding: 5rem 2.5rem;
-  background: var(--brown-dark);
+  background: var(--white);
+  padding: 4rem 2.5rem;
   text-align: center;
 }
 
 .title {
   font-family: var(--font-heading);
-  font-size: clamp(1.8rem, 4vw, 2.25rem);
-  color: var(--white);
-  margin-bottom: 2.5rem;
+  font-size: 2.5rem;
+  color: var(--olive-main);
+  margin-bottom: 2rem;
 }
 
 .videoWrapper {
-  max-width: 880px;
+  max-width: 900px;
   margin: 0 auto;
   border-radius: var(--radius-md);
   overflow: hidden;
-  box-shadow: 0 8px 60px rgba(0,0,0,0.4);
+  box-shadow: var(--shadow-soft);
 }
 
 .iframe {
@@ -26,28 +27,58 @@
   display: block;
 }
 
+/* Placeholder con thumbnail real */
 .placeholder {
-  background: rgba(255,255,255,0.05);
-  border: 2px dashed rgba(255,255,255,0.2);
-  border-radius: var(--radius-md);
-  padding: 5rem 2rem;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/9;
+  background-size: cover;
+  background-position: center;
+  background-color: var(--olive-muted);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
-  color: rgba(255,255,255,0.55);
+  justify-content: center;
+  gap: 0.75rem;
+  cursor: pointer;
 }
 
-.placeholder span {
-  font-size: 3rem;
-  opacity: 0.4;
+.placeholder::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
 }
 
-.placeholder p {
+.playBtn {
+  position: relative;
+  z-index: 1;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.92);
+  color: var(--olive-main);
+  font-size: 1.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 4px; /* centrar el triángulo */
+  transition: transform var(--transition), background var(--transition);
+}
+
+.placeholder:hover .playBtn {
+  transform: scale(1.1);
+  background: var(--white);
+}
+
+.placeholderText {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-body);
   font-size: 0.9rem;
-  font-style: italic;
+  color: var(--white);
 }
 
 @media (max-width: 768px) {
-  .section { padding: 3.5rem 1.5rem; }
+  .section { padding: 3rem 1.25rem; }
 }

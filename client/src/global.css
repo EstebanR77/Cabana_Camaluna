@@ -72,3 +72,13 @@ button, input, textarea, select {
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--cream); }
 ::-webkit-scrollbar-thumb { background: var(--olive-main); border-radius: 3px; }
+
+.routeLoader {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  color: #8a5a2b;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}

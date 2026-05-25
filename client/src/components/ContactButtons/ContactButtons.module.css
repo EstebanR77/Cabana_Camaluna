@@ -1,63 +1,79 @@
+/* ── Ayuda y Contacto ─────────────────────────────────── */
 .section {
-  padding: 5rem 2.5rem;
-  background: var(--green-dark);
+  padding: 4rem 2.5rem;
+  background: var(--white);
+}
+
+/* Encabezado */
+.header {
   text-align: center;
+  margin-bottom: 2.5rem;
 }
 
-.title {
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--black);
+  margin-bottom: 0.25rem;
+}
+
+.heading {
   font-family: var(--font-heading);
-  font-size: clamp(1.8rem, 4vw, 2.5rem);
-  color: var(--white);
-  margin-bottom: 0.75rem;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  color: var(--black);
 }
 
-.subtitle {
-  font-size: 0.97rem;
-  color: rgba(255,255,255,0.65);
-  margin-bottom: 3rem;
-}
-
+/* Grid */
 .grid {
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 1rem;
+  gap: 1.25rem;
 }
 
-.btn {
+/* Tarjetas */
+.card {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 0.75rem;
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.15);
+  gap: 0.5rem;
   border-radius: var(--radius-md);
-  padding: 2rem 1rem;
-  color: var(--white);
-  transition: background var(--transition), transform var(--transition), border-color var(--transition);
+  padding: 2rem 1.5rem;
+  text-decoration: none;
+  transition: transform var(--transition), filter var(--transition);
   cursor: pointer;
 }
 
-.btn:hover {
-  background: rgba(255,255,255,0.15);
-  border-color: rgba(255,255,255,0.3);
+.card:hover {
   transform: translateY(-4px);
+  filter: brightness(0.93);
 }
 
-.icon {
-  font-size: 1.8rem;
+.cardTitle {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  color: var(--black);
+  display: block;
 }
 
-.label {
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.88);
+.cardSub {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--black);
+  display: block;
 }
 
-@media (max-width: 640px) {
-  .section { padding: 4rem 1.5rem; }
-  .grid { grid-template-columns: repeat(2, 1fr); }
+/* Colores específicos Figma */
+.whatsapp { background: #c07c3a; }
+.telefono { background: #969f74; }
+.faq      { background: #70885f; }
+.correo   { background: #6b4835; }
+
+@media (max-width: 768px) {
+  .section { padding: 3rem 1.25rem; }
+  .grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+}
+
+@media (max-width: 480px) {
+  .grid { grid-template-columns: 1fr; }
 }

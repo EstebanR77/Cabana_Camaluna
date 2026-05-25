@@ -1,53 +1,105 @@
-.page { display: flex; flex-direction: column; min-height: 100vh; }
+/* ── Cabin Page ───────────────────────────────────────── */
+.page { display: flex; flex-direction: column; }
 
-.hero {
-  background: url('/images/cabin-hero.jpg') center/cover no-repeat;
-  background-color: var(--green-dark);
-  padding: 10rem 2.5rem 4rem;
-  text-align: center;
-  position: relative;
+/* ── Equipamiento ─────────────────────────────────────── */
+.equipment {
+  background: var(--olive-muted);
+  padding: 4rem 2.5rem;
 }
 
-.hero::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to bottom, rgba(20,30,15,0.55), rgba(30,20,10,0.45));
-}
-
-.title {
-  position: relative;
+.equipTitle {
   font-family: var(--font-heading);
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  font-weight: 700;
-  color: var(--white);
-  letter-spacing: 0.08em;
-  margin-bottom: 1rem;
+  font-size: 2.5rem;
+  color: var(--cream);
+  text-align: center;
+  margin-bottom: 2.5rem;
 }
 
-.subtitle {
-  position: relative;
-  font-size: 1rem;
-  color: rgba(255,255,255,0.72);
-  max-width: 560px;
+.equipInner {
+  max-width: 1100px;
   margin: 0 auto;
-  line-height: 1.7;
-  font-weight: 300;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+  align-items: center;
 }
 
-.scrollSection {
+.equipImg {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.equipImg img {
+  width: 100%;
+  height: 380px;
+  object-fit: cover;
+  display: block;
+}
+
+.equipItems {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.equipCard {
+  background: var(--white);
+  border-radius: var(--radius-md);
+  padding: 1.25rem 1rem;
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 100%;
+  gap: 0.75rem;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--black);
 }
 
-/* Modal comodidades */
+.equipIcon { font-size: 1.4rem; }
+
+.equipLabel { font-weight: 500; }
+
+.equipMore {
+  grid-column: 1 / -1;
+  background: var(--white);
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  color: var(--olive-main);
+  cursor: pointer;
+  transition: background var(--transition);
+}
+
+.equipMore:hover { background: var(--cream); }
+
+/* ── CTA Block ────────────────────────────────────────── */
+.ctaBlock {
+  background: var(--olive-main);
+  padding: 3rem 2.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.ctaBtn {
+  background: var(--olive-dark);
+  color: var(--white);
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  letter-spacing: 0.08em;
+  padding: 1rem 4rem;
+  border-radius: var(--radius-sm);
+  transition: background var(--transition);
+}
+
+.ctaBtn:hover { background: #3a4519; }
+
+/* ── Modal ────────────────────────────────────────────── */
 .modalOverlay {
   position: fixed;
   inset: 0;
   z-index: 200;
-  background: rgba(0,0,0,0.6);
+  background: rgba(0,0,0,0.55);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -69,7 +121,7 @@
   position: absolute;
   top: 1.25rem;
   right: 1.25rem;
-  background: var(--cream-dark);
+  background: var(--cream);
   border: none;
   width: 36px;
   height: 36px;
@@ -82,12 +134,12 @@
   transition: background var(--transition);
 }
 
-.modalClose:hover { background: var(--cream); }
+.modalClose:hover { background: #e0ddd0; }
 
 .modalTitle {
   font-family: var(--font-heading);
-  font-size: 1.6rem;
-  color: var(--text-dark);
+  font-size: 1.75rem;
+  color: var(--black);
   margin-bottom: 1.75rem;
 }
 
@@ -111,13 +163,14 @@
 .modalIcon { font-size: 1.75rem; }
 
 .modalLabel {
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--text-mid);
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--black);
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
+  .equipInner { grid-template-columns: 1fr; }
+  .equipImg img { height: 260px; }
   .modalGrid { grid-template-columns: repeat(2, 1fr); }
 }

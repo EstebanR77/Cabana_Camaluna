@@ -1,86 +1,367 @@
-.page { display: flex; flex-direction: column; min-height: 100vh; }
+/* ── Reserve Page ─────────────────────────────────────── */
+.page { display: flex; flex-direction: column; }
 
-.hero {
-  background: var(--brown-dark);
-  padding: 8rem 2.5rem 3rem;
-  text-align: center;
-}
-
-.title {
-  font-family: var(--font-heading);
-  font-size: clamp(2.5rem, 5vw, 3.5rem);
-  font-weight: 700;
-  color: var(--white);
-  margin-bottom: 0.5rem;
-  letter-spacing: 0.08em;
-}
-
-.subtitle {
-  font-size: 1rem;
-  color: rgba(255,255,255,0.6);
-  font-style: italic;
-}
-
-.scrollSection {
-  width: 100%;
-}
-
+/* ── Booking section ──────────────────────────────────── */
 .bookingSection {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 3rem 2.5rem;
-  width: 100%;
+  background: var(--cream);
+  padding: 4rem 2.5rem;
 }
 
-.policies {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 3rem 2.5rem 5rem;
-  width: 100%;
-}
-
-.policiesTitle {
+.bookingTitle {
   font-family: var(--font-heading);
-  font-size: clamp(1.5rem, 3vw, 2rem);
-  color: var(--text-dark);
-  margin-bottom: 1.75rem;
+  font-size: 1.75rem;
+  color: var(--black);
+  text-align: center;
+  margin-bottom: 2.5rem;
 }
 
-.policiesGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 1rem;
+/* ── Step Bar ─────────────────────────────────────────── */
+.stepBar {
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
 }
 
-.policyCard {
-  padding: 1.5rem;
-  border: 1px solid rgba(77,112,64,0.15);
-  border-radius: var(--radius-md);
+.stepItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0 1.5rem;
+  position: relative;
+  flex: 1;
+  max-width: 200px;
+}
+
+.stepItem:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 17px;
+  right: -1px;
+  width: calc(100% - 34px);
+  height: 2px;
+  background: rgba(0,0,0,0.15);
+  left: calc(50% + 17px);
+}
+
+.stepItem.stepCompleted::after { background: var(--olive-main); }
+
+.stepCircle {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 2px solid rgba(0,0,0,0.2);
   background: var(--white);
+  color: var(--black);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition);
+  position: relative;
+  z-index: 1;
+}
+
+.stepActive .stepCircle {
+  border-color: var(--olive-main);
+  background: var(--olive-main);
+  color: var(--white);
+}
+
+.stepCompleted .stepCircle {
+  border-color: var(--olive-main);
+  background: var(--olive-main);
+  color: var(--white);
+}
+
+.stepName {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  color: rgba(0,0,0,0.5);
+  text-align: center;
+  max-width: 100px;
+}
+
+.stepActive .stepName   { color: var(--olive-main); font-weight: 600; }
+.stepCompleted .stepName{ color: var(--olive-main); }
+
+/* ── Step content ─────────────────────────────────────── */
+.stepContent {
+  max-width: 860px;
+  margin: 0 auto;
+  background: var(--white);
+  border-radius: var(--radius-md);
+  padding: 2.5rem;
   box-shadow: var(--shadow-card);
 }
 
-.policyTitle {
+.step { display: flex; flex-direction: column; gap: 1.5rem; }
+
+.stepLabel {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  color: var(--olive-main);
+  border-bottom: 2px solid rgba(112,136,95,0.2);
+  padding-bottom: 0.75rem;
+}
+
+/* ── Calendarios ──────────────────────────────────────── */
+.calendars {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.calendar {
+  background: var(--white);
+}
+
+.calMonth {
   font-family: var(--font-heading);
   font-size: 1rem;
+  color: var(--olive-main);
+  text-align: center;
+  margin-bottom: 0.75rem;
+}
+
+.calGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+}
+
+.calDayName {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  color: rgba(0,0,0,0.45);
+  text-align: center;
+  padding: 0.3rem 0;
   font-weight: 600;
-  color: var(--text-dark);
-  margin-bottom: 0.5rem;
 }
 
-.policyDesc {
-  font-size: 0.88rem;
-  color: var(--text-mid);
-  line-height: 1.6;
+.calDay {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  background: none;
+  border: none;
+  padding: 0.45rem 0;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  text-align: center;
+  transition: background var(--transition), color var(--transition);
+  color: var(--black);
 }
 
+.calDay:hover  { background: var(--cream); }
+.calStart, .calEnd { background: var(--olive-main) !important; color: var(--white) !important; }
+.calRange { background: rgba(112,136,95,0.2); }
+
+.rangeInfo {
+  display: flex;
+  gap: 2rem;
+  padding: 1rem 1.25rem;
+  background: var(--cream);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--black);
+  flex-wrap: wrap;
+}
+
+/* ── Formulario ───────────────────────────────────────── */
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+
+.fieldFull { grid-column: 1 / -1; }
+
+.field { display: flex; flex-direction: column; gap: 0.4rem; }
+
+.label {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  color: rgba(0,0,0,0.6);
+  font-weight: 500;
+}
+
+.input, .textarea {
+  font-family: var(--font-body);
+  font-size: 0.93rem;
+  color: var(--black);
+  border: 1px solid rgba(0,0,0,0.18);
+  border-radius: var(--radius-sm);
+  padding: 0.7rem 1rem;
+  background: var(--white);
+  transition: border-color var(--transition);
+  resize: vertical;
+}
+
+.input:focus, .textarea:focus {
+  border-color: var(--olive-main);
+}
+
+/* ── Resumen ──────────────────────────────────────────── */
+.summary {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.summaryCard {
+  background: var(--cream);
+  border-radius: var(--radius-md);
+  padding: 1.25rem 1.5rem;
+}
+
+.summaryTotal {
+  grid-column: 1 / -1;
+  background: var(--olive-muted);
+}
+
+.summaryKey {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  color: rgba(0,0,0,0.55);
+  margin-bottom: 0.25rem;
+}
+
+.summaryVal {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  color: var(--black);
+}
+
+/* ── Confirmado ───────────────────────────────────────── */
+.stepConfirmed {
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+}
+
+.confirmedIcon { font-size: 4rem; }
+
+.confirmedTitle {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  color: var(--olive-main);
+}
+
+.confirmedText {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--black);
+  max-width: 420px;
+  line-height: 1.7;
+}
+
+.confirmedBtn {
+  display: inline-block;
+  background: var(--olive-dark);
+  color: var(--white);
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  padding: 0.8rem 2.5rem;
+  border-radius: var(--radius-sm);
+  margin-top: 0.5rem;
+  transition: background var(--transition);
+}
+
+.confirmedBtn:hover { background: #3a4519; }
+
+/* ── Nav botones ──────────────────────────────────────── */
+.navBtns {
+  max-width: 860px;
+  margin: 1.5rem auto 0;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.btnBack {
+  background: var(--white);
+  border: 1px solid rgba(0,0,0,0.2);
+  color: var(--black);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  padding: 0.75rem 1.75rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background var(--transition);
+}
+
+.btnBack:hover { background: var(--cream); }
+
+.btnNext {
+  background: var(--olive-dark);
+  border: none;
+  color: var(--white);
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  padding: 0.75rem 2.25rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background var(--transition), opacity var(--transition);
+}
+
+.btnNext:hover:not(:disabled)  { background: #3a4519; }
+.btnNext:disabled { opacity: 0.45; cursor: not-allowed; }
+
+/* ── Responsive ───────────────────────────────────────── */
 @media (max-width: 768px) {
-  .bookingSection {
-    grid-template-columns: 1fr;
-    padding: 2rem 1.5rem;
-  }
-  .policies { padding: 2rem 1.5rem 4rem; }
+  .bookingSection { padding: 3rem 1.25rem; }
+  .calendars { grid-template-columns: 1fr; }
+  .formGrid  { grid-template-columns: 1fr; }
+  .summary   { grid-template-columns: 1fr; }
+  .summaryTotal { grid-column: 1; }
+  .stepBar { gap: 0; }
+  .stepItem { padding: 0 0.5rem; }
+  .stepName { font-size: 0.65rem; max-width: 70px; }
+  .stepContent { padding: 1.5rem; }
+}
+
+.legend {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  color: rgba(0,0,0,0.55);
+  margin-top: -0.75rem;
+}
+
+.errorMessage {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: #8a1f1f;
+  background: #fff1f1;
+  border: 1px solid rgba(138,31,31,0.25);
+  border-radius: var(--radius-sm);
+  padding: 0.85rem 1rem;
+}
+
+.calUnavailable,
+.calPast {
+  color: rgba(0,0,0,0.28);
+  background: repeating-linear-gradient(
+    135deg,
+    rgba(0,0,0,0.06),
+    rgba(0,0,0,0.06) 4px,
+    rgba(0,0,0,0.02) 4px,
+    rgba(0,0,0,0.02) 8px
+  );
+  cursor: not-allowed;
+}
+
+.calUnavailable:hover,
+.calPast:hover {
+  background: repeating-linear-gradient(
+    135deg,
+    rgba(0,0,0,0.06),
+    rgba(0,0,0,0.06) 4px,
+    rgba(0,0,0,0.02) 4px,
+    rgba(0,0,0,0.02) 8px
+  );
 }
