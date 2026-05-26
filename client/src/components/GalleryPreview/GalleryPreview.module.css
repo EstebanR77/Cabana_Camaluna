@@ -1,42 +1,51 @@
 .section {
   width: calc(100% - 42px);
   margin: 0 auto 0.8rem;
-  padding: 0 2.2rem 2.5rem;
+  padding: 0 1.35rem 1.2rem;
   background: var(--color-page-bg);
-  border-radius: 0 0 18px 18px;
+  border-radius: 18px;
 }
 
 .header {
-  text-align: center;
   padding-top: 1.1rem;
   margin-bottom: 1.6rem;
+  text-align: center;
 }
 
 .title {
+  margin: 0 0 0.15rem;
+  font-family: var(--font-title);
   font-size: clamp(2.4rem, 5vw, 3.7rem);
+  font-weight: var(--font-weight-regular);
+  line-height: 1;
+  letter-spacing: 0;
   color: var(--color-orange-soft);
-  margin-bottom: 0.15rem;
-  letter-spacing: 0.03em;
 }
 
 .subtitle {
+  margin: 0;
   font-size: 0.95rem;
   color: #3d3d3d;
 }
 
 .grid {
-  margin: 0 auto 1.6rem;
+  margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1.45rem;
 }
 
-.item { display: flex; flex-direction: column; }
+.item {
+  display: flex;
+  flex-direction: column;
+  outline: none;
+}
 
 .imgWrap {
-  border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 6px 12px rgba(0,0,0,0.12);
+  border-radius: 16px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
+  transition: transform var(--transition), box-shadow var(--transition);
 }
 
 .img {
@@ -46,35 +55,37 @@
   transition: transform 0.45s ease;
 }
 
-.item:hover .img { transform: scale(1.04); }
+.item:hover .img,
+.itemActive .img {
+  transform: scale(1.04);
+}
+
+.item:hover .imgWrap,
+.itemActive .imgWrap {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.16);
+}
 
 .caption {
+  margin: 0;
   padding: 0.75rem 0 0;
   font-size: 1rem;
   color: var(--color-text-main);
   text-align: center;
 }
 
-.linkWrap { text-align: center; margin-top: 1rem; }
-
-.link {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 150px;
-  background: var(--color-green);
-  color: var(--color-text-light);
-  font-family: var(--font-title);
-  font-size: 1rem;
-  border-radius: 999px;
-  padding: 0.45rem 1.25rem;
-  transition: background var(--transition), transform var(--transition);
-}
-
-.link:hover { background: var(--color-green-dark); transform: translateY(-2px); }
-
 @media (max-width: 768px) {
-  .section { width: calc(100% - 24px); padding: 0 1rem 2rem; }
-  .grid { grid-template-columns: 1fr; gap: 1.1rem; }
-  .img { height: 220px; }
+  .section {
+    width: calc(100% - 24px);
+    padding: 0 1rem 2rem;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 1.1rem;
+  }
+
+  .img {
+    height: 220px;
+  }
 }

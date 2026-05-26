@@ -1,51 +1,65 @@
 .section {
-  padding: 0 1.5rem 3rem;
+  padding: 0 1.5rem 2.8rem;
   background: var(--color-text-light);
 }
 
 .grid {
-  max-width: 1040px;
+  max-width: 100%;
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1.65rem;
+  padding: 2rem;
+  column-gap: 50px;
 }
 
 .card {
-  min-height: 128px;
+  min-height: 180px;
   background: var(--color-text-light);
-  border: 1px solid rgba(0,0,0,0.16);
-  border-radius: 8px;
-  padding: 2rem 1.5rem 1.6rem;
+  border: 1px solid rgba(0, 0, 0, 0.16);
+  border-radius: var(--radius-lg);
+  padding: 1.65rem 1.25rem 1.45rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.16);
-  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+  gap: 0.8rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.16);
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition), background var(--transition);
 }
 
-.card:hover {
+.card:hover,
+.cardActive {
   transform: translateY(-4px);
-  border-color: rgba(176,116,73,0.42);
-  box-shadow: 0 10px 22px rgba(0,0,0,0.14);
+  border-color: rgba(192, 124, 58, 0.42);
+  background: #fffefa;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.14);
 }
 
 .cardTitle {
-  font-size: 1.75rem;
+  margin: 0 0 0.35rem;
+  font-family: var(--font-title);
+  font-size: clamp(1.4rem, 2.1vw, 1.85rem);
+  font-weight: var(--font-weight-regular);
+  line-height: 1;
   color: var(--color-orange-soft);
-  margin-bottom: 0.35rem;
 }
 
 .cardDesc {
-  font-size: 0.95rem;
-  color: var(--color-text-main);
+  max-width: 190px;
+  margin: 0;
+  font-size: 0.9rem;
   line-height: 1.35;
-  max-width: 220px;
+  color: var(--color-text-main);
 }
 
 @media (max-width: 768px) {
-  .section { padding: 0 1rem 2rem; }
-  .grid { grid-template-columns: 1fr; gap: 1rem; }
+  .section {
+    padding: 0 1rem 2rem;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
 }
