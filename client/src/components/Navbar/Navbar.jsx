@@ -34,6 +34,7 @@ function Navbar() {
         <li><Link to="/cabin"       className={pathname === '/cabin'       ? styles.active : ''}>La Cabaña</Link></li>
         <li><Link to="/about"       className={pathname === '/about'       ? styles.active : ''}>Villa de Leyva</Link></li>
         <li><Link to="/gallery"     className={pathname === '/gallery'     ? styles.active : ''}>Galería</Link></li>
+        <li><Link to="/conocenos"   className={pathname === '/conocenos'   ? styles.active : ''}>Conócenos</Link></li>
         <li><Link to="/contact"     className={pathname === '/contact'     ? styles.active : ''}>Contacto</Link></li>
         <li><Link to="/reserve"     className={[pathname === '/reserve' ? styles.active : '', styles.reserveBtn].join(' ')}>Reservar</Link></li>
       </ul>
