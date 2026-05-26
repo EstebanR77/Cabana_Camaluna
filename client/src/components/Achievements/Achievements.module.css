@@ -7,24 +7,27 @@
 .card {
   width: 100%;
   max-width: 1100px;
-  background: var(--olive-main);
-  border-radius: var(--radius-md);
+  background: var(--color-green);
+  border-radius: var(--radius-lg);
   padding: 2.5rem;
 }
 
 .title {
-  font-family: var(--font-heading);
-  font-size: clamp(1.75rem, 3vw, 2.25rem);
-  color: var(--cream);
+  font-family: var(--font-title);
+  font-size: clamp(1.75rem, 3vw, 2.4rem);
+  color: var(--color-page-bg);
   letter-spacing: 0.04em;
-  margin-bottom: 0.4rem;
+  margin: 0 0 0.4rem;
+  font-weight: var(--font-weight-regular);
+  text-transform: capitalize;
 }
 
 .subtitle {
   font-family: var(--font-body);
   font-size: 0.95rem;
-  color: rgba(255, 255, 255, 0.82);
-  margin-bottom: 2rem;
+  color: rgba(249, 249, 240, 0.82);
+  margin: 0 0 2rem;
+  font-weight: var(--font-weight-extra-light);
 }
 
 .grid {
@@ -34,7 +37,7 @@
 }
 
 .item {
-  background: var(--white);
+  background: var(--color-page-bg);
   border-radius: var(--radius-md);
   padding: 1.75rem 1.25rem;
   text-align: center;
@@ -42,17 +45,20 @@
 }
 
 .itemTitle {
-  font-family: var(--font-heading);
-  font-size: 1.5rem;
-  color: var(--olive-dark);
+  font-family: var(--font-title);
+  font-size: 1.6rem;
+  color: var(--color-green-dark);
   letter-spacing: 0.04em;
-  margin-bottom: 0.4rem;
+  margin: 0 0 0.4rem;
+  font-weight: var(--font-weight-regular);
+  text-transform: capitalize;
 }
 
 .itemDesc {
   font-family: var(--font-body);
   font-size: 0.88rem;
-  color: var(--text-mid);
+  color: var(--color-text-main);
+  margin: 0;
 }
 
 @media (max-width: 900px) {

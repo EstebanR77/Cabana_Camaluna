@@ -41,7 +41,7 @@ const NAV_LINKS = [
   },
   {
     label: 'Conócenos',
-    to: '/About',
+    to: '/conocenos',
     hover: {
       background: 'var(--color-green)',
       border: 'var(--color-green)',
