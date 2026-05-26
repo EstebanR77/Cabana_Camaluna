@@ -4,6 +4,12 @@
   padding: 0 1.35rem 1.2rem;
   background: var(--color-page-oscuro);
   border-radius: 18px;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.isHovered {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.12);
 }
 
 .header {

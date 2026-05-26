@@ -24,6 +24,9 @@
   height: 56px;
   border-radius: 50%;
   background-color: var(--color-green-dark);
+  background-size: cover;
+  background-position: center;
+  flex-shrink: 0;
 }
 
 /* Titulo de la card */

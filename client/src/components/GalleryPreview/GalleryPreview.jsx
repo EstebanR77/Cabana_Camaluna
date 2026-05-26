@@ -4,13 +4,25 @@ import styles from './GalleryPreview.module.css'
 function GalleryPreview({ images = [] }) {
   const [hoveredIndex, setHoveredIndex] = useState(null)
   const [activeIndex, setActiveIndex] = useState(null)
+  const [isHovered, setIsHovered] = useState(false)
+  const [hoverClass, setHoverClass] = useState('')
 
   useEffect(() => {
     setActiveIndex(hoveredIndex)
   }, [hoveredIndex])
 
+  useEffect(() => {
+    setHoverClass(isHovered ? styles.isHovered : '')
+  }, [isHovered])
+
   return (
-    <section className={styles.section}>
+    <section
+      className={`${styles.section} ${hoverClass}`}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      onFocus={() => setIsHovered(true)}
+      onBlur={() => setIsHovered(false)}
+    >
       <div className={styles.header}>
         <h2 className={styles.title}>Galería</h2>
         <p className={styles.subtitle}>Vive la cabaña antes de llegar.</p>

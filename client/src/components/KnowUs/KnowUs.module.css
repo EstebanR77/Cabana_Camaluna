@@ -2,53 +2,52 @@
   position: relative;
   width: 100%;
   min-height: 330px;
-  padding: 1.55rem 3.2rem 2.2rem;
+  padding: 1.3rem 3.2rem 1.7rem;
   overflow: hidden;
   background-size: cover;
-  background-position: center 46%;
+  background-position: center 42%;
+  color: var(--color-text-main);
 }
 
 .overlay {
   position: absolute;
   inset: 0;
   z-index: 0;
-  background: rgba(112, 136, 95, 0.78);
+  background: rgba(112, 136, 95, 0.721);
   transition: background var(--transition);
 }
 
 .isHovered .overlay {
-  background: rgba(112, 136, 95, 0.68);
+  background: rgba(112, 136, 95, 0.556);
 }
 
-.inner {
+.content {
   position: relative;
   z-index: 1;
   max-width: 980px;
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1.15fr 0.9fr;
-  gap: 2.5rem;
-  align-items: end;
 }
 
 .textBlock {
+  max-width: 720px;
+  margin: 0 auto 1.15rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  color: var(--color-text-main) !;
+  color: var(--color-text-main);
 }
 
 .eyebrow {
   margin: 0 0 0.2rem;
-  font-size: 0.95rem;
+  font-size: 0.82rem;
   color: var(--color-text-main);
 }
 
 .heading {
   margin: 0;
   font-family: var(--font-title);
-  font-size: clamp(2.4rem, 5vw, 3.7rem);
+  font-size: clamp(2.2rem, 4.5vw, 3.35rem);
   font-weight: var(--font-weight-regular);
   line-height: 1;
   letter-spacing: 0;
@@ -56,19 +55,27 @@
 }
 
 .intro {
-  margin: 0.15rem 0 1.45rem;
-  font-size: 0.98rem;
+  margin: 0.1rem 0 0;
+  font-size: 0.88rem;
   line-height: 1.35;
   color: var(--color-text-main);
 }
 
+.mediaWrap {
+  display: grid;
+  grid-template-columns: 1.15fr 0.9fr;
+  gap: 5rem;
+  align-items: stretch;
+}
+
 .imageCard {
-  width: min(420px, 100%);
-  height: 300px;
+  width: 100%;
+  min-height: 215px;
   overflow: hidden;
   border-radius: 18px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
   transition: transform var(--transition), box-shadow var(--transition);
+  aspect-ratio: 4 / 3;
 }
 
 .image {
@@ -88,9 +95,8 @@
 }
 
 .card {
-  min-height: 205px;
-    height: 300px;
-  padding: 2.2rem 2rem;
+  min-height: 215px;
+  padding: 1.65rem 1.85rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -103,8 +109,7 @@
   transition: transform var(--transition), background var(--transition), box-shadow var(--transition);
 }
 
-.card:hover,
-.card:focus-within {
+.isHovered .card {
   transform: translateY(-3px);
   background: rgba(255, 255, 255, 0.9);
   box-shadow: 0 12px 26px rgba(0, 0, 0, 0.14);
@@ -117,13 +122,12 @@
   font-weight: var(--font-weight-regular);
   line-height: 1;
   color: var(--color-text-main);
-  align-items: center;
 }
 
 .cardText {
-  max-width: 340px;
+  max-width: 230px;
   margin: 0;
-  font-size: 1.25rem;
+  font-size: 1.05rem;
   line-height: 1.28;
   color: #333;
 }
@@ -138,29 +142,32 @@
   font-family: var(--font-title);
   font-size: 1rem;
   border-radius: 999px;
-  transition: transform var(--transition), background var(--transition);
+  transition: transform var(--transition), background var(--transition), color var(--transition);
 }
 
-.cardLink:hover {
-  background: var(--color-text-light);
+.cardLink:hover,
+.cardLinkActive {
+  background: var(--color-green);
+  color: var(--color-text-light);
   transform: translateY(-2px);
 }
 
 @media (max-width: 768px) {
   .section {
-    padding: 2.5rem 1.25rem;
+    padding: 2rem 1.25rem;
   }
 
-  .inner {
+  .mediaWrap {
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
 
-  .image {
-    height: 180px;
+  .imageCard {
+    min-height: 220px;
   }
 
   .card {
+    min-height: auto;
     border-radius: 18px;
   }
 }
