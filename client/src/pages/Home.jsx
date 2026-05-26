@@ -31,7 +31,7 @@ const knowUs = {
   subtitle: 'Somos anfitriones apasionados por ofrecer una estadía auténtica',
   description: 'Construimos esta cabaña con amor para compartirla contigo',
   image: '/images/Anfitriones.jpeg',
-  link: '/about',
+  link: '/conocenos',
 }
 
 const reviews = [

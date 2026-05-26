@@ -1,12 +1,12 @@
 export const conocenosHero = {
   title: 'Conócenos',
   subtitle: 'Descubre un espacio creado para el descanso, la tranquilidad y la conexión con la naturaleza en Villa de Leyva.',
-  image: '/images/habitaciones.jpg',
+  image: '/images/Habitaciones.jpg',
 }
 
 export const whoWeAre = {
   title: 'Quienes Somos',
-  image: '/images/anfitriones.jpg',
+  image: '/images/Anfitriones.jpeg',
   blocks: [
     {
       title: 'Los anfitriones',
@@ -25,7 +25,7 @@ export const whoWeAre = {
 
 export const ourHistory = {
   title: 'Nuestra Historia',
-  image: '/images/fachada.jpg',
+  image: '/images/Fachada.jpg',
   paragraphs: [
     'CAMALUNA nació del amor por Villa de Leyva, sus paisajes y la tranquilidad que se vive entre sus montañas. Creamos esta cabaña con la intención de ofrecer un espacio acogedor donde familias y viajeros puedan desconectarse de la rutina y sentirse como en casa.',
     'Todo comenzó con una idea sencilla: crear un espacio donde otras personas pudieran vivir la misma tranquilidad que nosotros sentimos cada vez que llegábamos aquí. Poco a poco, ese sueño se transformó en una cabaña diseñada con dedicación, cuidado y amor por cada detalle.',

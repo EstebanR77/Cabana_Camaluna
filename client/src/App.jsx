@@ -10,6 +10,7 @@ import About       from './pages/About'
 import Contact     from './pages/Contact'
 import Gallery     from './pages/Gallery'
 import Experiences from './pages/Experiences'
+import Conocenos   from './pages/Conocenos'
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path="/contact"     element={<Contact />}     />
           <Route path="/gallery"     element={<Gallery />}     />
           <Route path="/experiences" element={<Experiences />} />
+          <Route path="/conocenos"   element={<Conocenos />}   />
         </Routes>
         <FloatingChat />
       </BrowserRouter>
