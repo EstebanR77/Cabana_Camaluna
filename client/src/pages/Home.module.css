@@ -1,7 +1,7 @@
 .home {
   width: 100%;
   min-height: 100vh;
-  background: var(--white);
+  background: var(--color-text-light);
   overflow-x: hidden;
 }
 
@@ -9,15 +9,15 @@
   display: flex;
   justify-content: center;
   padding: 0.5rem 1.5rem 2.5rem;
-  background: var(--white);
+  background: var(--color-text-light);
 }
 
 .reserveButton {
   min-width: 280px;
   text-align: center;
-  background: var(--olive-main);
-  color: var(--white);
-  font-family: var(--font-heading);
+  background: var(--color-green);
+  color: var(--color-text-light);
+  font-family: var(--font-title);
   font-size: 1.55rem;
   letter-spacing: 0.04em;
   border-radius: 6px;
@@ -28,7 +28,7 @@
 
 .reserveButton:hover {
   transform: translateY(-2px);
-  background: var(--olive-dark);
+  background: var(--color-green-dark);
 }
 
 @media (max-width: 768px) {

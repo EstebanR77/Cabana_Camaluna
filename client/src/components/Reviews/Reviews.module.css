@@ -1,6 +1,6 @@
 .section {
   padding: 2.5rem 1.5rem 3rem;
-  background: var(--white);
+  background: var(--color-text-light);
 }
 
 .header { text-align: center; margin-bottom: 1.7rem; }
@@ -9,7 +9,7 @@
 
 .title {
   font-size: clamp(2.3rem, 5vw, 3.5rem);
-  color: var(--black);
+  color: var(--color-text-main);
   letter-spacing: 0.03em;
 }
 
@@ -23,8 +23,8 @@
 
 .card {
   min-height: 165px;
-  background: var(--brown-dark);
-  color: var(--white);
+  background: var(--color-brown-light);
+  color: var(--color-text-light);
   border-radius: 16px;
   padding: 1.65rem 1.9rem;
   box-shadow: 0 8px 18px rgba(0,0,0,0.12);
@@ -36,22 +36,22 @@
   width: 54px;
   height: 54px;
   border-radius: 999px;
-  background: var(--cream);
-  color: var(--brown-dark);
+  background: var(--color-page-bg);
+  color: var(--color-brown-light);
   display: grid;
   place-items: center;
-  font-family: var(--font-heading);
+  font-family: var(--font-title);
   font-size: 1.6rem;
 }
 
 .name {
-  font-family: var(--font-heading);
+  font-family: var(--font-title);
   font-size: 1.2rem;
   letter-spacing: 0.03em;
 }
 
 .stars { display: flex; gap: 0.18rem; font-size: 0.95rem; }
-.starFilled { color: var(--white); }
+.starFilled { color: var(--color-text-light); }
 .starEmpty { color: rgba(255,255,255,0.35); }
 
 .text {
@@ -63,9 +63,9 @@
 .linkWrap { text-align: center; margin-top: 1.6rem; }
 .link {
   display: inline-flex;
-  background: var(--brown-warm);
-  color: var(--white);
-  font-family: var(--font-heading);
+  background: var(--color-orange-soft);
+  color: var(--color-text-light);
+  font-family: var(--font-title);
   border-radius: 999px;
   padding: 0.45rem 1.4rem;
 }

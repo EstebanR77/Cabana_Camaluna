@@ -1,8 +1,8 @@
 .footer {
   width: calc(100% - 90px);
   margin: 0 auto 1.5rem;
-  background: var(--olive-main);
-  color: var(--white);
+  background: var(--color-green);
+  color: var(--color-text-light);
   border-radius: 22px;
   padding: 3rem 3rem 3.8rem;
 }
@@ -16,9 +16,9 @@
   flex-wrap: wrap;
 }
 
-.socialItem { display: flex; align-items: center; gap: 0.75rem; color: var(--white); }
+.socialItem { display: flex; align-items: center; gap: 0.75rem; color: var(--color-text-light); }
 .socialItem:hover { opacity: 0.8; }
-.socialName { font-size: 1rem; font-weight: 600; color: var(--white); }
+.socialName { font-size: 1rem; font-weight: 600; color: var(--color-text-light); }
 .socialHandle { font-size: 0.78rem; color: rgba(255,255,255,0.8); max-width: 220px; line-height: 1.35; }
 
 .links {
@@ -33,7 +33,7 @@
 
 .col { display: flex; flex-direction: column; gap: 0.75rem; }
 .col a { font-size: 0.82rem; color: rgba(255,255,255,0.82); }
-.col a:hover { color: var(--white); }
+.col a:hover { color: var(--color-text-light); }
 
 @media (max-width: 768px) {
   .footer { width: calc(100% - 24px); padding: 2rem 1.25rem; }

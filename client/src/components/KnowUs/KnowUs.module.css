@@ -33,24 +33,24 @@
   justify-items: center;
   align-items: start;
   text-align: center;
-  color: var(--black);
+  color: var(--color-text-main);
 }
 
 .eyebrow {
   font-size: 0.95rem;
-  color: var(--black);
+  color: var(--color-text-main);
   margin-bottom: 0.2rem;
 }
 
 .heading {
   font-size: clamp(2.4rem, 5vw, 3.7rem);
-  color: var(--black);
+  color: var(--color-text-main);
   letter-spacing: 0.03em;
 }
 
 .intro {
   font-size: 0.98rem;
-  color: var(--black);
+  color: var(--color-text-main);
   line-height: 1.35;
 }
 
@@ -82,7 +82,7 @@
 
 .cardTitle {
   font-size: 1.8rem;
-  color: var(--black);
+  color: var(--color-text-main);
 }
 
 .cardText {
@@ -96,16 +96,16 @@
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  background: var(--cream);
-  color: var(--olive-main);
-  font-family: var(--font-heading);
+  background: var(--color-page-bg);
+  color: var(--color-green);
+  font-family: var(--font-title);
   font-size: 1rem;
   padding: 0.45rem 1.45rem;
   border-radius: 999px;
   transition: transform var(--transition), background var(--transition);
 }
 
-.cardLink:hover { background: var(--white); transform: translateY(-2px); }
+.cardLink:hover { background: var(--color-text-light); transform: translateY(-2px); }
 
 @media (max-width: 768px) {
   .section { padding: 2.5rem 1.25rem; }

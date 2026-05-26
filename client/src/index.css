@@ -17,7 +17,7 @@
   --color-orange: #d5742e;
   --color-orange-bright: #ec832f;
 
-  --color-text-main: #573b2a;
+  --color-text-main: #1e140e;
   --color-text-light: #f9f9f0;
   --color-text-green: #495821;
 
@@ -29,7 +29,7 @@
   
   --font-size-title: 90px; /* Tamano - titulos */
   --font-size-secondary: 40px; /* Tamano - textos secundarios */
-  --font-size-subtitle: 30px; /* Tamano - textos subtitulos */
+  --font-size-subtitle: 26px; /* Tamano - textos subtitulos */
   --font-size-button: 34px; /* Tamano - texto- botones */
 
   /* Peso de las fuentes */
@@ -43,6 +43,18 @@
   /* Radio para cards */
   --radius-card-md: 40px;
   --radius-card-lg: 50px;
+  --radius-sm: 6px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+
+  /* Sombras y transiciones */
+  --shadow-soft: 0 8px 24px rgba(0, 0, 0, 0.12);
+  --shadow-card: 0 4px 18px rgba(0, 0, 0, 0.10);
+  --transition: 0.28s ease;
+
+
+
+  
 }
 
 /* Padding y border no aumenten el tamano final de los elementos */
@@ -155,5 +167,16 @@ button {
     --card-padding: 18px;
     --radius-card-md: 24px;
     --radius-card-lg: 30px;
+    --nav-height: 76px;
+    --nav-inline: 16px;
+    --nav-logo-width: 160px;
+    --nav-logo-img-width: 150px;
+    --nav-link-height: 42px;
+    --nav-link-font-size: 20px;
+    --hero-width: calc(100% - 24px);
+    --hero-min-height: 360px;
+    --hero-margin-top: 18px;
+    --hero-margin-bottom: 3rem;
+    --hero-radius: 18px;
   }
 }

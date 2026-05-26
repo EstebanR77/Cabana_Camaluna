@@ -1,14 +1,14 @@
 .section {
   width: calc(100% - 90px);
   margin: 0 auto 2rem;
-  background: var(--cream);
+  background: var(--color-page-bg);
   border-radius: 18px;
   padding: 2rem 2rem 2.4rem;
 }
 
 .sectionLabel {
   font-size: 1.6rem;
-  color: var(--brown-warm);
+  color: var(--color-orange-soft);
   margin-bottom: 1.4rem;
 }
 
@@ -27,7 +27,7 @@
 
 .title {
   font-size: 2rem;
-  color: var(--brown-warm);
+  color: var(--color-orange-soft);
   letter-spacing: 0.04em;
 }
 
@@ -39,15 +39,15 @@
 
 .link {
   width: fit-content;
-  color: var(--brown-warm);
+  color: var(--color-orange-soft);
   border: 1px solid rgba(177,116,73,0.55);
   border-radius: 999px;
   padding: 0.4rem 1.25rem;
-  font-family: var(--font-heading);
+  font-family: var(--font-title);
   transition: background var(--transition), color var(--transition);
 }
 
-.link:hover { background: var(--brown-warm); color: var(--white); }
+.link:hover { background: var(--color-orange-soft); color: var(--color-text-light); }
 
 @media (max-width: 768px) {
   .section { width: calc(100% - 24px); padding: 1.5rem 1rem; }

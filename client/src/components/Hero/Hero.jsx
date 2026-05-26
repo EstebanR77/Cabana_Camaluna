@@ -2,7 +2,7 @@ import { useLocation } from 'react-router-dom'
 import styles from './Hero.module.css'
 
 const HERO_IMAGES = {
-  '/': '/images/home.jpg',
+  '/': '/images/Fonfo home.jpeg',
   '/cabin': '/images/fachada.svg',
   '/reserve': '/images/Reservas.jpg',
   '/about': '/images/villa-de-leyva.svg',

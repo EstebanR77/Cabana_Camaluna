@@ -1,13 +1,13 @@
 .section {
   padding: 0.5rem 1.5rem 2.5rem;
-  background: var(--white);
+  background: var(--color-text-light);
 }
 
 .header { text-align: center; margin-bottom: 1.8rem; }
 .eyebrow { font-size: 0.9rem; color: #333; margin-bottom: 0.1rem; }
 .heading {
   font-size: clamp(2.2rem, 5vw, 3.5rem);
-  color: var(--black);
+  color: var(--color-text-main);
   letter-spacing: 0.03em;
 }
 
@@ -34,16 +34,16 @@
 .card:hover { transform: translateY(-4px); filter: brightness(0.95); }
 
 .cardTitle {
-  font-family: var(--font-heading);
+  font-family: var(--font-title);
   font-size: 1.45rem;
-  color: var(--black);
+  color: var(--color-text-main);
   line-height: 1.05;
 }
 
 .cardSub { font-size: 0.82rem; color: rgba(0,0,0,0.67); }
-.whatsapp { background: var(--brown-orange); }
-.telefono { background: var(--olive-muted); }
-.faq { background: var(--olive-main); }
+.whatsapp { background: var(--color-orange); }
+.telefono { background: var(--color-green-light); }
+.faq { background: var(--color-green); }
 .correo { background: #d67b24; }
 
 @media (max-width: 768px) {
