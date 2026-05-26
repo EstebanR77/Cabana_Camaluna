@@ -16,15 +16,16 @@ function KnowUs({ subtitle, description, image, link }) {
       style={{ backgroundImage: `url(${image})` }}
     >
       <div className={styles.overlay} />
-
-      <div className={styles.inner}>
-        <div className={styles.textBlock}>
+      
+      <div className={styles.textBlock}>
           <p className={styles.eyebrow}>Quienes Somos</p>
           <h2 className={styles.heading}>Conócenos</h2>
           <p className={styles.intro}>{subtitle}</p>
-          <div className={styles.imageCard}>
+      </div>
+      <div className={styles.inner}>
+       
+        <div className={styles.imageCard}>
             <img src={image} alt="Anfitriones de Cabaña Camaluna" className={styles.image} />
-          </div>
         </div>
 
         <div
