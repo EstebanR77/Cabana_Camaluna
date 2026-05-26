@@ -1,7 +1,135 @@
 .page {
-  display: flex;
-  flex-direction: column;
   min-height: 100vh;
-  background: var(--color-page-bg);
-  padding-top: 90px; /* compensa navbar fixed */
+  background: #fff;
+  color: var(--color-text-main);
+  overflow-x: hidden;
+}
+
+.header {
+  width: min(100% - 32px, 1180px);
+  margin: 1.55rem auto 0.8rem;
+  text-align: center;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-title);
+  font-size: clamp(2.25rem, 5vw, 4.4rem);
+  font-weight: var(--font-weight-regular);
+  line-height: 0.95;
+  color: var(--color-brown);
+  text-transform: capitalize;
+}
+
+.subtitle {
+  margin: 0.55rem 0 0;
+  color: rgba(30, 20, 14, 0.62);
+  font-size: clamp(0.85rem, 1.6vw, 1rem);
+}
+
+.content {
+  width: min(100% - 32px, 1180px);
+  margin: 0 auto 1.25rem;
+}
+
+.reviewsSection {
+  padding: 1rem 0 1.15rem;
+}
+
+.sectionTitle {
+  margin: 0 0 1rem;
+  font-family: var(--font-title);
+  font-size: clamp(1.7rem, 3vw, 2.4rem);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-brown);
+}
+
+.reviewsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2.8rem;
+}
+
+.statusMessage {
+  width: fit-content;
+  margin: 0.85rem auto 0;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  background: rgba(112, 136, 95, 0.12);
+  color: var(--color-green-dark);
+  font-size: 0.88rem;
+}
+
+.statusError {
+  background: rgba(184, 50, 36, 0.1);
+  color: #8f2f20;
+}
+
+.reserveWrap {
+  display: flex;
+  justify-content: center;
+  padding: 1.7rem 0 1.85rem;
+}
+
+.reserveButton {
+  position: relative;
+  overflow: hidden;
+  min-width: 220px;
+  text-align: center;
+  background: var(--color-green);
+  color: var(--color-text-light);
+  font-family: var(--font-title);
+  font-size: 1.35rem;
+  letter-spacing: 0;
+  border-radius: 6px;
+  padding: 0.62rem 1.75rem;
+  box-shadow: 0 8px 18px rgba(73, 88, 33, 0.18);
+  text-transform: uppercase;
+  transition: transform var(--transition), background var(--transition), box-shadow var(--transition), color var(--transition);
+}
+
+.reserveButton::after {
+  content: '';
+  position: absolute;
+  inset: -40% auto -40% -65%;
+  width: 52%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+  transform: skewX(-18deg);
+  transition: left 0.55s ease;
+}
+
+.reserveButton:hover,
+.reserveButton:focus {
+  transform: translateY(-4px) scale(1.045);
+  background: var(--color-orange-soft);
+  color: var(--color-text-light);
+  box-shadow: 0 16px 30px rgba(192, 124, 58, 0.28), 0 0 0 5px rgba(192, 124, 58, 0.12);
+}
+
+.reserveButton:hover::after,
+.reserveButton:focus::after {
+  left: 115%;
+}
+
+.footerWrap {
+  padding-bottom: 0.6rem;
+}
+
+@media (max-width: 980px) {
+  .reviewsGrid {
+    gap: 1.2rem;
+  }
+}
+
+@media (max-width: 820px) {
+  .reviewsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+  .header,
+  .content {
+    width: calc(100% - 20px);
+  }
 }

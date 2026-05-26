@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Hero   from '../components/Hero/Hero'
 import Footer from '../components/Footer/Footer'
+import RevealBlock from '../components/RevealBlock/RevealBlock'
 import styles from './Reserve.module.css'
 
 /* ── Datos ───────────────────────────────────────────── */
@@ -212,14 +213,16 @@ function Reserve() {
   return (
     <div className={styles.page}>
 
+      <RevealBlock variant="heroReveal">
       <Hero
         subtitle="Cabaña Boutique"
         title="Reserva tu estadía"
         description="Elige tus fechas, completa tu información y asegura tu experiencia en Camaluna."
       />
+      </RevealBlock>
 
       {/* Booking section */}
-      <section className={styles.bookingSection}>
+      <RevealBlock as="section" className={styles.bookingSection}>
         <h2 className={styles.bookingTitle}>Reserva paso a paso</h2>
 
         {/* Step bar */}
@@ -264,9 +267,11 @@ function Reserve() {
             </button>
           </div>
         )}
-      </section>
+      </RevealBlock>
 
-      <Footer />
+      <RevealBlock>
+        <Footer />
+      </RevealBlock>
     </div>
   )
 }
