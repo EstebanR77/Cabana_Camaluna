@@ -15,6 +15,12 @@
   --font-heading: 'Girassol', serif;
   --font-body:    'Inter', sans-serif;
 
+  --hero-subtitle-size: 20px;
+  --hero-title-size:    70px;
+  --hero-text-size:     20px;
+  --hero-title-line:    0.92;
+  --hero-text-line:     1.2;
+
   --green-dark:   var(--olive-dark);
   --green-main:   var(--olive-main);
   --green-light:  var(--olive-muted);
@@ -41,7 +47,7 @@ html { scroll-behavior: smooth; }
 
 body {
   font-family: var(--font-body);
-  background: #1d1d1d;
+  background: var(--white);
   color: var(--black);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
@@ -58,6 +64,22 @@ button, input, textarea, select { font-family: var(--font-body); outline: none; 
 ::-webkit-scrollbar-track { background: var(--cream); }
 ::-webkit-scrollbar-thumb { background: var(--olive-main); border-radius: 3px; }
 
+@media (max-width: 900px) {
+  :root {
+    --hero-subtitle-size: 20px;
+    --hero-title-size:    64px;
+    --hero-text-size:     20px;
+  }
+}
+
 @media (max-width: 768px) {
   body { background: var(--white); }
+}
+
+@media (max-width: 560px) {
+  :root {
+    --hero-subtitle-size: 16px;
+    --hero-title-size:    50px;
+    --hero-text-size:     16px;
+  }
 }

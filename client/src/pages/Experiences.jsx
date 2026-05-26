@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import Hero from '../components/Hero/Hero'
 import Footer from '../components/Footer/Footer'
 import { Link } from 'react-router-dom'
 import styles from './Experiences.module.css'
@@ -46,24 +47,11 @@ function Experiences() {
   return (
     <div className={styles.page}>
 
-      <section className={styles.hero}>
-        <motion.h1
-          className={styles.title}
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          Experiencias
-        </motion.h1>
-        <motion.p
-          className={styles.subtitle}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-        >
-          Todo lo que Villa de Leyva tiene para ofrecerte
-        </motion.p>
-      </section>
+      <Hero
+        subtitle="Villa de Leyva"
+        title="Experiencias"
+        description="Todo lo que Villa de Leyva tiene para ofrecerte."
+      />
 
       <section className={styles.grid}>
         {experiences.map((exp, i) => (

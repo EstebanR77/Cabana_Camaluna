@@ -216,7 +216,6 @@ function Reserve() {
         subtitle="Cabaña Boutique"
         title="Reserva tu estadía"
         description="Elige tus fechas, completa tu información y asegura tu experiencia en Camaluna."
-        bgImage="/images/reserve-hero.jpg"
       />
 
       {/* Booking section */}

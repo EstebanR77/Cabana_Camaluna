@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import Hero from '../components/Hero/Hero'
 import Footer from '../components/Footer/Footer'
 import styles from './About.module.css'
 
@@ -28,25 +29,11 @@ function About() {
   return (
     <div className={styles.page}>
 
-      {/* Hero */}
-      <section className={styles.hero}>
-        <motion.h1
-          className={styles.title}
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          Conócenos
-        </motion.h1>
-        <motion.p
-          className={styles.subtitle}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-        >
-          Anfitriones apasionados por nuestra tierra ancestral
-        </motion.p>
-      </section>
+      <Hero
+        subtitle="Cabaña Boutique"
+        title="Conócenos"
+        description="Anfitriones apasionados por nuestra tierra ancestral."
+      />
 
       {/* Logros */}
       <section className={styles.logros}>

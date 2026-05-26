@@ -1,7 +1,8 @@
 .home {
-  width: min(1120px, calc(100% - 48px));
-  margin: 0 auto;
+  width: 100%;
+  min-height: 100vh;
   background: var(--white);
+  overflow-x: hidden;
 }
 
 .reserveWrap {
@@ -31,10 +32,6 @@
 }
 
 @media (max-width: 768px) {
-  .home {
-    width: 100%;
-  }
-
   .reserveButton {
     width: min(100%, 320px);
     font-size: 1.25rem;

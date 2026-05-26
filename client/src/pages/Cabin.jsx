@@ -41,7 +41,6 @@ function Cabin() {
         subtitle="Cabaña Boutique"
         title="LA CABAÑA"
         description="Conoce cada espacio, sus comodidades y todo lo que necesitas para disfrutar una estadía única en medio de la naturaleza."
-        bgImage="/images/cabin-hero.jpg"
       />
 
       {/* Reglas de la Casa */}
