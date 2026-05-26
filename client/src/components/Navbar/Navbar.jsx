@@ -41,7 +41,7 @@ const NAV_LINKS = [
   },
   {
     label: 'Conócenos',
-    to: '/#conocenos',
+    to: '/About',
     hover: {
       background: 'var(--color-green)',
       border: 'var(--color-green)',
@@ -50,7 +50,7 @@ const NAV_LINKS = [
   },
   {
     label: 'Experiencias/Reseñas',
-    to: '/#resenas',
+    to: '/Experiences',
     hover: {
       background: 'var(--color-orange)',
       border: 'var(--color-orange)',

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import styles from './Footer.module.css'
 
-function Footer() {
+function Footer({ variant = 'default' }) {
   const [hoveredItem, setHoveredItem] = useState(null)
   const [activeItem, setActiveItem] = useState(null)
 
@@ -50,7 +50,7 @@ function Footer() {
   ]
 
   return (
-    <footer className={styles.footer}>
+    <footer className={`${styles.footer} ${variant === 'reviews' ? styles.footerReviews : ''}`}>
       <div className={styles.socials}>
         {socialItems.map((item) => (
           <a
