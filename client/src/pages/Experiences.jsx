@@ -2,6 +2,7 @@ import { motion } from 'framer-motion'
 import Hero from '../components/Hero/Hero'
 import Footer from '../components/Footer/Footer'
 import { Link } from 'react-router-dom'
+import RevealBlock from '../components/RevealBlock/RevealBlock'
 import styles from './Experiences.module.css'
 
 const experiences = [
@@ -47,13 +48,15 @@ function Experiences() {
   return (
     <div className={styles.page}>
 
+      <RevealBlock variant="heroReveal">
       <Hero
         subtitle="Villa de Leyva"
         title="Experiencias"
         description="Todo lo que Villa de Leyva tiene para ofrecerte."
       />
+      </RevealBlock>
 
-      <section className={styles.grid}>
+      <RevealBlock as="section" className={styles.grid}>
         {experiences.map((exp, i) => (
           <motion.div
             key={i}
@@ -69,9 +72,9 @@ function Experiences() {
             <p className={styles.cardDesc}>{exp.description}</p>
           </motion.div>
         ))}
-      </section>
+      </RevealBlock>
 
-      <section className={styles.cta}>
+      <RevealBlock as="section" className={styles.cta} variant="reserveReveal">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -82,9 +85,11 @@ function Experiences() {
           <p className={styles.ctaDesc}>Reserva tu estadía en Camaluna y explora todo lo que Boyacá tiene para ti.</p>
           <Link to="/reserve" className={styles.ctaBtn}>Reservar ahora</Link>
         </motion.div>
-      </section>
+      </RevealBlock>
 
-      <Footer />
+      <RevealBlock>
+        <Footer />
+      </RevealBlock>
     </div>
   )
 }

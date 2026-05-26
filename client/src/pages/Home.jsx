@@ -7,6 +7,7 @@ import ContactButtons from '../components/ContactButtons/ContactButtons'
 import GalleryPreview from '../components/GalleryPreview/GalleryPreview'
 import Reviews from '../components/Reviews/Reviews'
 import Footer from '../components/Footer/Footer'
+import RevealBlock from '../components/RevealBlock/RevealBlock'
 import styles from './Home.module.css'
 
 const quickAccess = [
@@ -49,110 +50,58 @@ const reviews = [
   },
 ]
 
-const revealKeys = [
-  'hero',
-  'quickAccess',
-  'gallery',
-  'knowUs',
-  'reviews',
-  'aboutVilla',
-  'contact',
-  'reserve',
-  'footer',
-]
-
 function Home() {
   const [isReserveHovered, setIsReserveHovered] = useState(false)
   const [reserveHoverClass, setReserveHoverClass] = useState('')
-  const [visibleSections, setVisibleSections] = useState([])
 
   useEffect(() => {
     setReserveHoverClass(isReserveHovered ? styles.reserveButtonActive : '')
   }, [isReserveHovered])
 
-  useEffect(() => {
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-
-    if (reduceMotion || !('IntersectionObserver' in window)) {
-      setVisibleSections(revealKeys)
-      return undefined
-    }
-
-    const blocks = document.querySelectorAll('[data-reveal-key]')
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return
-
-          const key = entry.target.getAttribute('data-reveal-key')
-          setVisibleSections((current) => (
-            current.includes(key) ? current : [...current, key]
-          ))
-          observer.unobserve(entry.target)
-        })
-      },
-      {
-        threshold: 0.22,
-        rootMargin: '0px 0px -8% 0px',
-      }
-    )
-
-    blocks.forEach((block) => observer.observe(block))
-
-    return () => observer.disconnect()
-  }, [])
-
-  const revealClass = (key, variant = '') => {
-    const visibleClass = visibleSections.includes(key) ? styles.revealVisible : ''
-    const variantClass = variant ? styles[variant] : ''
-
-    return `${styles.revealBlock} ${visibleClass} ${variantClass}`
-  }
-
   return (
     <main className={styles.home}>
-      <div className={revealClass('hero', 'heroReveal')} data-reveal-key="hero">
+      <RevealBlock variant="heroReveal">
         <Hero
           subtitle="Cabaña Boutique"
           title="CAMALUNA"
           description="Escapa de la rutina y vive una experiencia única rodeada de naturaleza, tranquilidad y comodidad en Villa de Leyva."
         />
-      </div>
+      </RevealBlock>
 
-      <div className={revealClass('quickAccess')} data-reveal-key="quickAccess">
+      <RevealBlock>
         <QuickAccess items={quickAccess} />
-      </div>
+      </RevealBlock>
 
-      <div className={revealClass('gallery')} data-reveal-key="gallery">
+      <RevealBlock>
         <GalleryPreview images={galleryPreview} />
-      </div>
+      </RevealBlock>
 
-      <section id="conocenos" className={revealClass('knowUs')} data-reveal-key="knowUs">
+      <RevealBlock as="section" id="conocenos">
         <KnowUs
           subtitle={knowUs.subtitle}
           description={knowUs.description}
           image={knowUs.image}
           link={knowUs.link}
         />
-      </section>
+      </RevealBlock>
 
-      <section id="resenas" className={revealClass('reviews')} data-reveal-key="reviews">
+      <RevealBlock as="section" id="resenas">
         <Reviews reviews={reviews} />
-      </section>
+      </RevealBlock>
 
-      <div className={revealClass('aboutVilla')} data-reveal-key="aboutVilla">
+      <RevealBlock>
         <AboutVilla
           description={aboutVilla.description}
           image={aboutVilla.image}
           link={aboutVilla.link}
         />
-      </div>
+      </RevealBlock>
 
-      <div className={revealClass('contact')} data-reveal-key="contact">
+      <RevealBlock>
         <ContactButtons />
-      </div>
+      </RevealBlock>
 
-      <div className={`${styles.reserveWrap} ${revealClass('reserve', 'reserveReveal')}`} data-reveal-key="reserve">
+      <RevealBlock className={styles.reserveWrap} variant="reserveReveal">
         <a
           href="/reserve"
           className={`${styles.reserveButton} ${reserveHoverClass}`}
@@ -163,11 +112,11 @@ function Home() {
         >
           RESERVA YA!
         </a>
-      </div>
+      </RevealBlock>
 
-      <div className={revealClass('footer')} data-reveal-key="footer">
+      <RevealBlock>
         <Footer />
-      </div>
+      </RevealBlock>
     </main>
   )
 }
