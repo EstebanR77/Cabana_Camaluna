@@ -16,9 +16,9 @@ const quickAccess = [
 ]
 
 const galleryPreview = [
-  { url: '/images/habitaciones.svg',   alt: 'Área Social y terraza'    },
-  { url: '/images/gallery-facade.jpg',   alt: 'Fachada y entorno'        },
-  { url: '/images/gallery-rooms.jpg',    alt: 'Habitaciones'             },
+  { url: '/images/Area social.jpg',   alt: 'Área Social'    },
+  { url: '/images/Fachada.jpg',   alt: 'Fachada y entorno'        },
+  { url: '/images/Habitaciones.jpg',    alt: 'Habitaciones'             },
 ]
 
 const aboutVilla = {
@@ -30,7 +30,7 @@ const aboutVilla = {
 const knowUs = {
   subtitle: 'Somos anfitriones apasionados por ofrecer una estadía auténtica',
   description: 'Construimos esta cabaña con amor para compartirla contigo',
-  image: '/images/hosts.jpg',
+  image: '/images/Anfitriones.jpeg',
   link: '/about',
 }
 
