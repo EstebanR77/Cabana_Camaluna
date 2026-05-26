@@ -1,63 +1,169 @@
-@import url('https://fonts.googleapis.com/css2?family=Girassol&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Girassol&family=Inter:wght@200;400&display=swap');
 
+/* Variables globales del proyecto */
 :root {
-  --olive-dark:    #495821;
-  --olive-main:    #70885f;
-  --olive-muted:   #969f74;
-  --brown-warm:    #b17449;
-  --brown-orange:  #c7782e;
-  --brown-dark:    #5d3f31;
-  --cream:         #f9f8ee;
-  --cream-strong:  #f3f2e5;
-  --white:         #ffffff;
-  --black:         #111111;
+  /* Fondos */
+  --color-page-bg: #f9f9f0;
 
-  --font-heading: 'Girassol', serif;
-  --font-body:    'Inter', sans-serif;
+  /* Colores principales */
+  --color-green-light: #969f74;
+  --color-green: #70885f;
+  --color-green-dark: #495821;
 
-  --green-dark:   var(--olive-dark);
-  --green-main:   var(--olive-main);
-  --green-light:  var(--olive-muted);
-  --green-soft:   var(--cream);
-  --text-dark:    var(--black);
-  --text-mid:     #444;
-  --text-light:   #777;
-  --cream-dark:   #eee8d8;
-  --brown-main:   var(--brown-warm);
-  --brown-light:  #c4956a;
-  --brown-soft:   #f2e8da;
+  --color-brown: #573b2a;
+  --color-brown-light: #6b4835;
 
-  --radius-sm: 6px;
-  --radius-md: 14px;
-  --radius-lg: 22px;
-  --shadow-soft: 0 8px 24px rgba(0, 0, 0, 0.12);
-  --shadow-card: 0 4px 18px rgba(0, 0, 0, 0.10);
-  --transition:  0.28s ease;
+  --color-orange-soft: #c07c3a;
+  --color-orange: #d5742e;
+  --color-orange-bright: #ec832f;
+
+  --color-text-main: #573b2a;
+  --color-text-light: #f9f9f0;
+  --color-text-green: #495821;
+
+
+    /* Tipografias */
+  --font-title: 'Girassol', serif;   /* Principal*/
+  --font-body: 'Inter', sans-serif; /* Secundaria*/
+
+
+    /* Tamano de textos */
+  
+  --font-size-title: 90px; /* Tamano - titulos */
+  --font-size-secondary: 40px; /* Tamano - textos secundarios */
+  --font-size-subtitle: 30px; /* Tamano - textos subtitulos */
+  --font-size-button: 34px; /* Tamano - texto- botones */
+
+  /* Peso de las fuentes */
+
+  --font-weight-regular: 400; /* Peso regular de las fuentes */
+   --font-weight-extra-light: 200; /* Peso extra light para subtitulos */
+
+  /* Padding general para algunas cards */
+  --card-padding: 30px;
+
+  /* Radio para cards */
+  --radius-card-md: 40px;
+  --radius-card-lg: 50px;
 }
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-html { scroll-behavior: smooth; }
+/* Padding y border no aumenten el tamano final de los elementos */
+* {
+  box-sizing: border-box;
+}
 
+
+
+/* Scroll suave cuando se navega a secciones con id */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Estilos base del cuerpo de la pagina */
 body {
-  font-family: var(--font-body);
-  background: #1d1d1d;
-  color: var(--black);
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+
+ 
+  background-color: var(--color-page-bg);  /*color de fondo global */
+  color: var(--color-text-main); /*color principal del texto */
+  font-family: var(--font-body);/* fuente base del proyecto */
 }
 
-#root { min-height: 100vh; }
 
-h1, h2, h3, h4 { font-family: var(--font-heading); line-height: 1.12; font-weight: 400; }
-a { color: inherit; text-decoration: none; }
-img { max-width: 100%; display: block; }
-button, input, textarea, select { font-family: var(--font-body); outline: none; }
+/* Imagenes no se salen de su contenedor */
+img {
+  display: block;
+  max-width: 100%;
+}
 
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--cream); }
-::-webkit-scrollbar-thumb { background: var(--olive-main); border-radius: 3px; }
 
-@media (max-width: 768px) {
-  body { background: var(--white); }
+/* Quita el color azul y subrayado por defecto de los enlaces */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+
+/* Hace que formularios y botones hereden la fuente del proyecto */
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+
+/* Estilo base para botones */
+button {
+  border: none; /* Sin borde por defecto */
+  cursor: pointer; /* manita al pasar el mouse */
+}
+
+
+
+/* Clase global para titulos principales */
+
+.title {
+  margin: 0;
+
+  font-family: var(--font-title); /*  fuente Girassol */
+  font-size: var(--font-size-title);  /* Tamano para titulos */
+  font-weight: var(--font-weight-regular); /* peso regular */
+  line-height: 1;
+}
+
+/* Clase global para textos secundarios grandes */
+.text-secondary {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--font-size-secondary);
+  font-weight: var(--font-weight-regular);
+  line-height: 1.2;
+}
+
+/* Clase global para subtitulos */
+.subtitle {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--font-size-subtitle);
+  font-weight: var(--font-weight-extra-light);
+  line-height: 1.3;
+}
+
+/* Clase global para textos de botones */
+.button-text {
+  font-family: var(--font-title);
+  font-size: var(--font-size-button);
+  font-weight: var(--font-weight-regular);
+  line-height: 1;
+}
+
+/* Clase global para cards con radio de 40 */
+.card {
+  padding: var(--card-padding);
+  border-radius: var(--radius-card-md);
+}
+
+/* Clase global para cards con radio de 50 */
+.card-lg {
+  padding: var(--card-padding);
+  border-radius: var(--radius-card-lg);
+}
+
+
+/* Movil*/
+@media (max-width: 480px) {
+  :root {
+    --font-size-title: 46px;
+    --font-size-secondary: 24px;
+    --font-size-subtitle: 18px;
+    --font-size-button: 22px;
+
+    --card-padding: 18px;
+    --radius-card-md: 24px;
+    --radius-card-lg: 30px;
+  }
 }
