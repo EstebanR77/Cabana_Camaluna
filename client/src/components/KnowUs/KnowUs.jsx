@@ -1,33 +1,60 @@
-import { motion } from 'framer-motion'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import styles from './KnowUs.module.css'
 
-function KnowUs({ title, subtitle, description, image, link }) {
+function KnowUs({ subtitle, description, image, link }) {
+  const [isComponentHovered, setIsComponentHovered] = useState(false)
+  const [isButtonHovered, setIsButtonHovered] = useState(false)
+  const [sectionHoverClass, setSectionHoverClass] = useState('')
+  const [buttonHoverClass, setButtonHoverClass] = useState('')
+
+  useEffect(() => {
+    setSectionHoverClass(isComponentHovered ? styles.isHovered : '')
+  }, [isComponentHovered])
+
+  useEffect(() => {
+    setButtonHoverClass(isButtonHovered ? styles.cardLinkActive : '')
+  }, [isButtonHovered])
+
   return (
-    <section className={styles.section}>
-      <motion.div
-        className={styles.content}
-        initial={{ opacity: 0, x: -40 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.6 }}
-        viewport={{ once: true, amount: 0.3 }}
-      >
-        <h2 className={styles.title}>{title}</h2>
-        <p className={styles.subtitle}>{subtitle}</p>
-        <div className={styles.card}>
-          <p className={styles.description}>{description}</p>
-          <Link to={link} className={styles.link}>Conócenos →</Link>
+    <section
+      className={`${styles.section} ${sectionHoverClass}`}
+      style={{ backgroundImage: `url(${image})` }}
+      onMouseEnter={() => setIsComponentHovered(true)}
+      onMouseLeave={() => setIsComponentHovered(false)}
+      onFocus={() => setIsComponentHovered(true)}
+      onBlur={() => setIsComponentHovered(false)}
+    >
+      <div className={styles.overlay} />
+
+      <div className={styles.content}>
+        <div className={styles.textBlock}>
+          <p className={styles.eyebrow}>Quienes Somos</p>
+          <h2 className={styles.heading}>Conócenos</h2>
+          <p className={styles.intro}>{subtitle}</p>
         </div>
-      </motion.div>
-      <motion.img
-        src={image}
-        alt="Anfitriones Camaluna"
-        className={styles.image}
-        initial={{ opacity: 0, scale: 0.95 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.6, delay: 0.15 }}
-        viewport={{ once: true, amount: 0.3 }}
-      />
+
+        <div className={styles.mediaWrap}>
+          <div className={styles.imageCard}>
+            <img src={image} alt="Anfitriones de Cabaña Camaluna" className={styles.image} />
+          </div>
+
+          <div className={styles.card}>
+            <h3 className={styles.cardTitle}>Nuestra Historia</h3>
+            <p className={styles.cardText}>{description}</p>
+            <Link
+              to={link}
+              className={`${styles.cardLink} ${buttonHoverClass}`}
+              onMouseEnter={() => setIsButtonHovered(true)}
+              onMouseLeave={() => setIsButtonHovered(false)}
+              onFocus={() => setIsButtonHovered(true)}
+              onBlur={() => setIsButtonHovered(false)}
+            >
+              Conocer más
+            </Link>
+          </div>
+        </div>
+      </div>
     </section>
   )
 }

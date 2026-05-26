@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="skya" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#7a9ab8"/>
+      <stop offset="60%" stop-color="#b8c8d4"/>
+      <stop offset="100%" stop-color="#e8d8b8"/>
+    </linearGradient>
+    <linearGradient id="mnt" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#6a7a5e"/>
+      <stop offset="100%" stop-color="#4a5a3e"/>
+    </linearGradient>
+  </defs>
+  <!-- Cielo -->
+  <rect width="600" height="280" fill="url(#skya)"/>
+  <!-- Nubes -->
+  <ellipse cx="120" cy="80" rx="60" ry="14" fill="#fff" opacity="0.7"/>
+  <ellipse cx="450" cy="100" rx="80" ry="16" fill="#fff" opacity="0.6"/>
+  <!-- Montañas lejanas -->
+  <path d="M 0 220 L 120 140 L 200 180 L 300 120 L 400 170 L 500 130 L 600 180 L 600 280 L 0 280 Z" fill="url(#mnt)" opacity="0.7"/>
+  <!-- Mar de nubes -->
+  <ellipse cx="300" cy="270" rx="350" ry="20" fill="#fff" opacity="0.6"/>
+  <ellipse cx="150" cy="280" rx="200" ry="14" fill="#fff" opacity="0.7"/>
+  <ellipse cx="450" cy="280" rx="180" ry="12" fill="#fff" opacity="0.7"/>
+  <!-- Suelo -->
+  <rect y="290" width="600" height="110" fill="#8a7a5a"/>
+  <ellipse cx="300" cy="290" rx="320" ry="14" fill="#a08a6a"/>
+  <!-- Personas (siluetas) -->
+  <g transform="translate(220, 230)">
+    <!-- Persona 1 (izquierda) -->
+    <circle cx="40" cy="20" r="18" fill="#3a2a1a"/>
+    <path d="M 20 38 Q 40 30 60 38 L 65 90 L 15 90 Z" fill="#e0e0e0"/>
+    <rect x="20" y="90" width="14" height="40" fill="#3a3a3a"/>
+    <rect x="46" y="90" width="14" height="40" fill="#3a3a3a"/>
+    <!-- Persona 2 (derecha, hombro con hombro) -->
+    <circle cx="100" cy="22" r="18" fill="#4a3a2a"/>
+    <path d="M 78 40 Q 100 32 120 40 L 125 92 L 75 92 Z" fill="#a8a8a8"/>
+    <rect x="82" y="92" width="14" height="38" fill="#2a2a2a"/>
+    <rect x="106" y="92" width="14" height="38" fill="#2a2a2a"/>
+  </g>
+  <!-- Sillas plegables -->
+  <g transform="translate(180, 340)">
+    <polygon points="0,0 30,0 25,-30 5,-30" fill="#5a3e28"/>
+    <line x1="5" y1="-30" x2="0" y2="-50" stroke="#5a3e28" stroke-width="3"/>
+    <line x1="25" y1="-30" x2="30" y2="-50" stroke="#5a3e28" stroke-width="3"/>
+  </g>
+  <g transform="translate(400, 340)">
+    <polygon points="0,0 30,0 25,-30 5,-30" fill="#5a3e28"/>
+  </g>
+  <!-- Tienda de campaña pequeña -->
+  <polygon points="40,360 80,330 120,360" fill="#c47a3a"/>
+  <polygon points="40,360 80,330 80,360" fill="#a85c3a"/>
+</svg>

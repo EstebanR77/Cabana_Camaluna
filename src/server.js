@@ -52,8 +52,40 @@ wss.on('connection', (ws, req) => {
   }
 });
 
-// ── Servidor ────────────────────────────────────────────
-const PORT = process.env.PORT || 3000;
-server.listen(PORT, () => {
-  console.log(`✅  Servidor corriendo en http://localhost:${PORT}`);
+// ── Servidor con auto-reintento si el puerto está ocupado ─
+const BASE_PORT = parseInt(process.env.PORT, 10) || 3000;
+const MAX_ATTEMPTS = 10;
+
+function startServer(port, attempt = 1) {
+  server.listen(port, () => {
+    console.log(`✅  Servidor corriendo en http://localhost:${port}`);
+    if (port !== BASE_PORT) {
+      console.log(`ℹ️   (El puerto ${BASE_PORT} estaba ocupado, se usó ${port} en su lugar)`);
+      console.log(`⚠️   Recuerda actualizar el proxy en client/vite.config.js si reinicias el frontend.`);
+    }
+  });
+}
+
+server.on('error', (err) => {
+  if (err.code === 'EADDRINUSE') {
+    const currentPort = server.address()?.port || BASE_PORT;
+    const nextPort = currentPort + 1;
+    if (nextPort - BASE_PORT >= MAX_ATTEMPTS) {
+      console.error(`❌  No se encontró puerto libre entre ${BASE_PORT} y ${BASE_PORT + MAX_ATTEMPTS - 1}`);
+      process.exit(1);
+    }
+    console.log(`⏳  Puerto ${currentPort} ocupado, probando ${nextPort}...`);
+    setTimeout(() => server.listen(nextPort), 300);
+  } else {
+    console.error('❌  Error del servidor:', err);
+    process.exit(1);
+  }
 });
+
+// Cierre limpio con Ctrl+C
+process.on('SIGINT', () => {
+  console.log('\n👋  Cerrando servidor...');
+  server.close(() => process.exit(0));
+});
+
+startServer(BASE_PORT);

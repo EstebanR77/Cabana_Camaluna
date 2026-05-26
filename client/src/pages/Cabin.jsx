@@ -1,25 +1,33 @@
 import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import CabinRules     from '../components/CabinRules/CabinRules'
-import CabinEquipment from '../components/CabinEquipment/CabinEquipment'
-import CabinVideo     from '../components/CabinVideo/CabinVideo'
+import { Link } from 'react-router-dom'
+import { AnimatePresence, motion } from 'framer-motion'
+import Hero          from '../components/Hero/Hero'
+import CabinRules    from '../components/CabinRules/CabinRules'
+import CabinVideo    from '../components/CabinVideo/CabinVideo'
 import CabinDistances from '../components/CabinDistances/CabinDistances'
-import Footer         from '../components/Footer/Footer'
-import styles         from './Cabin.module.css'
+import Footer        from '../components/Footer/Footer'
+import styles        from './Cabin.module.css'
+
+const equipment = [
+  { icon: '📶', label: 'Wifi'            },
+  { icon: '🍳', label: 'Cocina'          },
+  { icon: '🛁', label: '2 Baños'         },
+  { icon: '🛏️', label: '2 Habitaciones'  },
+]
 
 const allAmenities = [
   { icon: '📶', label: 'Wifi de alta velocidad' },
-  { icon: '🍳', label: 'Cocina equipada' },
-  { icon: '🛁', label: '2 Baños completos' },
-  { icon: '🛏️', label: '2 Habitaciones' },
-  { icon: '🔥', label: 'Chimenea' },
-  { icon: '🌿', label: 'Jardín privado' },
-  { icon: '🅿️', label: 'Parqueadero' },
-  { icon: '🧺', label: 'Lavadora' },
-  { icon: '📺', label: 'Smart TV' },
-  { icon: '☕', label: 'Cafetera' },
-  { icon: '🌡️', label: 'Agua caliente' },
-  { icon: '🔐', label: 'Acceso privado' },
+  { icon: '🍳', label: 'Cocina equipada'         },
+  { icon: '🛁', label: '2 Baños completos'       },
+  { icon: '🛏️', label: '2 Habitaciones'          },
+  { icon: '🔥', label: 'Chimenea'                },
+  { icon: '🌿', label: 'Jardín privado'          },
+  { icon: '🅿️', label: 'Parqueadero'             },
+  { icon: '🧺', label: 'Lavadora'                },
+  { icon: '📺', label: 'Smart TV'                },
+  { icon: '☕', label: 'Cafetera'                },
+  { icon: '🌡️', label: 'Agua caliente'           },
+  { icon: '🔐', label: 'Acceso privado'          },
 ]
 
 function Cabin() {
@@ -28,41 +36,49 @@ function Cabin() {
   return (
     <div className={styles.page}>
 
-      <section className={styles.hero}>
-        <motion.h1
-          className={styles.title}
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          La Cabaña
-        </motion.h1>
-        <motion.p
-          className={styles.subtitle}
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-        >
-          Siente este espacio, sus comodidades y todo lo que necesitas para disfrutar una estadía tranquila y cómoda en medio de la naturaleza.
-        </motion.p>
+      {/* Hero */}
+      <Hero
+        subtitle="Cabaña Boutique"
+        title="LA CABAÑA"
+        description="Conoce cada espacio, sus comodidades y todo lo que necesitas para disfrutar una estadía única en medio de la naturaleza."
+      />
+
+      {/* Reglas de la Casa */}
+      <CabinRules />
+
+      {/* Equipamiento — bg #969f74 */}
+      <section className={styles.equipment}>
+        <h2 className={styles.equipTitle}>Equipamiento</h2>
+        <div className={styles.equipInner}>
+          <div className={styles.equipImg}>
+            <img src="/images/equipment.jpg" alt="Interior cabaña" />
+          </div>
+          <div className={styles.equipItems}>
+            {equipment.map(({ icon, label }) => (
+              <div key={label} className={styles.equipCard}>
+                <span className={styles.equipIcon}>{icon}</span>
+                <span className={styles.equipLabel}>{label}</span>
+              </div>
+            ))}
+            <button className={styles.equipMore} onClick={() => setShowModal(true)}>
+              + Más comodidades
+            </button>
+          </div>
+        </div>
       </section>
 
-      <section className={styles.scrollSection}>
-        <CabinRules />
-      </section>
+      {/* Video Recorrido */}
+      <CabinVideo videoUrl="" />
 
-      <section className={styles.scrollSection}>
-        <CabinEquipment onMoreClick={() => setShowModal(true)} />
-      </section>
+      {/* Distancias */}
+      <CabinDistances />
 
-      <section className={styles.scrollSection}>
-        <CabinVideo videoUrl="" />
-      </section>
+      {/* CTA RESERVA YA */}
+      <div className={styles.ctaBlock}>
+        <Link to="/reserve" className={styles.ctaBtn}>RESERVA YA!</Link>
+      </div>
 
-      <section className={styles.scrollSection}>
-        <CabinDistances />
-      </section>
-
+      {/* Modal comodidades */}
       <AnimatePresence>
         {showModal && (
           <motion.div
@@ -74,9 +90,9 @@ function Cabin() {
           >
             <motion.div
               className={styles.modal}
-              initial={{ scale: 0.9, opacity: 0 }}
+              initial={{ scale: 0.92, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
+              exit={{ scale: 0.92, opacity: 0 }}
               onClick={e => e.stopPropagation()}
             >
               <button className={styles.modalClose} onClick={() => setShowModal(false)}>✕</button>

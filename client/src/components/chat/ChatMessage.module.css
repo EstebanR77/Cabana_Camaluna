@@ -4,7 +4,7 @@
   gap: 0.2rem;
   padding: 0.75rem 1rem;
   border-radius: var(--radius-sm);
-  background: var(--white);
+  background: var(--color-text-light);
   box-shadow: var(--shadow-card);
   max-width: 85%;
   align-self: flex-start;
@@ -12,7 +12,7 @@
 
 .message.own {
   align-self: flex-end;
-  background: var(--green-soft);
+  background: var(--color-page-bg);
 }
 
 .name {
@@ -20,17 +20,17 @@
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--green-main);
+  color: var(--color-green);
 }
 
 .text {
   font-size: 0.9rem;
-  color: var(--text-dark);
+  color: var(--color-text-main);
   line-height: 1.55;
 }
 
 .time {
   font-size: 0.7rem;
-  color: var(--text-light);
+  color: var(--color-text-green);
   align-self: flex-end;
 }

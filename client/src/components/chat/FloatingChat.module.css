@@ -1,0 +1,56 @@
+.wrap {
+  position: fixed;
+  right: 32px;
+  bottom: 32px;
+  z-index: 250;
+}
+
+.button {
+  width: 64px;
+  height: 64px;
+  border: none;
+  border-radius: 999px;
+  background: var(--color-green);
+  color: var(--color-text-light);
+  display: grid;
+  place-items: center;
+  box-shadow: 0 10px 26px rgba(0,0,0,0.25);
+  cursor: pointer;
+  transition: transform var(--transition), background var(--transition);
+}
+
+.button:hover { transform: translateY(-3px); background: var(--color-green-dark); }
+.button svg { width: 34px; height: 34px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+.window {
+  width: 315px;
+  margin-bottom: 14px;
+  background: var(--color-text-light);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 16px 36px rgba(0,0,0,0.22);
+  border: 1px solid rgba(0,0,0,0.10);
+}
+
+.header {
+  background: var(--color-green);
+  color: var(--color-text-light);
+  padding: 0.95rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.header strong { display: block; font-family: var(--font-title); font-size: 1.2rem; font-weight: 400; }
+.header span { display: block; font-size: 0.72rem; opacity: 0.82; }
+.header button { background: transparent; border: none; color: var(--color-text-light); font-size: 1.6rem; cursor: pointer; }
+
+.body { padding: 1rem; background: var(--color-page-bg); min-height: 98px; }
+.message { background: var(--color-text-light); border-radius: 12px; padding: 0.85rem; font-size: 0.86rem; color: #333; line-height: 1.4; }
+.inputRow { display: flex; gap: 0.5rem; padding: 0.75rem; background: var(--color-text-light); }
+.inputRow input { flex: 1; border: 1px solid rgba(0,0,0,0.15); border-radius: 999px; padding: 0.65rem 0.9rem; font-size: 0.82rem; }
+.inputRow button { border: none; background: var(--color-green); color: var(--color-text-light); border-radius: 999px; padding: 0.55rem 0.9rem; font-size: 0.8rem; cursor: pointer; }
+
+@media (max-width: 480px) {
+  .wrap { right: 18px; bottom: 18px; }
+  .window { width: calc(100vw - 36px); }
+}

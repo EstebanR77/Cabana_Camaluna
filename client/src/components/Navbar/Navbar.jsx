@@ -2,18 +2,103 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import styles from './Navbar.module.css';
 
+const NAV_LINKS = [
+  {
+    label: 'La cabaña',
+    to: '/cabin',
+    hover: {
+      background: 'var(--color-green-light)',
+      border: 'var(--color-green-light)',
+      color: 'var(--color-text-light)',
+    },
+  },
+  {
+    label: 'Reservar',
+    to: '/reserve',
+    hover: {
+      background: 'var(--color-green-dark)',
+      border: 'var(--color-green-dark)',
+      color: 'var(--color-text-light)',
+    },
+  },
+  {
+    label: 'Sobre Villa de Leyva',
+    to: '/about',
+    hover: {
+      background: 'var(--color-page-bg)',
+      border: 'var(--color-green-light)',
+      color: 'var(--color-text-main)',
+    },
+  },
+  {
+    label: 'Galería',
+    to: '/gallery',
+    hover: {
+      background: 'var(--color-orange-soft)',
+      border: 'var(--color-orange-soft)',
+      color: 'var(--color-text-light)',
+    },
+  },
+  {
+    label: 'Conócenos',
+    to: '/#conocenos',
+    hover: {
+      background: 'var(--color-green)',
+      border: 'var(--color-green)',
+      color: 'var(--color-text-light)',
+    },
+  },
+  {
+    label: 'Experiencias/Reseñas',
+    to: '/#resenas',
+    hover: {
+      background: 'var(--color-orange)',
+      border: 'var(--color-orange)',
+      color: 'var(--color-text-light)',
+    },
+  },
+  {
+    label: 'Ayuda y Contacto',
+    to: '/contact',
+    hover: {
+      background: 'var(--color-brown-light)',
+      border: 'var(--color-brown-light)',
+      color: 'var(--color-text-light)',
+    },
+  },
+];
+
 function Navbar() {
-  const [scrolled, setScrolled]   = useState(false);
-  const [menuOpen, setMenuOpen]   = useState(false);
-  const { pathname }              = useLocation();
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const { pathname, hash } = useLocation();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
+
     window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  useEffect(() => { setMenuOpen(false); }, [pathname]);
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [pathname, hash]);
+
+  const isActiveLink = (to) => {
+    const [targetPath, targetHash = ''] = to.split('#');
+    const normalizedPath = targetPath || '/';
+    const normalizedHash = targetHash ? `#${targetHash}` : '';
+
+    return pathname === normalizedPath && hash === normalizedHash;
+  };
+
+  const getHoverStyle = ({ background, border, color }) => ({
+    '--nav-hover-bg': background,
+    '--nav-hover-border': border,
+    '--nav-hover-color': color,
+  });
 
   const navClass = [styles.navbar, scrolled ? styles.scrolled : ''].join(' ');
   const linksClass = [styles.links, menuOpen ? styles.open : ''].join(' ');
@@ -22,21 +107,40 @@ function Navbar() {
   return (
     <nav className={navClass}>
       <Link to="/" className={styles.logo}>
-        Camaluna <span>🌙</span>
+        <img src="/images/logo.png" alt="Camaluna" className={styles.logoImg} />
+        <span className={styles.logoText}>CAMALUNA</span>
       </Link>
 
-      <button className={burgerClass} onClick={() => setMenuOpen(o => !o)} aria-label="Menú">
-        <span /><span /><span />
+      <button
+        className={burgerClass}
+        type="button"
+        onClick={() => setMenuOpen(open => !open)}
+        aria-label="Menú"
+        aria-expanded={menuOpen}
+        aria-controls="main-navigation"
+      >
+        <span />
+        <span />
+        <span />
       </button>
 
-      <ul className={linksClass}>
-        <li><Link to="/"            className={pathname === '/'            ? styles.active : ''}>Inicio</Link></li>
-        <li><Link to="/cabin"       className={pathname === '/cabin'       ? styles.active : ''}>La Cabaña</Link></li>
-        <li><Link to="/about"       className={pathname === '/about'       ? styles.active : ''}>Villa de Leyva</Link></li>
-        <li><Link to="/gallery"     className={pathname === '/gallery'     ? styles.active : ''}>Galería</Link></li>
-        <li><Link to="/conocenos"   className={pathname === '/conocenos'   ? styles.active : ''}>Conócenos</Link></li>
-        <li><Link to="/contact"     className={pathname === '/contact'     ? styles.active : ''}>Contacto</Link></li>
-        <li><Link to="/reserve"     className={[pathname === '/reserve' ? styles.active : '', styles.reserveBtn].join(' ')}>Reservar</Link></li>
+      <ul className={linksClass} id="main-navigation">
+        {NAV_LINKS.map(({ label, to, hover }) => (
+          <li key={to}>
+            <Link
+              to={to}
+              className={isActiveLink(to) ? styles.active : ''}
+              style={getHoverStyle(hover)}
+            >
+              {label}
+            </Link>
+          </li>
+        ))}
+        <li>
+          <Link to="/reserve" className={styles.ctaBtn}>
+            RESERVA YA!
+          </Link>
+        </li>
       </ul>
     </nav>
   );

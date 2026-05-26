@@ -3,14 +3,14 @@
 
 /* ── Equipamiento ─────────────────────────────────────── */
 .equipment {
-  background: var(--olive-muted);
+  background: var(--color-green-light);
   padding: 4rem 2.5rem;
 }
 
 .equipTitle {
-  font-family: var(--font-heading);
+  font-family: var(--font-title);
   font-size: 2.5rem;
-  color: var(--cream);
+  color: var(--color-page-bg);
   text-align: center;
   margin-bottom: 2.5rem;
 }
@@ -43,7 +43,7 @@
 }
 
 .equipCard {
-  background: var(--white);
+  background: var(--color-text-light);
   border-radius: var(--radius-md);
   padding: 1.25rem 1rem;
   display: flex;
@@ -51,7 +51,7 @@
   gap: 0.75rem;
   font-family: var(--font-body);
   font-size: 0.95rem;
-  color: var(--black);
+  color: var(--color-text-main);
 }
 
 .equipIcon { font-size: 1.4rem; }
@@ -60,31 +60,31 @@
 
 .equipMore {
   grid-column: 1 / -1;
-  background: var(--white);
+  background: var(--color-text-light);
   border: none;
   border-radius: var(--radius-md);
   padding: 1rem;
-  font-family: var(--font-heading);
+  font-family: var(--font-title);
   font-size: 1rem;
-  color: var(--olive-main);
+  color: var(--color-green);
   cursor: pointer;
   transition: background var(--transition);
 }
 
-.equipMore:hover { background: var(--cream); }
+.equipMore:hover { background: var(--color-page-bg); }
 
 /* ── CTA Block ────────────────────────────────────────── */
 .ctaBlock {
-  background: var(--olive-main);
+  background: var(--color-green);
   padding: 3rem 2.5rem;
   display: flex;
   justify-content: center;
 }
 
 .ctaBtn {
-  background: var(--olive-dark);
-  color: var(--white);
-  font-family: var(--font-heading);
+  background: var(--color-green-dark);
+  color: var(--color-text-light);
+  font-family: var(--font-title);
   font-size: 1.25rem;
   letter-spacing: 0.08em;
   padding: 1rem 4rem;
@@ -107,7 +107,7 @@
 }
 
 .modal {
-  background: var(--white);
+  background: var(--color-text-light);
   border-radius: var(--radius-lg);
   padding: 2.5rem;
   max-width: 640px;
@@ -121,7 +121,7 @@
   position: absolute;
   top: 1.25rem;
   right: 1.25rem;
-  background: var(--cream);
+  background: var(--color-page-bg);
   border: none;
   width: 36px;
   height: 36px;
@@ -137,9 +137,9 @@
 .modalClose:hover { background: #e0ddd0; }
 
 .modalTitle {
-  font-family: var(--font-heading);
+  font-family: var(--font-title);
   font-size: 1.75rem;
-  color: var(--black);
+  color: var(--color-text-main);
   margin-bottom: 1.75rem;
 }
 
@@ -154,7 +154,7 @@
   flex-direction: column;
   align-items: center;
   gap: 0.5rem;
-  background: var(--cream);
+  background: var(--color-page-bg);
   border-radius: var(--radius-md);
   padding: 1.25rem 0.75rem;
   text-align: center;
@@ -166,7 +166,7 @@
   font-family: var(--font-body);
   font-size: 0.8rem;
   font-weight: 600;
-  color: var(--black);
+  color: var(--color-text-main);
 }
 
 @media (max-width: 768px) {

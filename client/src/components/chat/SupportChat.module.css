@@ -1,5 +1,5 @@
 .chat {
-  border: 1.5px solid var(--cream-dark);
+  border: 1.5px solid #eee8d8;
   border-radius: var(--radius-md);
   overflow: hidden;
 }
@@ -12,12 +12,12 @@
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-  background: var(--cream);
+  background: var(--color-page-bg);
 }
 
 .empty {
   font-size: 0.88rem;
-  color: var(--text-light);
+  color: var(--color-text-green);
   font-style: italic;
   text-align: center;
   padding: 2rem 0;
@@ -27,31 +27,31 @@
   display: flex;
   gap: 0.75rem;
   padding: 1rem 1.25rem;
-  background: var(--white);
-  border-top: 1.5px solid var(--cream-dark);
+  background: var(--color-text-light);
+  border-top: 1.5px solid #eee8d8;
 }
 
 .input {
   flex: 1;
   padding: 0.7rem 1rem;
-  border: 1.5px solid var(--cream-dark);
+  border: 1.5px solid #eee8d8;
   border-radius: var(--radius-sm);
   font-size: 0.92rem;
-  color: var(--text-dark);
-  background: var(--cream);
+  color: var(--color-text-main);
+  background: var(--color-page-bg);
   font-family: var(--font-body);
   transition: border-color var(--transition);
 }
 
 .input:focus {
   outline: none;
-  border-color: var(--green-main);
-  background: var(--white);
+  border-color: var(--color-green);
+  background: var(--color-text-light);
 }
 
 .sendBtn {
-  background: var(--green-main);
-  color: var(--white);
+  background: var(--color-green);
+  color: var(--color-text-light);
   border: none;
   padding: 0.7rem 1.5rem;
   border-radius: var(--radius-sm);
@@ -63,4 +63,4 @@
   white-space: nowrap;
 }
 
-.sendBtn:hover { background: var(--green-dark); }
+.sendBtn:hover { background: var(--color-green-dark); }
