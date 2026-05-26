@@ -1,28 +1,51 @@
-import { motion } from 'framer-motion'
-import { Link } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 import styles from './GalleryPreview.module.css'
 
 function GalleryPreview({ images = [] }) {
+  const [hoveredIndex, setHoveredIndex] = useState(null)
+  const [activeIndex, setActiveIndex] = useState(null)
+  const [isHovered, setIsHovered] = useState(false)
+  const [hoverClass, setHoverClass] = useState('')
+
+  useEffect(() => {
+    setActiveIndex(hoveredIndex)
+  }, [hoveredIndex])
+
+  useEffect(() => {
+    setHoverClass(isHovered ? styles.isHovered : '')
+  }, [isHovered])
+
   return (
-    <section className={styles.section}>
-      <h2 className={styles.title}>Galería</h2>
-      <p className={styles.subtitle}>Lo que nos hace especiales en imágenes</p>
+    <section
+      className={`${styles.section} ${hoverClass}`}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      onFocus={() => setIsHovered(true)}
+      onBlur={() => setIsHovered(false)}
+    >
+      <div className={styles.header}>
+        <h2 className={styles.title}>Galería</h2>
+        <p className={styles.subtitle}>Vive la cabaña antes de llegar.</p>
+      </div>
+
       <div className={styles.grid}>
         {images.map((img, i) => (
-          <motion.div
-            key={i}
-            className={styles.item}
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.4, delay: i * 0.1 }}
-            viewport={{ once: true, amount: 0.3 }}
+          <div
+            key={img.alt}
+            className={`${styles.item} ${activeIndex === i ? styles.itemActive : ''}`}
+            onMouseEnter={() => setHoveredIndex(i)}
+            onMouseLeave={() => setHoveredIndex(null)}
+            onFocus={() => setHoveredIndex(i)}
+            onBlur={() => setHoveredIndex(null)}
+            tabIndex={0}
           >
-            <img src={img.url} alt={img.alt} className={styles.img} />
+            <div className={styles.imgWrap}>
+              <img src={img.url} alt={img.alt} className={styles.img} />
+            </div>
             <p className={styles.caption}>{img.alt}</p>
-          </motion.div>
+          </div>
         ))}
       </div>
-      <Link to="/gallery" className={styles.link}>Ver galería completa →</Link>
     </section>
   )
 }

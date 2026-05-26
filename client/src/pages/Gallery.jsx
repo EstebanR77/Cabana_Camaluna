@@ -1,46 +1,39 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import Hero   from '../components/Hero/Hero'
 import Footer from '../components/Footer/Footer'
 import styles from './Gallery.module.css'
 
 const categories = ['Todas', 'Habitaciones', 'Área Social', 'Exteriores', 'Cocina']
 
 const images = [
-  { url: '/images/habitaciones.jpg',  alt: 'Habitación principal',   category: 'Habitaciones' },
-  { url: '/images/area-social.jpg',   alt: 'Sala y comedor',         category: 'Área Social'  },
-  { url: '/images/fachada.jpg',       alt: 'Fachada y jardín',       category: 'Exteriores'   },
-  { url: '/images/anfitriones.jpg',   alt: 'Terraza exterior',       category: 'Exteriores'   },
-  { url: '/images/villa-de-leyva.jpg',alt: 'Vista desde la cabaña',  category: 'Exteriores'   },
-  { url: '/images/habitaciones.jpg',  alt: 'Segunda habitación',     category: 'Habitaciones' },
+  { url: '/images/habitaciones.jpg',  alt: 'Habitación principal',    category: 'Habitaciones' },
+  { url: '/images/area-social.jpg',   alt: 'Sala y comedor',          category: 'Área Social'  },
+  { url: '/images/fachada.jpg',       alt: 'Fachada y jardín',        category: 'Exteriores'   },
+  { url: '/images/anfitriones.jpg',   alt: 'Terraza exterior',        category: 'Exteriores'   },
+  { url: '/images/villa-de-leyva.jpg',alt: 'Vista desde la cabaña',   category: 'Exteriores'   },
+  { url: '/images/habitaciones.jpg',  alt: 'Segunda habitación',      category: 'Habitaciones' },
+  { url: '/images/equipment.jpg',     alt: 'Cocina equipada',         category: 'Cocina'       },
+  { url: '/images/gallery-social.jpg',alt: 'Área social y terraza',   category: 'Área Social'  },
+  { url: '/images/gallery-facade.jpg',alt: 'Entorno natural',         category: 'Exteriores'   },
 ]
 
 function Gallery() {
-  const [active, setActive]   = useState('Todas')
+  const [active, setActive]     = useState('Todas')
   const [selected, setSelected] = useState(null)
 
-  const filtered = active === 'Todas' ? images : images.filter(img => img.category === active)
+  const filtered = active === 'Todas'
+    ? images
+    : images.filter(img => img.category === active)
 
   return (
     <div className={styles.page}>
 
-      <section className={styles.hero}>
-        <motion.h1
-          className={styles.title}
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          Galería
-        </motion.h1>
-        <motion.p
-          className={styles.subtitle}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-        >
-          Lo que nos hace especiales en imágenes
-        </motion.p>
-      </section>
+      <Hero
+        subtitle="Cabaña Boutique"
+        title="Galería"
+        description="Vive la cabaña antes de llegar."
+      />
 
       {/* Filtros */}
       <section className={styles.filters}>
@@ -66,7 +59,7 @@ function Gallery() {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 0.35, delay: i * 0.05 }}
+              transition={{ duration: 0.3, delay: i * 0.04 }}
               onClick={() => setSelected(img)}
             >
               <img src={img.url} alt={img.alt} className={styles.img} />
@@ -92,9 +85,9 @@ function Gallery() {
               src={selected.url}
               alt={selected.alt}
               className={styles.lightboxImg}
-              initial={{ scale: 0.85 }}
+              initial={{ scale: 0.87 }}
               animate={{ scale: 1 }}
-              exit={{ scale: 0.85 }}
+              exit={{ scale: 0.87 }}
               onClick={e => e.stopPropagation()}
             />
             <button className={styles.closeBtn} onClick={() => setSelected(null)}>✕</button>

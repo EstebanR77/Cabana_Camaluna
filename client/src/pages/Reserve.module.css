@@ -3,14 +3,14 @@
 
 /* ── Booking section ──────────────────────────────────── */
 .bookingSection {
-  background: var(--cream);
+  background: var(--color-page-bg);
   padding: 4rem 2.5rem;
 }
 
 .bookingTitle {
-  font-family: var(--font-heading);
+  font-family: var(--font-title);
   font-size: 1.75rem;
-  color: var(--black);
+  color: var(--color-text-main);
   text-align: center;
   margin-bottom: 2.5rem;
 }
@@ -46,15 +46,15 @@
   left: calc(50% + 17px);
 }
 
-.stepItem.stepCompleted::after { background: var(--olive-main); }
+.stepItem.stepCompleted::after { background: var(--color-green); }
 
 .stepCircle {
   width: 34px;
   height: 34px;
   border-radius: 50%;
   border: 2px solid rgba(0,0,0,0.2);
-  background: var(--white);
-  color: var(--black);
+  background: var(--color-text-light);
+  color: var(--color-text-main);
   font-family: var(--font-body);
   font-size: 0.9rem;
   font-weight: 600;
@@ -67,15 +67,15 @@
 }
 
 .stepActive .stepCircle {
-  border-color: var(--olive-main);
-  background: var(--olive-main);
-  color: var(--white);
+  border-color: var(--color-green);
+  background: var(--color-green);
+  color: var(--color-text-light);
 }
 
 .stepCompleted .stepCircle {
-  border-color: var(--olive-main);
-  background: var(--olive-main);
-  color: var(--white);
+  border-color: var(--color-green);
+  background: var(--color-green);
+  color: var(--color-text-light);
 }
 
 .stepName {
@@ -86,14 +86,14 @@
   max-width: 100px;
 }
 
-.stepActive .stepName   { color: var(--olive-main); font-weight: 600; }
-.stepCompleted .stepName{ color: var(--olive-main); }
+.stepActive .stepName   { color: var(--color-green); font-weight: 600; }
+.stepCompleted .stepName{ color: var(--color-green); }
 
 /* ── Step content ─────────────────────────────────────── */
 .stepContent {
   max-width: 860px;
   margin: 0 auto;
-  background: var(--white);
+  background: var(--color-text-light);
   border-radius: var(--radius-md);
   padding: 2.5rem;
   box-shadow: var(--shadow-card);
@@ -102,9 +102,9 @@
 .step { display: flex; flex-direction: column; gap: 1.5rem; }
 
 .stepLabel {
-  font-family: var(--font-heading);
+  font-family: var(--font-title);
   font-size: 1.25rem;
-  color: var(--olive-main);
+  color: var(--color-green);
   border-bottom: 2px solid rgba(112,136,95,0.2);
   padding-bottom: 0.75rem;
 }
@@ -117,13 +117,13 @@
 }
 
 .calendar {
-  background: var(--white);
+  background: var(--color-text-light);
 }
 
 .calMonth {
-  font-family: var(--font-heading);
+  font-family: var(--font-title);
   font-size: 1rem;
-  color: var(--olive-main);
+  color: var(--color-green);
   text-align: center;
   margin-bottom: 0.75rem;
 }
@@ -153,22 +153,22 @@
   cursor: pointer;
   text-align: center;
   transition: background var(--transition), color var(--transition);
-  color: var(--black);
+  color: var(--color-text-main);
 }
 
-.calDay:hover  { background: var(--cream); }
-.calStart, .calEnd { background: var(--olive-main) !important; color: var(--white) !important; }
+.calDay:hover  { background: var(--color-page-bg); }
+.calStart, .calEnd { background: var(--color-green) !important; color: var(--color-text-light) !important; }
 .calRange { background: rgba(112,136,95,0.2); }
 
 .rangeInfo {
   display: flex;
   gap: 2rem;
   padding: 1rem 1.25rem;
-  background: var(--cream);
+  background: var(--color-page-bg);
   border-radius: var(--radius-sm);
   font-family: var(--font-body);
   font-size: 0.9rem;
-  color: var(--black);
+  color: var(--color-text-main);
   flex-wrap: wrap;
 }
 
@@ -193,17 +193,17 @@
 .input, .textarea {
   font-family: var(--font-body);
   font-size: 0.93rem;
-  color: var(--black);
+  color: var(--color-text-main);
   border: 1px solid rgba(0,0,0,0.18);
   border-radius: var(--radius-sm);
   padding: 0.7rem 1rem;
-  background: var(--white);
+  background: var(--color-text-light);
   transition: border-color var(--transition);
   resize: vertical;
 }
 
 .input:focus, .textarea:focus {
-  border-color: var(--olive-main);
+  border-color: var(--color-green);
 }
 
 /* ── Resumen ──────────────────────────────────────────── */
@@ -214,14 +214,14 @@
 }
 
 .summaryCard {
-  background: var(--cream);
+  background: var(--color-page-bg);
   border-radius: var(--radius-md);
   padding: 1.25rem 1.5rem;
 }
 
 .summaryTotal {
   grid-column: 1 / -1;
-  background: var(--olive-muted);
+  background: var(--color-green-light);
 }
 
 .summaryKey {
@@ -232,9 +232,9 @@
 }
 
 .summaryVal {
-  font-family: var(--font-heading);
+  font-family: var(--font-title);
   font-size: 1.1rem;
-  color: var(--black);
+  color: var(--color-text-main);
 }
 
 /* ── Confirmado ───────────────────────────────────────── */
@@ -247,24 +247,24 @@
 .confirmedIcon { font-size: 4rem; }
 
 .confirmedTitle {
-  font-family: var(--font-heading);
+  font-family: var(--font-title);
   font-size: 2rem;
-  color: var(--olive-main);
+  color: var(--color-green);
 }
 
 .confirmedText {
   font-family: var(--font-body);
   font-size: 1rem;
-  color: var(--black);
+  color: var(--color-text-main);
   max-width: 420px;
   line-height: 1.7;
 }
 
 .confirmedBtn {
   display: inline-block;
-  background: var(--olive-dark);
-  color: var(--white);
-  font-family: var(--font-heading);
+  background: var(--color-green-dark);
+  color: var(--color-text-light);
+  font-family: var(--font-title);
   font-size: 1rem;
   padding: 0.8rem 2.5rem;
   border-radius: var(--radius-sm);
@@ -284,9 +284,9 @@
 }
 
 .btnBack {
-  background: var(--white);
+  background: var(--color-text-light);
   border: 1px solid rgba(0,0,0,0.2);
-  color: var(--black);
+  color: var(--color-text-main);
   font-family: var(--font-body);
   font-size: 0.9rem;
   padding: 0.75rem 1.75rem;
@@ -295,13 +295,13 @@
   transition: background var(--transition);
 }
 
-.btnBack:hover { background: var(--cream); }
+.btnBack:hover { background: var(--color-page-bg); }
 
 .btnNext {
-  background: var(--olive-dark);
+  background: var(--color-green-dark);
   border: none;
-  color: var(--white);
-  font-family: var(--font-heading);
+  color: var(--color-text-light);
+  font-family: var(--font-title);
   font-size: 0.95rem;
   padding: 0.75rem 2.25rem;
   border-radius: var(--radius-sm);
@@ -323,45 +323,4 @@
   .stepItem { padding: 0 0.5rem; }
   .stepName { font-size: 0.65rem; max-width: 70px; }
   .stepContent { padding: 1.5rem; }
-}
-
-.legend {
-  font-family: var(--font-body);
-  font-size: 0.82rem;
-  color: rgba(0,0,0,0.55);
-  margin-top: -0.75rem;
-}
-
-.errorMessage {
-  font-family: var(--font-body);
-  font-size: 0.9rem;
-  color: #8a1f1f;
-  background: #fff1f1;
-  border: 1px solid rgba(138,31,31,0.25);
-  border-radius: var(--radius-sm);
-  padding: 0.85rem 1rem;
-}
-
-.calUnavailable,
-.calPast {
-  color: rgba(0,0,0,0.28);
-  background: repeating-linear-gradient(
-    135deg,
-    rgba(0,0,0,0.06),
-    rgba(0,0,0,0.06) 4px,
-    rgba(0,0,0,0.02) 4px,
-    rgba(0,0,0,0.02) 8px
-  );
-  cursor: not-allowed;
-}
-
-.calUnavailable:hover,
-.calPast:hover {
-  background: repeating-linear-gradient(
-    135deg,
-    rgba(0,0,0,0.06),
-    rgba(0,0,0,0.06) 4px,
-    rgba(0,0,0,0.02) 4px,
-    rgba(0,0,0,0.02) 8px
-  );
 }

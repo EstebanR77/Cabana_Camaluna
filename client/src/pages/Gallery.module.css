@@ -8,13 +8,13 @@
   gap: 0.5rem;
   flex-wrap: wrap;
   padding: 2rem 1.5rem 1rem;
-  background: var(--cream);
+  background: var(--color-page-bg);
 }
 
 .filterBtn {
-  background: var(--white);
+  background: var(--color-text-light);
   border: 1.5px solid rgba(0,0,0,0.15);
-  color: var(--black);
+  color: var(--color-text-main);
   font-family: var(--font-body);
   font-size: 0.82rem;
   font-weight: 600;
@@ -27,14 +27,14 @@
 }
 
 .filterBtn:hover {
-  border-color: var(--olive-main);
-  color: var(--olive-main);
+  border-color: var(--color-green);
+  color: var(--color-green);
 }
 
 .filterActive {
-  background: var(--olive-main) !important;
-  border-color: var(--olive-main) !important;
-  color: var(--white) !important;
+  background: var(--color-green) !important;
+  border-color: var(--color-green) !important;
+  color: var(--color-text-light) !important;
 }
 
 /* Grid */
@@ -42,7 +42,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
-  background: var(--cream);
+  background: var(--color-page-bg);
   padding: 1.5rem 2.5rem 5rem;
   max-width: 1200px;
   margin: 0 auto;
@@ -63,7 +63,7 @@
   object-fit: cover;
   display: block;
   transition: transform 0.5s ease;
-  background: var(--olive-muted);
+  background: var(--color-green-light);
 }
 
 .item:hover .img { transform: scale(1.05); }
@@ -82,7 +82,7 @@
 .item:hover .imgOverlay { opacity: 1; }
 
 .imgCaption {
-  color: var(--white);
+  color: var(--color-text-light);
   font-family: var(--font-body);
   font-size: 0.88rem;
 }
@@ -113,7 +113,7 @@
   right: 1.5rem;
   background: rgba(255,255,255,0.15);
   border: 1px solid rgba(255,255,255,0.25);
-  color: var(--white);
+  color: var(--color-text-light);
   width: 40px;
   height: 40px;
   border-radius: 50%;

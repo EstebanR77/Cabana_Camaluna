@@ -1,17 +1,10 @@
-import { motion } from 'framer-motion'
 import styles from './CabinVideo.module.css'
 
 function CabinVideo({ videoUrl }) {
   return (
     <section className={styles.section}>
       <h2 className={styles.title}>Video Recorrido</h2>
-      <motion.div
-        className={styles.videoWrapper}
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        viewport={{ once: true }}
-      >
+      <div className={styles.videoWrapper}>
         {videoUrl ? (
           <iframe
             src={videoUrl}
@@ -20,12 +13,15 @@ function CabinVideo({ videoUrl }) {
             className={styles.iframe}
           />
         ) : (
-          <div className={styles.placeholder}>
-            <span>▶</span>
-            <p>Video recorrido próximamente</p>
+          <div
+            className={styles.placeholder}
+            style={{ backgroundImage: "url('/images/video-thumb.jpg')" }}
+          >
+            <div className={styles.playBtn}>▶</div>
+            <p className={styles.placeholderText}>Ver video recorrido</p>
           </div>
         )}
-      </motion.div>
+      </div>
     </section>
   )
 }

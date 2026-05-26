@@ -1,13 +1,13 @@
 .section {
   padding: 4rem 2.5rem;
-  background: var(--green-dark);
+  background: var(--color-green-dark);
   max-width: 100%;
 }
 
 .title {
-  font-family: var(--font-heading);
+  font-family: var(--font-title);
   font-size: clamp(1.5rem, 3.5vw, 2rem);
-  color: var(--white);
+  color: var(--color-text-light);
   text-align: center;
   margin-bottom: 2.5rem;
 }
@@ -31,7 +31,7 @@
 }
 
 .number {
-  font-family: var(--font-heading);
+  font-family: var(--font-title);
   font-size: 2.5rem;
   font-weight: 700;
   color: rgba(255,255,255,0.2);
@@ -39,9 +39,9 @@
 }
 
 .stepTitle {
-  font-family: var(--font-heading);
+  font-family: var(--font-title);
   font-size: 1.05rem;
-  color: var(--white);
+  color: var(--color-text-light);
   font-weight: 600;
 }
 

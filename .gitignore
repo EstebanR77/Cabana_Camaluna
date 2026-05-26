@@ -1,5 +1,30 @@
+# Dependencias
 node_modules/
 client/node_modules/
+
+# Variables de entorno
 .env
+.env.local
+.env.*.local
+
+# Build
 dist/
+client/dist/
+build/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editores / SO
 .DS_Store
+.vscode/
+.idea/
+*.swp
+Thumbs.db
+
+# Locks de otros gestores (mantener solo package-lock.json)
+yarn.lock
+pnpm-lock.yaml

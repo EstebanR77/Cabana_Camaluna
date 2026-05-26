@@ -1,74 +1,190 @@
-/* ── Google Fonts ─────────────────────────────────────── */
-@import url('https://fonts.googleapis.com/css2?family=Girassol&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Girassol&family=Inter:wght@200;400&display=swap');
 
-/* ── Variables globales (Figma exacto) ────────────────── */
+/* Variables globales del proyecto */
 :root {
-  /* Paleta Figma */
-  --olive-dark:    #495821;   /* CTA principal "RESERVA YA!" */
-  --olive-main:    #70885f;   /* Secciones Conócenos, Footer, botones */
-  --olive-muted:   #969f74;   /* Sección Equipamiento, nav activo Reservar */
-  --brown-warm:    #c07c3a;   /* Títulos de sección, acentos */
-  --brown-dark:    #6b4835;   /* Card Correo */
-  --cream:         #f9f9ef;   /* Fondos claros de sección */
-  --white:         #ffffff;
-  --black:         #000000;
+  /* Fondos */
+  --color-page-bg: #f9f9f0;
+  --color-page-oscuro: #EDEDDE;
 
-  /* Tipografía */
-  --font-heading: 'Girassol', serif;
-  --font-body:    'Inter', sans-serif;
+  /* Colores principales */
+  --color-green-light: #969f74;
+  --color-green: #70885f;
+  --color-green-dark: #495821;
 
-  /* Aliases de compatibilidad (variables antiguas → nuevas) */
-  --green-dark:   var(--olive-dark);
-  --green-main:   var(--olive-main);
-  --green-light:  var(--olive-muted);
-  --green-soft:   var(--cream);
-  --text-dark:    var(--black);
-  --text-mid:     #444;
-  --text-light:   #777;
-  --cream-dark:   #eee8d8;
-  --brown-main:   var(--brown-warm);
-  --brown-light:  #c4956a;
-  --brown-soft:   #f2e8da;
+  --color-brown: #573b2a;
+  --color-brown-light: #6b4835;
 
-  /* Radios */
+  --color-orange-soft: #c07c3a;
+  --color-orange: #d5742e;
+  --color-orange-bright: #ec832f;
+
+  --color-text-main: #1e140e;
+  --color-text-light: #f9f9f0;
+  --color-text-green: #495821;
+
+    /* Tipografias */
+  --font-title: 'Girassol', serif;   /* Principal*/
+  --font-body: 'Inter', sans-serif; /* Secundaria*/
+
+    /* Tamano de textos */
+  
+  --font-size-title: 90px; /* Tamano - titulos */
+  --font-size-secondary: 40px; /* Tamano - textos secundarios */
+  --font-size-subtitle: 26px; /* Tamano - textos subtitulos */
+  --font-size-button: 34px; /* Tamano - texto- botones */
+
+  /* Peso de las fuentes */
+
+  --font-weight-regular: 400; /* Peso regular de las fuentes */
+   --font-weight-extra-light: 200; /* Peso extra light para subtitulos */
+
+  /* Padding general para algunas cards */
+  --card-padding: 30px;
+
+  /* Radio para cards */
+  --radius-card-md: 40px;
+  --radius-card-lg: 50px;
   --radius-sm: 6px;
-  --radius-md: 12px;
-  --radius-lg: 20px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
 
-  /* Sombras */
-  --shadow-soft: 0 4px 24px rgba(0, 0, 0, 0.10);
-  --shadow-card: 0 2px 16px rgba(0, 0, 0, 0.08);
-  --transition:  0.3s ease;
+  /* Sombras y transiciones */
+  --shadow-soft: 0 8px 24px rgba(0, 0, 0, 0.12);
+  --shadow-card: 0 4px 18px rgba(0, 0, 0, 0.10);
+  --transition: 0.28s ease;
+
+
+
+  
 }
 
-/* ── Reset base ───────────────────────────────────────── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+/* Padding y border no aumenten el tamano final de los elementos */
+* {
+  box-sizing: border-box;
+}
 
-html { scroll-behavior: smooth; }
 
+/* Scroll suave cuando se navega a secciones con id */
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+}
+
+/* Estilos base del cuerpo de la pagina */
 body {
-  font-family: var(--font-body);
-  background-color: var(--white);
-  color: var(--black);
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+
+ 
+  background-color: var(--color-page-bg);  /*color de fondo global */
+  color: var(--color-text-main); /*color principal del texto */
+  font-family: var(--font-body);/* fuente base del proyecto */
 }
 
-h1, h2, h3, h4 {
-  font-family: var(--font-heading);
+/* Imagenes no se salen de su contenedor */
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/* Quita el color azul y subrayado por defecto de los enlaces */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Hace que formularios y botones hereden la fuente del proyecto */
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Estilo base para botones */
+button {
+  border: none; /* Sin borde por defecto */
+  cursor: pointer; /* manita al pasar el mouse */
+}
+
+
+/* Clase global para titulos principales */
+
+.title {
+  margin: 0;
+
+  font-family: var(--font-title); /*  fuente Girassol */
+  font-size: var(--font-size-title);  /* Tamano para titulos */
+  font-weight: var(--font-weight-regular); /* peso regular */
+  line-height: 1;
+}
+
+/* Clase global para textos secundarios grandes */
+.text-secondary {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--font-size-secondary);
+  font-weight: var(--font-weight-regular);
   line-height: 1.2;
 }
 
-a { color: inherit; text-decoration: none; }
-
-img { max-width: 100%; display: block; }
-
-button, input, textarea, select {
+/* Clase global para subtitulos */
+.subtitle {
+  margin: 0;
   font-family: var(--font-body);
-  outline: none;
+  font-size: var(--font-size-subtitle);
+  font-weight: var(--font-weight-extra-light);
+  line-height: 1.3;
 }
 
-/* ── Scrollbar ────────────────────────────────────────── */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--cream); }
-::-webkit-scrollbar-thumb { background: var(--olive-main); border-radius: 3px; }
+/* Clase global para textos de botones */
+.button-text {
+  font-family: var(--font-title);
+  font-size: var(--font-size-button);
+  font-weight: var(--font-weight-regular);
+  line-height: 1;
+}
+
+/* Clase global para cards con radio de 40 */
+.card {
+  padding: var(--card-padding);
+  border-radius: var(--radius-card-md);
+}
+
+/* Clase global para cards con radio de 50 */
+.card-lg {
+  padding: var(--card-padding);
+  border-radius: var(--radius-card-lg);
+}
+
+/* Movil*/
+@media (max-width: 480px) {
+  :root {
+    --font-size-title: 46px;
+    --font-size-secondary: 24px;
+    --font-size-subtitle: 18px;
+    --font-size-button: 22px;
+
+    --card-padding: 18px;
+    --radius-card-md: 24px;
+    --radius-card-lg: 30px;
+    --nav-height: 76px;
+    --nav-inline: 16px;
+    --nav-logo-width: 160px;
+    --nav-logo-img-width: 150px;
+    --nav-link-height: 42px;
+    --nav-link-font-size: 20px;
+    --hero-width: calc(100% - 24px);
+    --hero-min-height: 360px;
+    --hero-margin-top: 18px;
+    --hero-margin-bottom: 3rem;
+    --hero-radius: 18px;
+  }
+}

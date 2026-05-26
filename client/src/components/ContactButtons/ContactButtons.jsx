@@ -1,27 +1,44 @@
-import { motion } from 'framer-motion'
+import { useEffect, useState } from 'react'
 import styles from './ContactButtons.module.css'
 
-function ContactButtons({ buttons = [] }) {
+const CARDS = [
+  { label: 'WhatsApp', sub: 'Estamos para ayudarte', href: 'https://wa.me/573107777579', color: 'whatsapp' },
+  { label: 'Teléfonos', sub: 'Llámanos', href: 'tel:+573107777579', color: 'telefono' },
+  { label: 'Preguntas Frecuentes', sub: 'Resolvemos tus dudas', href: '/contact', color: 'faq' },
+  { label: 'Correo', sub: 'Escríbenos', href: 'mailto:info@camaluna.com', color: 'correo' },
+]
+
+function ContactButtons() {
+  const [hoveredIndex, setHoveredIndex] = useState(null)
+  const [activeIndex, setActiveIndex] = useState(null)
+
+  useEffect(() => {
+    setActiveIndex(hoveredIndex)
+  }, [hoveredIndex])
+
   return (
     <section className={styles.section}>
-      <h2 className={styles.title}>Ayuda y Contacto</h2>
-      <p className={styles.subtitle}>¿En qué podemos ayudarte?</p>
+      <div className={styles.header}>
+        <p className={styles.eyebrow}>¿Necesitas ayuda?</p>
+        <h2 className={styles.heading}>Ayuda y Contacto</h2>
+      </div>
+
       <div className={styles.grid}>
-        {buttons.map((btn, i) => (
-          <motion.a
-            key={i}
-            href={btn.href}
-            className={styles.btn}
-            target={btn.href.startsWith('http') ? '_blank' : '_self'}
+        {CARDS.map(({ label, sub, href, color }, i) => (
+          <a
+            key={label}
+            href={href}
+            className={`${styles.card} ${styles[color]} ${activeIndex === i ? styles.cardActive : ''}`}
+            target={href.startsWith('http') ? '_blank' : '_self'}
             rel="noreferrer"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: i * 0.1 }}
-            viewport={{ once: true, amount: 0.3 }}
+            onMouseEnter={() => setHoveredIndex(i)}
+            onMouseLeave={() => setHoveredIndex(null)}
+            onFocus={() => setHoveredIndex(i)}
+            onBlur={() => setHoveredIndex(null)}
           >
-            <span className={styles.icon}>{btn.icon}</span>
-            <span className={styles.label}>{btn.label}</span>
-          </motion.a>
+            <span className={styles.cardTitle}>{label}</span>
+            <span className={styles.cardSub}>{sub}</span>
+          </a>
         ))}
       </div>
     </section>

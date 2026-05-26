@@ -1,14 +1,14 @@
 /* ── Video Recorrido ──────────────────────────────────── */
 .section {
-  background: var(--white);
+  background: var(--color-text-light);
   padding: 4rem 2.5rem;
   text-align: center;
 }
 
 .title {
-  font-family: var(--font-heading);
+  font-family: var(--font-title);
   font-size: 2.5rem;
-  color: var(--olive-main);
+  color: var(--color-green);
   margin-bottom: 2rem;
 }
 
@@ -34,7 +34,7 @@
   aspect-ratio: 16/9;
   background-size: cover;
   background-position: center;
-  background-color: var(--olive-muted);
+  background-color: var(--color-green-light);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -57,7 +57,7 @@
   height: 72px;
   border-radius: 50%;
   background: rgba(255,255,255,0.92);
-  color: var(--olive-main);
+  color: var(--color-green);
   font-size: 1.6rem;
   display: flex;
   align-items: center;
@@ -68,7 +68,7 @@
 
 .placeholder:hover .playBtn {
   transform: scale(1.1);
-  background: var(--white);
+  background: var(--color-text-light);
 }
 
 .placeholderText {
@@ -76,7 +76,7 @@
   z-index: 1;
   font-family: var(--font-body);
   font-size: 0.9rem;
-  color: var(--white);
+  color: var(--color-text-light);
 }
 
 @media (max-width: 768px) {

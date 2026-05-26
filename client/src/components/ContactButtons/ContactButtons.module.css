@@ -1,79 +1,91 @@
-/* ── Ayuda y Contacto ─────────────────────────────────── */
 .section {
-  padding: 4rem 2.5rem;
-  background: var(--white);
+  width: 100%;
+  padding: 0 0 1.65rem;
+  background: var(--color-text-light);
 }
 
-/* Encabezado */
 .header {
   text-align: center;
-  margin-bottom: 2.5rem;
-}
+  margin-bottom: 1.25rem;
+} 
 
 .eyebrow {
-  font-family: var(--font-body);
-  font-size: 0.95rem;
-  color: var(--black);
-  margin-bottom: 0.25rem;
+  margin: 0 0 0.1rem;
+  font-size: 0.85rem;
+  color: #333;
 }
 
 .heading {
-  font-family: var(--font-heading);
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  color: var(--black);
+  margin: 0;
+  font-family: var(--font-title);
+  font-size: clamp(2rem, 4.5vw, 3.1rem);
+  font-weight: var(--font-weight-regular);
+  line-height: 1;
+  letter-spacing: 0;
+  color: var(--color-text-main);
 }
 
-/* Grid */
 .grid {
-  max-width: 900px;
-  margin: 0 auto;
+  width: min(100% - 70px, 1500px);
+  height: 150px;
+  margin: 20px auto;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1.25rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.45rem;
 }
 
-/* Tarjetas */
 .card {
+  min-height: 108px;
+  padding: 1.3rem 1rem;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  border-radius: var(--radius-md);
-  padding: 2rem 1.5rem;
-  text-decoration: none;
-  transition: transform var(--transition), filter var(--transition);
-  cursor: pointer;
+  justify-content: center;
+  gap: 0.2rem;
+  text-align: center;
+  border-radius: 14px;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+  transition: transform var(--transition), filter var(--transition), box-shadow var(--transition);
 }
 
-.card:hover {
-  transform: translateY(-4px);
-  filter: brightness(0.93);
+.card:hover,
+.cardActive {
+  transform: translateY(-5px) scale(1.015);
+  filter: brightness(0.97);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.14);
 }
 
 .cardTitle {
-  font-family: var(--font-heading);
-  font-size: 1.25rem;
-  color: var(--black);
-  display: block;
+  font-family: var(--font-title);
+  font-size: clamp(1.15rem, 1.7vw, 1.45rem);
+  font-weight: var(--font-weight-regular);
+  line-height: 1.05;
+  color: var(--color-text-main);
 }
 
 .cardSub {
-  font-family: var(--font-body);
-  font-size: 0.9rem;
-  color: var(--black);
-  display: block;
+  font-size: 0.72rem;
+  color: rgba(0, 0, 0, 0.67);
 }
 
-/* Colores específicos Figma */
-.whatsapp { background: #c07c3a; }
-.telefono { background: #969f74; }
-.faq      { background: #70885f; }
-.correo   { background: #6b4835; }
+.whatsapp { background: var(--color-orange); }
+.telefono { background: var(--color-green-light); }
+.faq { background: var(--color-green); }
+.correo { background: var(--color-orange-soft); }
 
 @media (max-width: 768px) {
-  .section { padding: 3rem 1.25rem; }
-  .grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+  .section {
+    padding: 1rem 0 1.75rem;
+  }
+
+  .grid {
+    width: calc(100% - 24px);
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
 }
 
 @media (max-width: 480px) {
-  .grid { grid-template-columns: 1fr; }
+  .grid {
+    grid-template-columns: 1fr;
+  }
 }

@@ -1,15 +1,15 @@
 .section {
   padding: 5rem 2.5rem;
-  background: var(--white);
+  background: var(--color-text-light);
   max-width: 1100px;
   margin: 0 auto;
   width: 100%;
 }
 
 .title {
-  font-family: var(--font-heading);
+  font-family: var(--font-title);
   font-size: clamp(1.8rem, 4vw, 2.25rem);
-  color: var(--text-dark);
+  color: var(--color-text-main);
   margin-bottom: 2.5rem;
 }
 
@@ -21,7 +21,7 @@
 }
 
 .item {
-  background: var(--cream);
+  background: var(--color-page-bg);
   border-radius: var(--radius-md);
   padding: 2rem 1.25rem;
   display: flex;
@@ -34,7 +34,7 @@
 }
 
 .item:hover {
-  background: var(--green-soft);
+  background: var(--color-page-bg);
   transform: translateY(-3px);
 }
 
@@ -47,13 +47,13 @@
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--text-mid);
+  color: var(--color-text-main);
 }
 
 .moreBtn {
   background: transparent;
-  border: 2px solid var(--green-main);
-  color: var(--green-main);
+  border: 2px solid var(--color-green);
+  color: var(--color-green);
   font-family: var(--font-body);
   font-size: 0.82rem;
   font-weight: 700;
@@ -66,8 +66,8 @@
 }
 
 .moreBtn:hover {
-  background: var(--green-main);
-  color: var(--white);
+  background: var(--color-green);
+  color: var(--color-text-light);
 }
 
 @media (max-width: 768px) {
