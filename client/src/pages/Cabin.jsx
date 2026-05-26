@@ -6,6 +6,7 @@ import CabinRules    from '../components/CabinRules/CabinRules'
 import CabinVideo    from '../components/CabinVideo/CabinVideo'
 import CabinDistances from '../components/CabinDistances/CabinDistances'
 import Footer        from '../components/Footer/Footer'
+import RevealBlock   from '../components/RevealBlock/RevealBlock'
 import styles        from './Cabin.module.css'
 
 const equipment = [
@@ -37,17 +38,21 @@ function Cabin() {
     <div className={styles.page}>
 
       {/* Hero */}
+      <RevealBlock variant="heroReveal">
       <Hero
         subtitle="Cabaña Boutique"
         title="LA CABAÑA"
         description="Conoce cada espacio, sus comodidades y todo lo que necesitas para disfrutar una estadía única en medio de la naturaleza."
       />
+      </RevealBlock>
 
       {/* Reglas de la Casa */}
-      <CabinRules />
+      <RevealBlock>
+        <CabinRules />
+      </RevealBlock>
 
       {/* Equipamiento — bg #969f74 */}
-      <section className={styles.equipment}>
+      <RevealBlock as="section" className={styles.equipment}>
         <h2 className={styles.equipTitle}>Equipamiento</h2>
         <div className={styles.equipInner}>
           <div className={styles.equipImg}>
@@ -65,18 +70,22 @@ function Cabin() {
             </button>
           </div>
         </div>
-      </section>
+      </RevealBlock>
 
       {/* Video Recorrido */}
-      <CabinVideo videoUrl="" />
+      <RevealBlock>
+        <CabinVideo videoUrl="" />
+      </RevealBlock>
 
       {/* Distancias */}
-      <CabinDistances />
+      <RevealBlock>
+        <CabinDistances />
+      </RevealBlock>
 
       {/* CTA RESERVA YA */}
-      <div className={styles.ctaBlock}>
+      <RevealBlock className={styles.ctaBlock} variant="reserveReveal">
         <Link to="/reserve" className={styles.ctaBtn}>RESERVA YA!</Link>
-      </div>
+      </RevealBlock>
 
       {/* Modal comodidades */}
       <AnimatePresence>
@@ -110,7 +119,9 @@ function Cabin() {
         )}
       </AnimatePresence>
 
-      <Footer />
+      <RevealBlock>
+        <Footer />
+      </RevealBlock>
     </div>
   )
 }

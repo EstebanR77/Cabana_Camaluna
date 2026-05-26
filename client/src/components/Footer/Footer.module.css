@@ -11,6 +11,14 @@
 
 }
 
+.footerReviews {
+  width: 100%;
+  min-height: 420px;
+  margin: 0;
+  background: var(--color-brown);
+  border-radius: 18px;
+}
+
 .socials {
   padding: 0 1rem 1.75rem;
   display: flex;

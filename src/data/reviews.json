@@ -1,0 +1,42 @@
+[
+  {
+    "id": "1779827239053",
+    "name": "Sara Barrera",
+    "stayDate": "2026-03-18",
+    "text": "cfx,m ,mf ngfgmx,n fgm,bngfx,mb fx, bgf bncgkbn ,. fmm  n mkm gfnxblh",
+    "stars": 2,
+    "avatar": "/images/Hombre avatar.jpg",
+    "visible": false,
+    "createdAt": "2026-05-26T20:27:19.053Z"
+  },
+  {
+    "id": "seed-1",
+    "name": "Camilo Guerrero",
+    "stayDate": "2026-04-18",
+    "text": "Excelente, muy buena ubicación cerca del pueblo, las fotos iguales al sitio, todo impecable. Angela y Luis siempre estuvieron pendientes de nosotros, la comunicación con ellos muy buena. Recomendado.",
+    "stars": 5,
+    "avatar": "/images/Hombre avatar.jpg",
+    "visible": true,
+    "createdAt": "2026-05-26T00:00:00.000Z"
+  },
+  {
+    "id": "seed-2",
+    "name": "Francisco Martínez",
+    "stayDate": "2026-03-22",
+    "text": "Nos gustó mucho la casa, muy cómoda y es un muy buen sitio para descansar, rodeado de naturaleza y cerca a todos los sitios turísticos. Mi familia quedó muy contenta, muchas gracias.",
+    "stars": 5,
+    "avatar": "/images/Anfitriones.jpeg",
+    "visible": true,
+    "createdAt": "2026-05-26T00:00:00.000Z"
+  },
+  {
+    "id": "seed-3",
+    "name": "María C. Díaz",
+    "stayDate": "2026-02-15",
+    "text": "Todo perfecto, camas grandes y muy cómodas, baños amplios y hermosos, todo como nuevo. Excelente lugar para quedarse en Villa de Leyva.",
+    "stars": 5,
+    "avatar": "/images/Mujer avatar.jpg",
+    "visible": true,
+    "createdAt": "2026-05-26T00:00:00.000Z"
+  }
+]
