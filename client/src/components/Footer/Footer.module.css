@@ -11,6 +11,10 @@
 
 }
 
+.footerOrange {
+  background: var(--color-orange-soft);
+}
+
 .socials {
   padding: 0 1rem 1.75rem;
   display: flex;

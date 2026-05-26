@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import styles from './Footer.module.css'
 
-function Footer() {
+function Footer({ variant = 'green' }) {
   const [hoveredItem, setHoveredItem] = useState(null)
   const [activeItem, setActiveItem] = useState(null)
 
@@ -49,8 +49,12 @@ function Footer() {
     },
   ]
 
+  const footerClass = variant === 'orange'
+    ? `${styles.footer} ${styles.footerOrange}`
+    : styles.footer
+
   return (
-    <footer className={styles.footer}>
+    <footer className={footerClass}>
       <div className={styles.socials}>
         {socialItems.map((item) => (
           <a
