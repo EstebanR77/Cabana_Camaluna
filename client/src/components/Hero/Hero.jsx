@@ -3,7 +3,7 @@ import styles from './Hero.module.css'
 
 const HERO_IMAGES = {
   '/': '/images/Fonfo home.jpeg',
-  '/cabin': '/images/fachada.svg',
+  '/cabin': '/images/Cabana.jpg',
   '/reserve': '/images/Reservas.jpg',
   '/about': '/images/villa-de-leyva.svg',
   '/gallery': '/images/area-social.svg',

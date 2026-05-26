@@ -1,0 +1,151 @@
+.section {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  padding: 3rem 0 4rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.1rem;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.card {
+  min-height: 210px;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 1rem;
+  align-items: flex-start;
+  padding: 1.45rem;
+  border: 1px solid rgba(73, 88, 33, 0.14);
+  border-radius: var(--radius-md);
+  background: var(--color-page-bg);
+  color: var(--color-text-main);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  transition: transform var(--transition), background var(--transition), box-shadow var(--transition), border-color var(--transition);
+}
+
+.card:focus-visible {
+  outline: 3px solid rgba(236, 131, 47, 0.55);
+  outline-offset: 3px;
+}
+
+.cardHovered {
+  transform: translateY(-4px);
+  border-color: rgba(73, 88, 33, 0.34);
+  background: rgba(150, 159, 116, 0.18);
+  box-shadow: var(--shadow-soft);
+}
+
+.icon {
+  width: 48px;
+  height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--color-green);
+  color: var(--color-text-light);
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  white-space: nowrap;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+  font-size: 30px;
+  transition: transform var(--transition), background var(--transition), color var(--transition);
+}
+
+.cardHovered .icon {
+  transform: scale(1.08);
+  background: var(--color-orange-soft);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  min-width: 0;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-title);
+  font-size: clamp(1.75rem, 2.1vw, 2.75rem);
+  font-weight: var(--font-weight-regular);
+  line-height: 1;
+  color: var(--color-text-main);
+  overflow-wrap: anywhere;
+}
+
+.text {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 1.02vw, 1.18rem);
+  line-height: 1.55;
+  color: var(--color-text-main);
+  overflow-wrap: break-word;
+}
+
+.image{
+  width: 858px;
+  height: 445px;
+  object-fit: cover; /* ¡Ojo con esto! Evita que la imagen se deforme */
+}
+
+@media (max-width: 1180px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .card {
+    grid-template-columns: 1fr;
+    padding: 1.15rem;
+  }
+
+  .icon {
+    width: 42px;
+    height: 42px;
+    font-size: 26px;
+  }
+
+  .title {
+    font-size: clamp(1.4rem, 6vw, 1.9rem);
+    line-height: 1.05;
+  }
+}
+
+@media (max-width: 520px) {
+  .section {
+    padding-top: 0.5rem;
+  }
+
+  .card {
+    grid-template-columns: 1fr;
+    min-height: 0;
+    padding: 1rem;
+  }
+
+  .title {
+    font-size: clamp(1.25rem, 7vw, 1.65rem);
+  }
+
+  .text {
+    font-size: 0.95rem;
+    line-height: 1.45;
+  }
+}
