@@ -1,44 +1,29 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { AnimatePresence, motion } from 'framer-motion'
-import Hero          from '../components/Hero/Hero'
-import CabinRules    from '../components/CabinRules/CabinRules'
-import CabinVideo    from '../components/CabinVideo/CabinVideo'
+import { useEffect } from 'react'
+import Hero from '../components/Hero/Hero'
+import CabinIntroCards from '../components/CabinIntroCards/CabinIntroCards'
+import CabinEquipment from '../components/CabinEquipment/CabinEquipment'
+import CabinRules from '../components/CabinRules/CabinRules'
+import CabinVideo from '../components/CabinVideo/CabinVideo'
 import CabinDistances from '../components/CabinDistances/CabinDistances'
-import Footer        from '../components/Footer/Footer'
-import RevealBlock   from '../components/RevealBlock/RevealBlock'
-import styles        from './Cabin.module.css'
-
-const equipment = [
-  { icon: '📶', label: 'Wifi'            },
-  { icon: '🍳', label: 'Cocina'          },
-  { icon: '🛁', label: '2 Baños'         },
-  { icon: '🛏️', label: '2 Habitaciones'  },
-]
-
-const allAmenities = [
-  { icon: '📶', label: 'Wifi de alta velocidad' },
-  { icon: '🍳', label: 'Cocina equipada'         },
-  { icon: '🛁', label: '2 Baños completos'       },
-  { icon: '🛏️', label: '2 Habitaciones'          },
-  { icon: '🔥', label: 'Chimenea'                },
-  { icon: '🌿', label: 'Jardín privado'          },
-  { icon: '🅿️', label: 'Parqueadero'             },
-  { icon: '🧺', label: 'Lavadora'                },
-  { icon: '📺', label: 'Smart TV'                },
-  { icon: '☕', label: 'Cafetera'                },
-  { icon: '🌡️', label: 'Agua caliente'           },
-  { icon: '🔐', label: 'Acceso privado'          },
-]
+import Footer from '../components/Footer/Footer'
+import styles from './Cabin.module.css'
 
 function Cabin() {
-  const [showModal, setShowModal] = useState(false)
+  useEffect(() => {
+    document.documentElement.classList.add('cabin-page-active')
+    document.body.classList.add('cabin-page-active')
+    document.documentElement.scrollLeft = 0
+    document.body.scrollLeft = 0
+    window.scrollTo({ left: 0, top: window.scrollY })
+
+    return () => {
+      document.documentElement.classList.remove('cabin-page-active')
+      document.body.classList.remove('cabin-page-active')
+    }
+  }, [])
 
   return (
     <div className={styles.page}>
-
-      {/* Hero */}
-      <RevealBlock variant="heroReveal">
       <Hero
         subtitle="Cabaña Boutique"
         title="LA CABAÑA"
