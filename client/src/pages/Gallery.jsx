@@ -33,7 +33,6 @@ function Gallery() {
         subtitle="Cabaña Boutique"
         title="Galería"
         description="Vive la cabaña antes de llegar."
-        bgImage="/images/hero.jpg"
       />
 
       {/* Filtros */}

@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import Hero from '../components/Hero/Hero'
 import SupportChat from '../components/chat/SupportChat'
 import Footer from '../components/Footer/Footer'
 import styles from './Contact.module.css'
@@ -14,14 +15,11 @@ function Contact() {
   return (
     <div className={styles.page}>
 
-      <section className={styles.hero}>
-        <motion.h1 className={styles.title} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-          Ayuda y Contacto
-        </motion.h1>
-        <motion.p className={styles.subtitle} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6, delay: 0.2 }}>
-          Estamos aquí para ayudarte
-        </motion.p>
-      </section>
+      <Hero
+        subtitle="Camaluna"
+        title="Ayuda y Contacto"
+        description="Estamos aquí para ayudarte."
+      />
 
       <section className={styles.content}>
 

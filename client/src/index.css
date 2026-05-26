@@ -2,126 +2,10 @@
 
 /* Variables globales del proyecto */
 :root {
-  /* Fondos */
-  --color-page-bg: #f9f9f0;
-
-  /* Colores principales */
-  --color-green-light: #969f74;
-  --color-green: #70885f;
-  --color-green-dark: #495821;
-
-  --color-brown: #573b2a;
-  --color-brown-light: #6b4835;
-
-  --color-orange-soft: #c07c3a;
-  --color-orange: #d5742e;
-  --color-orange-bright: #ec832f;
-
-  --color-text-main: #573b2a;
-  --color-text-light: #f9f9f0;
-  --color-text-green: #495821;
-
-
-    /* Tipografias */
-  --font-title: 'Girassol', serif;   /* Principal*/
-  --font-body: 'Inter', sans-serif; /* Secundaria*/
-
-
-    /* Tamano de textos */
-  
-  --font-size-title: 90px; /* Tamano - titulos */
-  --font-size-secondary: 40px; /* Tamano - textos secundarios */
-  --font-size-subtitle: 30px; /* Tamano - textos subtitulos */
-  --font-size-button: 34px; /* Tamano - texto- botones */
-
-  /* Peso de las fuentes */
-
-  --font-weight-regular: 400; /* Peso regular de las fuentes */
-   --font-weight-extra-light: 200; /* Peso extra light para subtitulos */
-
-  /* Padding general para algunas cards */
-  --card-padding: 30px;
-
-  /* Radio para cards */
-  --radius-card-md: 40px;
-  --radius-card-lg: 50px;
-}
-
-
-/* Padding y border no aumenten el tamano final de los elementos */
-* {
-  box-sizing: border-box;
-}
-
-
-
-/* Scroll suave cuando se navega a secciones con id */
-html {
-  scroll-behavior: smooth;
-}
-
-/* Estilos base del cuerpo de la pagina */
-body {
-  margin: 0;
-  min-width: 320px;
-  min-height: 100vh;
-
- 
-  background-color: var(--color-page-bg);  /*color de fondo global */
-  color: var(--color-text-main); /*color principal del texto */
-  font-family: var(--font-body);/* fuente base del proyecto */
-}
-
-
-/* Imagenes no se salen de su contenedor */
-img {
-  display: block;
-  max-width: 100%;
-}
-
-
-/* Quita el color azul y subrayado por defecto de los enlaces */
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-
-/* Hace que formularios y botones hereden la fuente del proyecto */
-button,
-input,
-textarea,
-select {
-  font: inherit;
-}
-
-
-/* Estilo base para botones */
-button {
-  border: none; /* Sin borde por defecto */
-  cursor: pointer; /* manita al pasar el mouse */
-}
-
-
-
-/* Clase global para titulos principales */
-
-.title {
-  margin: 0;
-
-  font-family: var(--font-title); /*  fuente Girassol */
-  font-size: var(--font-size-title);  /* Tamano para titulos */
-  font-weight: var(--font-weight-regular); /* peso regular */
-  line-height: 1;
-}
-
-/* Clase global para textos secundarios grandes */
-.text-secondary {
-  margin: 0;
-  font-family: var(--font-body);
-  font-size: var(--font-size-secondary);
-  font-weight: var(--font-weight-regular);
-  line-height: 1.2;
+  background: var(--white);
+  color: var(--black);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
 }
 
 /* Clase global para subtitulos */
@@ -147,23 +31,22 @@ button {
   border-radius: var(--radius-card-md);
 }
 
-/* Clase global para cards con radio de 50 */
-.card-lg {
-  padding: var(--card-padding);
-  border-radius: var(--radius-card-lg);
+@media (max-width: 900px) {
+  :root {
+    --hero-subtitle-size: 20px;
+    --hero-title-size:    64px;
+    --hero-text-size:     20px;
+  }
 }
 
+@media (max-width: 768px) {
+  body { background: var(--white); }
+}
 
-/* Movil*/
-@media (max-width: 480px) {
+@media (max-width: 560px) {
   :root {
-    --font-size-title: 46px;
-    --font-size-secondary: 24px;
-    --font-size-subtitle: 18px;
-    --font-size-button: 22px;
-
-    --card-padding: 18px;
-    --radius-card-md: 24px;
-    --radius-card-lg: 30px;
+    --hero-subtitle-size: 16px;
+    --hero-title-size:    50px;
+    --hero-text-size:     16px;
   }
 }
