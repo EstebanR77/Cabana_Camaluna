@@ -1,68 +1,35 @@
-@import url('https://fonts.googleapis.com/css2?family=Girassol&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Girassol&family=Inter:wght@200;400&display=swap');
 
+/* Variables globales del proyecto */
 :root {
-  --olive-dark:    #495821;
-  --olive-main:    #70885f;
-  --olive-muted:   #969f74;
-  --brown-warm:    #b17449;
-  --brown-orange:  #c7782e;
-  --brown-dark:    #5d3f31;
-  --cream:         #f9f8ee;
-  --cream-strong:  #f3f2e5;
-  --white:         #ffffff;
-  --black:         #111111;
-
-  --font-heading: 'Girassol', serif;
-  --font-body:    'Inter', sans-serif;
-
-  --hero-subtitle-size: 20px;
-  --hero-title-size:    70px;
-  --hero-text-size:     20px;
-  --hero-title-line:    0.92;
-  --hero-text-line:     1.2;
-
-  --green-dark:   var(--olive-dark);
-  --green-main:   var(--olive-main);
-  --green-light:  var(--olive-muted);
-  --green-soft:   var(--cream);
-  --text-dark:    var(--black);
-  --text-mid:     #444;
-  --text-light:   #777;
-  --cream-dark:   #eee8d8;
-  --brown-main:   var(--brown-warm);
-  --brown-light:  #c4956a;
-  --brown-soft:   #f2e8da;
-
-  --radius-sm: 6px;
-  --radius-md: 14px;
-  --radius-lg: 22px;
-  --shadow-soft: 0 8px 24px rgba(0, 0, 0, 0.12);
-  --shadow-card: 0 4px 18px rgba(0, 0, 0, 0.10);
-  --transition:  0.28s ease;
-}
-
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-html { scroll-behavior: smooth; }
-
-body {
-  font-family: var(--font-body);
   background: var(--white);
   color: var(--black);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
 
-#root { min-height: 100vh; }
+/* Clase global para subtitulos */
+.subtitle {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--font-size-subtitle);
+  font-weight: var(--font-weight-extra-light);
+  line-height: 1.3;
+}
 
-h1, h2, h3, h4 { font-family: var(--font-heading); line-height: 1.12; font-weight: 400; }
-a { color: inherit; text-decoration: none; }
-img { max-width: 100%; display: block; }
-button, input, textarea, select { font-family: var(--font-body); outline: none; }
+/* Clase global para textos de botones */
+.button-text {
+  font-family: var(--font-title);
+  font-size: var(--font-size-button);
+  font-weight: var(--font-weight-regular);
+  line-height: 1;
+}
 
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--cream); }
-::-webkit-scrollbar-thumb { background: var(--olive-main); border-radius: 3px; }
+/* Clase global para cards con radio de 40 */
+.card {
+  padding: var(--card-padding);
+  border-radius: var(--radius-card-md);
+}
 
 @media (max-width: 900px) {
   :root {

@@ -1,3 +1,4 @@
+import ReviewCard from '../components/ReviewCard/ReviewCard'
 import Hero           from '../components/Hero/Hero'
 import QuickAccess    from '../components/QuickAccess/QuickAccess'
 import AboutVilla     from '../components/AboutVilla/AboutVilla'
@@ -70,6 +71,7 @@ function Home() {
 
       <section id="resenas">
         <Reviews reviews={reviews} />
+        <ReviewCard />
       </section>
 
       <AboutVilla
