@@ -50,7 +50,7 @@ const NAV_LINKS = [
   },
   {
     label: 'Experiencias/Reseñas',
-    to: '/#resenas',
+    to: '/Experiences',
     hover: {
       background: 'var(--color-orange)',
       border: 'var(--color-orange)',
@@ -71,6 +71,8 @@ const NAV_LINKS = [
 function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isReserveHovered, setIsReserveHovered] = useState(false);
+  const [reserveHoverClass, setReserveHoverClass] = useState('');
   const { pathname, hash } = useLocation();
 
   useEffect(() => {
@@ -85,6 +87,10 @@ function Navbar() {
   useEffect(() => {
     setMenuOpen(false);
   }, [pathname, hash]);
+
+  useEffect(() => {
+    setReserveHoverClass(isReserveHovered ? styles.ctaBtnActive : '');
+  }, [isReserveHovered]);
 
   const isActiveLink = (to) => {
     const [targetPath, targetHash = ''] = to.split('#');
@@ -137,7 +143,14 @@ function Navbar() {
           </li>
         ))}
         <li>
-          <Link to="/reserve" className={styles.ctaBtn}>
+          <Link
+            to="/reserve"
+            className={`${styles.ctaBtn} ${reserveHoverClass}`}
+            onMouseEnter={() => setIsReserveHovered(true)}
+            onMouseLeave={() => setIsReserveHovered(false)}
+            onFocus={() => setIsReserveHovered(true)}
+            onBlur={() => setIsReserveHovered(false)}
+          >
             RESERVA YA!
           </Link>
         </li>

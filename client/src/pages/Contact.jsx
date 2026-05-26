@@ -2,6 +2,7 @@ import { motion } from 'framer-motion'
 import Hero from '../components/Hero/Hero'
 import SupportChat from '../components/chat/SupportChat'
 import Footer from '../components/Footer/Footer'
+import RevealBlock from '../components/RevealBlock/RevealBlock'
 import styles from './Contact.module.css'
 
 const faqs = [
@@ -15,13 +16,15 @@ function Contact() {
   return (
     <div className={styles.page}>
 
+      <RevealBlock variant="heroReveal">
       <Hero
         subtitle="Camaluna"
         title="Ayuda y Contacto"
         description="Estamos aquí para ayudarte."
       />
+      </RevealBlock>
 
-      <section className={styles.content}>
+      <RevealBlock as="section" className={styles.content}>
 
         {/* Botones de contacto directo */}
         <div className={styles.directBtns}>
@@ -61,9 +64,11 @@ function Contact() {
           <SupportChat />
         </div>
 
-      </section>
+      </RevealBlock>
 
-      <Footer />
+      <RevealBlock>
+        <Footer />
+      </RevealBlock>
     </div>
   )
 }

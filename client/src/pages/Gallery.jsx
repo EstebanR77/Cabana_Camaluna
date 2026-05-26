@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Hero   from '../components/Hero/Hero'
 import Footer from '../components/Footer/Footer'
+import RevealBlock from '../components/RevealBlock/RevealBlock'
 import styles from './Gallery.module.css'
 
 const categories = ['Todas', 'Habitaciones', 'Área Social', 'Exteriores', 'Cocina']
@@ -29,14 +30,16 @@ function Gallery() {
   return (
     <div className={styles.page}>
 
+      <RevealBlock variant="heroReveal">
       <Hero
         subtitle="Cabaña Boutique"
         title="Galería"
         description="Vive la cabaña antes de llegar."
       />
+      </RevealBlock>
 
       {/* Filtros */}
-      <section className={styles.filters}>
+      <RevealBlock as="section" className={styles.filters}>
         {categories.map(cat => (
           <button
             key={cat}
@@ -46,10 +49,10 @@ function Gallery() {
             {cat}
           </button>
         ))}
-      </section>
+      </RevealBlock>
 
       {/* Grid */}
-      <section className={styles.grid}>
+      <RevealBlock as="section" className={styles.grid}>
         <AnimatePresence>
           {filtered.map((img, i) => (
             <motion.div
@@ -69,7 +72,7 @@ function Gallery() {
             </motion.div>
           ))}
         </AnimatePresence>
-      </section>
+      </RevealBlock>
 
       {/* Lightbox */}
       <AnimatePresence>
@@ -95,7 +98,9 @@ function Gallery() {
         )}
       </AnimatePresence>
 
-      <Footer />
+      <RevealBlock>
+        <Footer />
+      </RevealBlock>
     </div>
   )
 }
