@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { ReservationProvider } from './context/ReservationContext'
 import Navbar      from './components/Navbar/Navbar'
 import FloatingChat from './components/chat/FloatingChat'
+import ScrollToTop from './components/ScrollToTop/ScrollToTop'
 import Home        from './pages/Home'
 import Cabin       from './pages/Cabin'
 import Reserve     from './pages/Reserve'
@@ -14,6 +15,7 @@ function App() {
   return (
     <ReservationProvider>
       <BrowserRouter>
+        <ScrollToTop />
         <Navbar />
         <Routes>
           <Route path="/"            element={<Home />}        />

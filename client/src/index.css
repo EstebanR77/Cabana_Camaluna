@@ -67,6 +67,13 @@
 /* Scroll suave cuando se navega a secciones con id */
 html {
   scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
 }
 
 /* Estilos base del cuerpo de la pagina */
