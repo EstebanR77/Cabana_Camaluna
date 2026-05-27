@@ -2,7 +2,8 @@
   {
     "id": "1",
     "username": "admin",
-    "passwordHash": "588c713874f0c6de799e78d97a6f1f31510f30f1047c6112907124a09f77ab9d",
+    "email": "admin@camaluna.com",
+    "passwordHash": "240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9",
     "role": "host"
   }
 ]

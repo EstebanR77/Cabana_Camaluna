@@ -7,7 +7,11 @@ const api = axios.create({
 
 // ── Reservas ────────────────────────────────────────────
 export const getReservations = () => api.get('/reservations');
+export const getReservation = (id) => api.get(`/reservations/${id}`);
+export const getAdminReservations = () => api.get('/reservations/admin');
 export const createReservation = (data) => api.post('/reservations', data);
+export const approveReservation = (id) => api.patch(`/reservations/${id}/approve`);
+export const rejectReservation = (id) => api.patch(`/reservations/${id}/reject`);
 export const deleteReservation = (id) => api.delete(`/reservations/${id}`);
 
 // ── Contacto ────────────────────────────────────────────

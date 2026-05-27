@@ -1,0 +1,76 @@
+.page {
+  min-height: 72vh;
+  display: grid;
+  place-items: center;
+  padding: 4rem 1.5rem;
+  background: #f7f6ed;
+}
+
+.card {
+  width: min(460px, 100%);
+  background: #fff;
+  border: 1px solid rgba(78, 102, 57, 0.16);
+  border-radius: 22px;
+  padding: 2rem;
+  box-shadow: 0 16px 38px rgba(0, 0, 0, 0.08);
+}
+
+.kicker {
+  margin: 0 0 .6rem;
+  color: #6d8158;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  font-size: .8rem;
+}
+
+.title {
+  margin: 0;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 2rem;
+}
+
+.text {
+  margin: .8rem 0 1.5rem;
+  color: #666;
+}
+
+.form {
+  display: grid;
+  gap: 1rem;
+}
+
+.form label {
+  display: grid;
+  gap: .4rem;
+  font-weight: 700;
+  color: #3d4b33;
+}
+
+.form input {
+  border: 1px solid #d9d8cd;
+  border-radius: 12px;
+  padding: .85rem 1rem;
+  font: inherit;
+}
+
+.form button {
+  border: 0;
+  border-radius: 12px;
+  background: #647a4f;
+  color: #fff;
+  padding: .9rem 1rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.form button:disabled {
+  opacity: .65;
+  cursor: not-allowed;
+}
+
+.error {
+  margin: 0;
+  color: #9b2d20;
+  font-weight: 700;
+}

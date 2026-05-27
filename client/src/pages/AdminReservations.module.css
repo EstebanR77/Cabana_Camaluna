@@ -1,0 +1,175 @@
+.page {
+  min-height: 78vh;
+  padding: 3rem min(7vw, 6rem);
+  background: #f7f6ed;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.8rem;
+}
+
+.header h1,
+.detail h2,
+.list h2 {
+  margin: 0;
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
+.kicker {
+  margin: 0 0 .45rem;
+  color: #6d8158;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  font-size: .78rem;
+}
+
+.logout,
+.actions button {
+  border: 0;
+  border-radius: 12px;
+  background: #647a4f;
+  color: #fff;
+  padding: .8rem 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(260px, 360px) 1fr;
+  gap: 1.5rem;
+}
+
+.list,
+.detail {
+  background: #fff;
+  border-radius: 22px;
+  padding: 1.5rem;
+  box-shadow: 0 16px 38px rgba(0, 0, 0, 0.07);
+}
+
+.list {
+  min-height: 420px;
+}
+
+.item {
+  width: 100%;
+  display: grid;
+  gap: .3rem;
+  text-align: left;
+  border: 1px solid #ddd9ca;
+  background: #fff;
+  border-radius: 14px;
+  padding: .9rem;
+  margin-top: .8rem;
+  cursor: pointer;
+}
+
+.item span,
+.item small {
+  color: #666;
+}
+
+.active {
+  border-color: #647a4f;
+  background: #f2f4ec;
+}
+
+.empty {
+  min-height: 330px;
+  display: grid;
+  place-content: center;
+  text-align: center;
+  color: #666;
+}
+
+.detailHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: 1px solid #e2dfd2;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+}
+
+.badge {
+  border-radius: 999px;
+  background: #edf1e7;
+  color: #4f653d;
+  padding: .45rem .8rem;
+  font-weight: 700;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .9rem;
+  margin-bottom: 1.2rem;
+}
+
+.grid > div,
+.resultBox {
+  background: #f7f6ed;
+  border-radius: 14px;
+  padding: 1rem;
+}
+
+.grid p,
+.detailHeader p,
+.resultBox p {
+  margin: .3rem 0 0;
+}
+
+.proofBox {
+  border: 1px dashed #c7c0a6;
+  border-radius: 16px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.proofBox img {
+  width: min(100%, 520px);
+  max-height: 520px;
+  object-fit: contain;
+  border-radius: 12px;
+  border: 1px solid #e2dfd2;
+  display: block;
+}
+
+.actions {
+  display: flex;
+  gap: .8rem;
+  flex-wrap: wrap;
+}
+
+.reject {
+  background: #9b4a32 !important;
+}
+
+.error {
+  background: #fff0ee;
+  color: #9b2d20;
+  border-radius: 12px;
+  padding: .8rem 1rem;
+}
+
+@media (max-width: 840px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .header,
+  .detailHeader {
+    flex-direction: column;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

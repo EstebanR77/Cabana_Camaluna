@@ -1,0 +1,256 @@
+.loginPage,
+.adminPage {
+  min-height: 100vh;
+  background: var(--cream);
+  padding: 7rem 2rem 3rem;
+  font-family: var(--font-body);
+}
+
+.loginCard {
+  width: min(100%, 460px);
+  margin: 0 auto;
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  padding: 2.3rem;
+}
+
+.eyebrow {
+  color: var(--olive-main);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.74rem;
+  margin-bottom: 0.45rem;
+}
+
+.loginCard h1,
+.adminHeader h1,
+.detailCard h2,
+.emptyState h2 {
+  font-family: var(--font-heading);
+  color: var(--black);
+}
+
+.loginText {
+  color: rgba(0,0,0,0.62);
+  margin: 0.6rem 0 1.4rem;
+}
+
+.form {
+  display: grid;
+  gap: 1rem;
+}
+
+.form label {
+  display: grid;
+  gap: 0.4rem;
+  color: rgba(0,0,0,0.65);
+  font-size: 0.88rem;
+}
+
+.form input {
+  border: 1px solid rgba(0,0,0,0.16);
+  border-radius: var(--radius-sm);
+  padding: 0.8rem 1rem;
+  font-size: 0.95rem;
+}
+
+.form button,
+.secondaryBtn,
+.approveBtn,
+.rejectBtn {
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 0.8rem 1.2rem;
+  cursor: pointer;
+  font-weight: 700;
+  transition: opacity var(--transition), transform var(--transition);
+}
+
+.form button {
+  background: var(--olive-dark);
+  color: var(--white);
+}
+
+.form button:hover,
+.secondaryBtn:hover,
+.approveBtn:hover,
+.rejectBtn:hover {
+  transform: translateY(-1px);
+}
+
+.form button:disabled { opacity: 0.55; cursor: not-allowed; }
+
+.error {
+  background: #fff1f1;
+  color: #8a1f1f;
+  border: 1px solid #f1c3c3;
+  border-radius: var(--radius-sm);
+  padding: 0.75rem;
+  margin: 0.8rem 0;
+}
+
+.adminPage {
+  padding-top: 6rem;
+}
+
+.adminHeader {
+  max-width: 1160px;
+  margin: 0 auto 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+}
+
+.secondaryBtn {
+  background: var(--white);
+  color: var(--olive-dark);
+  border: 1px solid rgba(112,136,95,0.28);
+}
+
+.adminGrid {
+  max-width: 1160px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 1.5rem;
+}
+
+.listPanel,
+.detailPanel {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  padding: 1.4rem;
+}
+
+.listPanel h2 {
+  font-family: var(--font-heading);
+  margin-bottom: 1rem;
+}
+
+.reservationList {
+  display: grid;
+  gap: 0.75rem;
+  max-height: 70vh;
+  overflow: auto;
+  padding-right: 0.3rem;
+}
+
+.reservationItem {
+  width: 100%;
+  background: var(--cream);
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  padding: 0.9rem;
+  text-align: left;
+  display: grid;
+  gap: 0.2rem;
+  cursor: pointer;
+}
+
+.reservationItem strong { color: var(--black); }
+.reservationItem span { color: rgba(0,0,0,0.62); font-size: 0.86rem; }
+.reservationItem small { color: var(--olive-main); font-weight: 700; }
+.selected { border-color: var(--olive-main); background: rgba(112,136,95,0.12); }
+
+.emptyState {
+  min-height: 360px;
+  display: grid;
+  place-content: center;
+  text-align: center;
+  color: rgba(0,0,0,0.58);
+}
+
+.detailCard {
+  display: grid;
+  gap: 1.3rem;
+}
+
+.detailTop {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.statusPill {
+  background: rgba(112,136,95,0.14);
+  color: var(--olive-dark);
+  border-radius: 999px;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.infoGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.8rem;
+}
+
+.infoGrid div,
+.notesBox,
+.successBox {
+  background: var(--cream);
+  border-radius: var(--radius-md);
+  padding: 0.85rem 1rem;
+}
+
+.infoGrid span,
+.notesBox span {
+  display: block;
+  color: rgba(0,0,0,0.52);
+  font-size: 0.76rem;
+  margin-bottom: 0.2rem;
+}
+
+.infoGrid strong,
+.notesBox p {
+  color: var(--black);
+  word-break: break-word;
+}
+
+.proofBox {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.proofBox h3 {
+  font-family: var(--font-heading);
+  color: var(--olive-main);
+}
+
+.proofBox img {
+  width: 100%;
+  max-height: 520px;
+  object-fit: contain;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(0,0,0,0.1);
+  background: var(--cream);
+}
+
+.fileLink {
+  display: inline-block;
+  color: var(--olive-dark);
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.actions {
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.approveBtn { background: var(--olive-dark); color: var(--white); }
+.rejectBtn { background: #8a2c2c; color: var(--white); }
+.successBox { color: var(--olive-dark); font-weight: 600; }
+
+@media (max-width: 860px) {
+  .adminGrid { grid-template-columns: 1fr; }
+  .adminHeader { align-items: flex-start; flex-direction: column; }
+  .infoGrid { grid-template-columns: 1fr; }
+}
