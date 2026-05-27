@@ -36,10 +36,26 @@ export const achievements = {
   title: 'Estadísticas / Logros',
   subtitle: 'Momentos, experiencias y recuerdos que hacen única cada estadía.',
   items: [
-    { title: 'Titulo', desc: 'Descripcion Aqui' },
-    { title: 'Titulo', desc: 'Descripcion Aqui' },
-    { title: 'Titulo', desc: 'Descripcion Aqui' },
-    { title: 'Titulo', desc: 'Descripcion Aqui' },
+    {
+      icon: 'guests',
+      title: '+500',
+      desc: 'Huéspedes han vivido la experiencia CAMALUNA.',
+    },
+    {
+      icon: 'star',
+      title: '5.0',
+      desc: 'Calificación destacada por comodidad y atención.',
+    },
+    {
+      icon: 'calendar',
+      title: '+7 meses',
+      desc: 'Creando momentos inolvidables en Villa de Leyva.',
+    },
+    {
+      icon: 'rest',
+      title: '100%',
+      desc: 'Un espacio diseñado para desconectar y descansar.',
+    },
   ],
 }
 

@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import styles from './FeaturedFestival.module.css'
 
 function FeaturedFestival({ sectionTitle, image, ctaText, ctaLink, title, date, description }) {
+  const isExternalLink = ctaLink?.startsWith('http')
+
   return (
     <section className={styles.wrap}>
       <h2 className={styles.sectionTitle}>{sectionTitle}</h2>
@@ -20,7 +22,13 @@ function FeaturedFestival({ sectionTitle, image, ctaText, ctaLink, title, date, 
 
         <div className={styles.content}>
           {ctaText && (
-            <Link to={ctaLink} className={styles.cta}>{ctaText}</Link>
+            isExternalLink ? (
+              <a href={ctaLink} target="_blank" rel="noreferrer" className={styles.cta}>
+                {ctaText}
+              </a>
+            ) : (
+              <Link to={ctaLink} className={styles.cta}>{ctaText}</Link>
+            )
           )}
           <h3 className={styles.title}>{title}</h3>
           <p className={styles.date}>{date}</p>
