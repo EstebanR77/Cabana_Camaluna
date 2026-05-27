@@ -15,13 +15,13 @@ export function useChat(userName) {
         setMessages(prev => [...prev, message]);
         setConnected(true);
       }
-    }, () => unmounted.current, userName);
+    }, () => unmounted.current);
 
     return () => {
       unmounted.current = true;
       disconnectChat();
     };
-  }, [userName]);
+  }, []);
 
   function send(text) {
     sendChatMessage({ type: 'chat', text, name: userName });

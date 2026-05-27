@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { approveReservation, getAdminReservations, logout, rejectReservation } from '../services/api'
-import Footer from '../components/Footer/Footer'
-import styles from './Reserve.module.css'
 
-function statusText(status) {
+function formatStatus(status) {
   if (status === 'approved') return 'Aprobada'
   if (status === 'rejected') return 'Rechazada'
-  return 'Pendiente de revisión'
+  if (status === 'pending_review') return 'Pendiente de revisión'
+  return status || 'Pendiente'
 }
 
 function AdminReservations() {
@@ -18,17 +17,18 @@ function AdminReservations() {
   const [loading, setLoading] = useState(true)
 
   async function loadReservations() {
-    setError('')
     try {
+      setLoading(true)
       const { data } = await getAdminReservations()
       setReservations(data.reservations || [])
-      setSelected(current => {
-        if (!current) return data.reservations?.[0] || null
-        return data.reservations?.find(r => r.id === current.id) || data.reservations?.[0] || null
-      })
+      setSelected(current => current || data.reservations?.[0] || null)
+      setError('')
     } catch (err) {
-      if (err.response?.status === 401) navigate('/admin')
-      else setError(err.response?.data?.error || 'No se pudieron cargar las reservas')
+      if (err.response?.status === 401) {
+        navigate('/admin')
+        return
+      }
+      setError(err.response?.data?.error || 'No se pudieron cargar las reservas')
     } finally {
       setLoading(false)
     }
@@ -36,18 +36,21 @@ function AdminReservations() {
 
   useEffect(() => {
     loadReservations()
-    const interval = setInterval(loadReservations, 4000)
-    return () => clearInterval(interval)
   }, [])
 
-  async function handleApprove(id) {
-    const { data } = await approveReservation(id)
+  async function handleApprove() {
+    if (!selected) return
+
+    const { data } = await approveReservation(selected.id)
     setSelected(data.reservation)
     await loadReservations()
   }
 
-  async function handleReject(id) {
-    const { data } = await rejectReservation(id)
+  async function handleReject() {
+    if (!selected) return
+
+    const reason = window.prompt('Motivo del rechazo:', 'El comprobante no pudo ser validado.')
+    const { data } = await rejectReservation(selected.id, reason || '')
     setSelected(data.reservation)
     await loadReservations()
   }
@@ -58,76 +61,121 @@ function AdminReservations() {
   }
 
   return (
-    <div className={styles.page}>
-      <section className={styles.bookingSection}>
-        <h2 className={styles.bookingTitle}>Comprobantes de reserva</h2>
-        <div className={styles.navBtns}>
-          <button className={styles.btnBack} type="button" onClick={handleLogout}>Cerrar sesión</button>
+    <main style={{ minHeight: '80vh', padding: '3rem 1.5rem', background: 'var(--color-page-bg)' }}>
+      <section style={{ maxWidth: 1180, margin: '0 auto' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', gap: '1rem', alignItems: 'center', marginBottom: '1.5rem' }}>
+          <div>
+            <p style={{ color: 'var(--color-green)', fontWeight: 700, letterSpacing: '.08em' }}>PANEL DE ADMINISTRACIÓN</p>
+            <h1 style={{ fontFamily: 'var(--font-title)' }}>Comprobantes de reserva</h1>
+          </div>
+          <button onClick={handleLogout} style={{ padding: '.7rem 1rem', borderRadius: '10px', border: '1px solid #ccc', background: 'white' }}>
+            Cerrar sesión
+          </button>
         </div>
 
-        {error && <p className={styles.confirmedText}>{error}</p>}
+        {error && <p style={{ color: '#9b2c2c' }}>{error}</p>}
+        {loading && <p>Cargando reservas...</p>}
 
-        <div className={styles.stepContent}>
-          <div className={styles.step}>
-            <p className={styles.stepLabel}>Reservas recibidas</p>
-            {loading && <p className={styles.summaryKey}>Cargando reservas...</p>}
-            {!loading && reservations.length === 0 && <p className={styles.summaryKey}>No hay reservas registradas.</p>}
+        <div style={{ display: 'grid', gridTemplateColumns: '320px 1fr', gap: '1.5rem' }}>
+          <aside style={{ background: 'white', borderRadius: '18px', padding: '1rem', boxShadow: 'var(--shadow-card)', minHeight: 420 }}>
+            <h2 style={{ fontFamily: 'var(--font-title)', marginBottom: '1rem' }}>Reservas recibidas</h2>
+
+            {!reservations.length && !loading && <p>No hay reservas registradas.</p>}
+
             {reservations.map(reservation => (
               <button
                 key={reservation.id}
-                className={styles.btnBack}
-                type="button"
                 onClick={() => setSelected(reservation)}
+                style={{
+                  width: '100%',
+                  textAlign: 'left',
+                  padding: '.9rem',
+                  marginBottom: '.7rem',
+                  borderRadius: '12px',
+                  border: selected?.id === reservation.id ? '2px solid var(--color-green)' : '1px solid #ddd',
+                  background: selected?.id === reservation.id ? 'rgba(112,136,95,.12)' : 'white',
+                  cursor: 'pointer'
+                }}
               >
-                {reservation.name} — {statusText(reservation.status)}
+                <strong>{reservation.name}</strong>
+                <br />
+                <small>{reservation.checkIn} / {reservation.checkOut}</small>
+                <br />
+                <small>{formatStatus(reservation.status)}</small>
               </button>
             ))}
-          </div>
-        </div>
+          </aside>
 
-        {selected && (
-          <div className={styles.stepContent} style={{ marginTop: '1.5rem' }}>
-            <div className={styles.step}>
-              <p className={styles.stepLabel}>Detalle de reserva</p>
-              <div className={styles.summary}>
-                <div className={styles.summaryCard}><p className={styles.summaryKey}>Cliente</p><p className={styles.summaryVal}>{selected.name}</p></div>
-                <div className={styles.summaryCard}><p className={styles.summaryKey}>Correo</p><p className={styles.summaryVal}>{selected.email}</p></div>
-                <div className={styles.summaryCard}><p className={styles.summaryKey}>Teléfono</p><p className={styles.summaryVal}>{selected.phone}</p></div>
-                <div className={styles.summaryCard}><p className={styles.summaryKey}>Huéspedes</p><p className={styles.summaryVal}>{selected.guests}</p></div>
-                <div className={styles.summaryCard}><p className={styles.summaryKey}>Check-in</p><p className={styles.summaryVal}>{selected.checkIn}</p></div>
-                <div className={styles.summaryCard}><p className={styles.summaryKey}>Check-out</p><p className={styles.summaryVal}>{selected.checkOut}</p></div>
-                <div className={`${styles.summaryCard} ${styles.summaryTotal}`}><p className={styles.summaryKey}>Estado</p><p className={styles.summaryVal}>{statusText(selected.status)}</p></div>
+          <section style={{ background: 'white', borderRadius: '18px', padding: '1.5rem', boxShadow: 'var(--shadow-card)', minHeight: 420 }}>
+            {!selected ? (
+              <div style={{ minHeight: 360, display: 'grid', placeItems: 'center', textAlign: 'center' }}>
+                <div>
+                  <h2 style={{ fontFamily: 'var(--font-title)' }}>Selecciona una reserva</h2>
+                  <p>Al abrir una reserva podrás ver datos del cliente, fechas y comprobante.</p>
+                </div>
               </div>
+            ) : (
+              <div style={{ display: 'grid', gap: '1.2rem' }}>
+                <div>
+                  <h2 style={{ fontFamily: 'var(--font-title)' }}>{selected.name}</h2>
+                  <p><b>Estado:</b> {formatStatus(selected.status)}</p>
+                  {selected.entryCode && <p><b>Código de entrada:</b> {selected.entryCode}</p>}
+                </div>
 
-              {selected.notes && <p className={styles.confirmedText}><b>Notas:</b> {selected.notes}</p>}
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: '1rem' }}>
+                  <p><b>Correo:</b><br />{selected.email}</p>
+                  <p><b>Teléfono:</b><br />{selected.phone}</p>
+                  <p><b>Check-in:</b><br />{selected.checkIn}</p>
+                  <p><b>Check-out:</b><br />{selected.checkOut}</p>
+                  <p><b>Huéspedes:</b><br />{selected.guests}</p>
+                  <p><b>Total:</b><br />${Number(selected.total || 0).toLocaleString('es-CO')} COP</p>
+                </div>
 
-              <div className={styles.field}>
-                <label className={styles.label}>Comprobante</label>
-                {selected.paymentProof?.data?.startsWith('data:image/') ? (
-                  <img src={selected.paymentProof.data} alt="Comprobante de pago" style={{ maxWidth: '420px', borderRadius: '12px' }} />
-                ) : selected.paymentProof?.data ? (
-                  <a className={styles.confirmedBtn} href={selected.paymentProof.data} target="_blank" rel="noreferrer">Abrir comprobante</a>
-                ) : (
-                  <p className={styles.summaryKey}>Sin comprobante adjunto.</p>
+                {selected.notes && (
+                  <p><b>Solicitudes:</b><br />{selected.notes}</p>
+                )}
+
+                <div>
+                  <h3 style={{ fontFamily: 'var(--font-title)' }}>Comprobante</h3>
+                  {selected.paymentProof ? (
+                    selected.paymentProof.startsWith('data:application/pdf') ? (
+                      <a href={selected.paymentProof} target="_blank" rel="noreferrer">Abrir comprobante PDF</a>
+                    ) : (
+                      <img
+                        src={selected.paymentProof}
+                        alt={selected.paymentProofName || 'Comprobante de pago'}
+                        style={{ maxWidth: '100%', maxHeight: 460, objectFit: 'contain', borderRadius: '14px', border: '1px solid #ddd' }}
+                      />
+                    )
+                  ) : (
+                    <p>Esta reserva no tiene comprobante adjunto.</p>
+                  )}
+                </div>
+
+                {selected.status === 'pending_review' && (
+                  <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+                    <button onClick={handleApprove} style={{ padding: '.8rem 1.2rem', border: 0, borderRadius: '10px', background: 'var(--color-green-dark)', color: 'white' }}>
+                      Aceptar comprobante
+                    </button>
+                    <button onClick={handleReject} style={{ padding: '.8rem 1.2rem', border: '1px solid #9b2c2c', borderRadius: '10px', background: 'white', color: '#9b2c2c' }}>
+                      Rechazar comprobante
+                    </button>
+                  </div>
+                )}
+
+                {selected.status === 'approved' && (
+                  <p>Reserva aprobada. El cliente ya puede ver su código de entrada.</p>
+                )}
+
+                {selected.status === 'rejected' && (
+                  <p>Reserva rechazada. Mensaje: {selected.reviewMessage}</p>
                 )}
               </div>
-
-              {selected.status === 'approved' && selected.accessCode && (
-                <p className={styles.confirmedText}><b>Código de entrada:</b> {selected.accessCode}</p>
-              )}
-
-              {selected.status !== 'approved' && selected.status !== 'rejected' && (
-                <div className={styles.navBtns}>
-                  <button className={styles.btnBack} type="button" onClick={() => handleReject(selected.id)}>Rechazar</button>
-                  <button className={styles.btnNext} type="button" onClick={() => handleApprove(selected.id)}>Aceptar</button>
-                </div>
-              )}
-            </div>
-          </div>
-        )}
+            )}
+          </section>
+        </div>
       </section>
-      <Footer />
-    </div>
+    </main>
   )
 }
 

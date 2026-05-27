@@ -12,11 +12,6 @@ function ensureFile() {
   }
 }
 
-function saveAll(reservations) {
-  ensureFile();
-  fs.writeFileSync(FILE, JSON.stringify(reservations, null, 2));
-}
-
 export function getAll() {
   ensureFile();
   const data = fs.readFileSync(FILE, 'utf-8');
@@ -27,22 +22,30 @@ export function getById(id) {
   return getAll().find(r => r.id === id) || null;
 }
 
+export function saveAll(reservations) {
+  ensureFile();
+  fs.writeFileSync(FILE, JSON.stringify(reservations, null, 2));
+}
+
 export function create(reservation) {
   const reservations = getAll();
-  const record = {
-    ...reservation,
+  const newReservation = {
     id: Date.now().toString(),
-    createdAt: reservation.createdAt || new Date().toISOString()
+    createdAt: new Date().toISOString(),
+    ...reservation
   };
-  reservations.push(record);
+  reservations.push(newReservation);
   saveAll(reservations);
-  return record;
+  return newReservation;
 }
 
 export function update(id, changes) {
   const reservations = getAll();
   const index = reservations.findIndex(r => r.id === id);
-  if (index === -1) return null;
+
+  if (index === -1) {
+    return null;
+  }
 
   reservations[index] = {
     ...reservations[index],

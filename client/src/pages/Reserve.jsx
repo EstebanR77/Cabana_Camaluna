@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Hero   from '../components/Hero/Hero'
 import Footer from '../components/Footer/Footer'
-import { createReservation, getReservationById } from '../services/api'
+import RevealBlock from '../components/RevealBlock/RevealBlock'
+import { createReservation, getReservationStatus } from '../services/api'
 import styles from './Reserve.module.css'
 
 /* ── Datos ───────────────────────────────────────────── */
@@ -29,11 +30,11 @@ function getFirstDay(year, month) {
   return new Date(year, month, 1).getDay()
 }
 
-function toISODate(date) {
+function formatDateForApi(date) {
   return date.toISOString().slice(0, 10)
 }
 
-function fileToBase64(file) {
+function fileToDataURL(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader()
     reader.onload = () => resolve(reader.result)
@@ -46,8 +47,6 @@ function fileToBase64(file) {
 function MiniCalendar({ year, month, onSelect, range }) {
   const days = getDaysInMonth(year, month)
   const first = getFirstDay(year, month)
-  const today = new Date()
-  today.setHours(0, 0, 0, 0)
 
   return (
     <div className={styles.calendar}>
@@ -58,7 +57,6 @@ function MiniCalendar({ year, month, onSelect, range }) {
         {Array.from({ length: days }).map((_, i) => {
           const day = i + 1
           const date = new Date(year, month, day)
-          const disabled = date < today
           const isStart = range.start && date.toDateString() === range.start.toDateString()
           const isEnd   = range.end   && date.toDateString() === range.end.toDateString()
           const inRange = range.start && range.end && date > range.start && date < range.end
@@ -71,9 +69,7 @@ function MiniCalendar({ year, month, onSelect, range }) {
                 isEnd   ? styles.calEnd   : '',
                 inRange ? styles.calRange : '',
               ].join(' ')}
-              onClick={() => !disabled && onSelect(date)}
-              disabled={disabled}
-              type="button"
+              onClick={() => onSelect(date)}
             >
               {day}
             </button>
@@ -160,7 +156,7 @@ function Step2({ form, onChange }) {
 }
 
 /* ── Step 3: Resumen ──────────────────────────────── */
-function Step3({ range, form, proofFile, proofPreview, onProofChange }) {
+function Step3({ range, form, paymentProof, onPaymentProofChange }) {
   const nights = range.start && range.end
     ? Math.round((range.end - range.start) / 86400000)
     : 0
@@ -169,7 +165,7 @@ function Step3({ range, form, proofFile, proofPreview, onProofChange }) {
 
   return (
     <div className={styles.step}>
-      <p className={styles.stepLabel}>Paso 3 — Resumen y comprobante</p>
+      <p className={styles.stepLabel}>Paso 3 — Resumen de la reserva</p>
       <div className={styles.summary}>
         <div className={styles.summaryCard}>
           <p className={styles.summaryKey}>Check-in</p>
@@ -189,7 +185,9 @@ function Step3({ range, form, proofFile, proofPreview, onProofChange }) {
         </div>
         <div className={`${styles.summaryCard} ${styles.summaryTotal}`}>
           <p className={styles.summaryKey}>Total estimado</p>
-          <p className={styles.summaryVal}>${total.toLocaleString('es-CO')} COP</p>
+          <p className={styles.summaryVal}>
+            ${total.toLocaleString('es-CO')} COP
+          </p>
         </div>
       </div>
 
@@ -199,43 +197,69 @@ function Step3({ range, form, proofFile, proofPreview, onProofChange }) {
           className={styles.input}
           type="file"
           accept="image/*,.pdf"
-          onChange={onProofChange}
+          onChange={e => onPaymentProofChange(e.target.files?.[0] || null)}
         />
-        <p className={styles.summaryKey}>El administrador revisará el comprobante para confirmar o rechazar la reserva.</p>
-        {proofFile && <p className={styles.summaryVal}>{proofFile.name}</p>}
-        {proofPreview && proofPreview.startsWith('data:image/') && (
-          <img src={proofPreview} alt="Vista previa del comprobante" style={{ maxWidth: '260px', borderRadius: '12px' }} />
+        <p className={styles.summaryKey}>
+          El administrador revisará este comprobante antes de confirmar la reserva.
+        </p>
+        {paymentProof && (
+          <p className={styles.summaryVal}>{paymentProof.name}</p>
         )}
       </div>
     </div>
   )
 }
 
-/* ── Step 4: Estado de validación ───────────────────── */
+/* ── Step 4: Validación ───────────────────────────── */
 function Step4({ reservation }) {
-  if (!reservation) return null
+  const [status, setStatus] = useState(reservation?.status || 'pending_review')
+  const [entryCode, setEntryCode] = useState(reservation?.entryCode || null)
+  const [message, setMessage] = useState(
+    reservation?.reviewMessage || 'Tu comprobante está en revisión por el administrador.'
+  )
 
-  if (reservation.status === 'approved') {
+  useEffect(() => {
+    if (!reservation?.id || status === 'approved' || status === 'rejected') return
+
+    const interval = setInterval(async () => {
+      try {
+        const { data } = await getReservationStatus(reservation.id)
+        setStatus(data.status)
+        setEntryCode(data.entryCode || null)
+        setMessage(data.reviewMessage || '')
+      } catch (err) {
+        console.error('No se pudo consultar el estado de la reserva', err)
+      }
+    }, 4000)
+
+    return () => clearInterval(interval)
+  }, [reservation?.id, status])
+
+  if (status === 'approved') {
     return (
       <div className={`${styles.step} ${styles.stepConfirmed}`}>
         <div className={styles.confirmedIcon}>✅</div>
-        <h3 className={styles.confirmedTitle}>¡Reserva confirmada!</h3>
-        <p className={styles.confirmedText}>El administrador aprobó tu comprobante.</p>
-        {reservation.accessCode && (
-          <p className={styles.confirmedText}><b>Código de entrada:</b> {reservation.accessCode}</p>
+        <h3 className={styles.confirmedTitle}>¡Reserva Confirmada!</h3>
+        <p className={styles.confirmedText}>
+          El administrador aprobó tu comprobante. Pronto nos pondremos en contacto contigo.
+        </p>
+        {entryCode && (
+          <p className={styles.confirmedText}>
+            Tu código de entrada es: <b>{entryCode}</b>
+          </p>
         )}
         <Link to="/" className={styles.confirmedBtn}>Volver al inicio</Link>
       </div>
     )
   }
 
-  if (reservation.status === 'rejected') {
+  if (status === 'rejected') {
     return (
       <div className={`${styles.step} ${styles.stepConfirmed}`}>
         <div className={styles.confirmedIcon}>⚠️</div>
         <h3 className={styles.confirmedTitle}>Comprobante rechazado</h3>
-        <p className={styles.confirmedText}>Comunícate con Camaluna para revisar el pago o enviar un nuevo comprobante.</p>
-        <Link to="/contact" className={styles.confirmedBtn}>Contactar</Link>
+        <p className={styles.confirmedText}>{message}</p>
+        <Link to="/reserve" className={styles.confirmedBtn}>Intentar nuevamente</Link>
       </div>
     )
   }
@@ -243,105 +267,100 @@ function Step4({ reservation }) {
   return (
     <div className={`${styles.step} ${styles.stepConfirmed}`}>
       <div className={styles.confirmedIcon}>⏳</div>
-      <h3 className={styles.confirmedTitle}>Reserva en revisión</h3>
-      <p className={styles.confirmedText}>Tu comprobante fue enviado. El administrador lo revisará y confirmará tu reserva.</p>
+      <h3 className={styles.confirmedTitle}>Comprobante en revisión</h3>
+      <p className={styles.confirmedText}>
+        {message || 'Tu comprobante fue enviado. Espera la aprobación del administrador para confirmar la reserva.'}
+      </p>
+      <p className={styles.summaryKey}>Esta pantalla se actualizará automáticamente cuando el administrador revise tu comprobante.</p>
     </div>
   )
 }
 
 /* ── Página Reserve ───────────────────────────────── */
 function Reserve() {
-  const [step, setStep] = useState(1)
+  const [step, setStep]   = useState(1)
   const [range, setRange] = useState({ start: null, end: null })
-  const [form, setForm] = useState({})
-  const [proofFile, setProofFile] = useState(null)
-  const [proofPreview, setProofPreview] = useState('')
+  const [form, setForm]   = useState({})
+  const [paymentProof, setPaymentProof] = useState(null)
   const [reservation, setReservation] = useState(null)
-  const [loading, setLoading] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState('')
 
   function handleFormChange(id, val) {
     setForm(f => ({ ...f, [id]: val }))
   }
 
-  async function handleProofChange(e) {
-    const file = e.target.files?.[0]
-    setProofFile(file || null)
-    setProofPreview(file ? await fileToBase64(file) : '')
-  }
-
   function canNext() {
-    if (loading) return false
-    if (step === 1) return range.start && range.end && range.end > range.start
+    if (step === 1) return range.start && range.end
     if (step === 2) return form.nombre && form.email && form.telefono
-    if (step === 3) return Boolean(proofFile && proofPreview)
+    if (step === 3) return paymentProof && !isSubmitting
     return true
   }
 
-  async function submitReservation() {
+  async function handleNext() {
     setError('')
-    setLoading(true)
-    try {
-      const payload = {
-        checkIn: toISODate(range.start),
-        checkOut: toISODate(range.end),
-        name: form.nombre,
-        email: form.email,
-        phone: form.telefono,
-        guests: form.huespedes || 1,
-        notes: form.solicitudes || '',
-        paymentProof: {
-          name: proofFile.name,
-          type: proofFile.type,
-          size: proofFile.size,
-          data: proofPreview
+
+    if (step < 3) {
+      setStep(s => s + 1)
+      return
+    }
+
+    if (step === 3) {
+      try {
+        setIsSubmitting(true)
+
+        const nights = Math.round((range.end - range.start) / 86400000)
+        const total = nights * 350000
+        const paymentProofData = await fileToDataURL(paymentProof)
+
+        const payload = {
+          checkIn: formatDateForApi(range.start),
+          checkOut: formatDateForApi(range.end),
+          name: form.nombre,
+          email: form.email,
+          phone: form.telefono,
+          guests: form.huespedes,
+          notes: form.solicitudes || '',
+          total,
+          paymentProof: paymentProofData,
+          paymentProofName: paymentProof.name
         }
+
+        const { data } = await createReservation(payload)
+        setReservation(data.reservation)
+        setStep(4)
+      } catch (err) {
+        setError(err.response?.data?.error || 'No se pudo enviar la reserva. Intenta nuevamente.')
+      } finally {
+        setIsSubmitting(false)
       }
-      const { data } = await createReservation(payload)
-      setReservation(data.reservation)
-      setStep(4)
-    } catch (err) {
-      setError(err.response?.data?.error || 'No se pudo enviar la reserva. Intenta nuevamente.')
-    } finally {
-      setLoading(false)
     }
   }
 
-  useEffect(() => {
-    if (!reservation?.id || reservation.status === 'approved' || reservation.status === 'rejected') return
-
-    const interval = setInterval(async () => {
-      try {
-        const { data } = await getReservationById(reservation.id)
-        setReservation(data.reservation)
-      } catch {
-        // Mantiene el estado actual si el servidor no responde temporalmente.
-      }
-    }, 3000)
-
-    return () => clearInterval(interval)
-  }, [reservation?.id, reservation?.status])
-
   return (
     <div className={styles.page}>
+
+      <RevealBlock variant="heroReveal">
       <Hero
         subtitle="Cabaña Boutique"
         title="Reserva tu estadía"
         description="Elige tus fechas, completa tu información y asegura tu experiencia en Camaluna."
-        bgImage="/images/reserve-hero.jpg"
       />
+      </RevealBlock>
 
-      <section className={styles.bookingSection}>
+      {/* Booking section */}
+      <RevealBlock as="section" className={styles.bookingSection}>
         <h2 className={styles.bookingTitle}>Reserva paso a paso</h2>
 
+        {/* Step bar */}
         <div className={styles.stepBar}>
           {STEPS.map(s => (
             <div
               key={s.num}
               className={[
                 styles.stepItem,
-                step === s.num ? styles.stepActive : '',
-                step > s.num ? styles.stepCompleted : '',
+                step === s.num  ? styles.stepActive    : '',
+                step > s.num    ? styles.stepCompleted : '',
               ].join(' ')}
             >
               <div className={styles.stepCircle}>{step > s.num ? '✓' : s.num}</div>
@@ -350,6 +369,7 @@ function Reserve() {
           ))}
         </div>
 
+        {/* Contenido del paso */}
         <div className={styles.stepContent}>
           {step === 1 && <Step1 range={range} onRangeChange={setRange} />}
           {step === 2 && <Step2 form={form} onChange={handleFormChange} />}
@@ -357,35 +377,36 @@ function Reserve() {
             <Step3
               range={range}
               form={form}
-              proofFile={proofFile}
-              proofPreview={proofPreview}
-              onProofChange={handleProofChange}
+              paymentProof={paymentProof}
+              onPaymentProofChange={setPaymentProof}
             />
           )}
           {step === 4 && <Step4 reservation={reservation} />}
           {error && <p className={styles.confirmedText}>{error}</p>}
         </div>
 
+        {/* Botones de navegación */}
         {step < 4 && (
           <div className={styles.navBtns}>
             {step > 1 && (
-              <button className={styles.btnBack} onClick={() => setStep(s => s - 1)} type="button">
+              <button className={styles.btnBack} onClick={() => setStep(s => s - 1)}>
                 ← Atrás
               </button>
             )}
             <button
               className={styles.btnNext}
-              onClick={() => step === 3 ? submitReservation() : setStep(s => s + 1)}
+              onClick={handleNext}
               disabled={!canNext()}
-              type="button"
             >
-              {loading ? 'Enviando...' : step === 3 ? 'Enviar comprobante' : 'Continuar →'}
+              {step === 3 ? (isSubmitting ? 'Enviando...' : 'Enviar comprobante') : 'Continuar →'}
             </button>
           </div>
         )}
-      </section>
+      </RevealBlock>
 
-      <Footer />
+      <RevealBlock>
+        <Footer />
+      </RevealBlock>
     </div>
   )
 }
