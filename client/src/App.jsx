@@ -10,6 +10,8 @@ import Gallery     from './pages/Gallery'
 import Experiences from './pages/Experiences'
 import AdminLogin from './pages/AdminLogin'
 import AdminReservations from './pages/AdminReservations'
+import Conocenos   from './pages/Conocenos'
+import RestaurantsPage from './pages/Restaurants'
 
 function App() {
   return (
@@ -26,6 +28,8 @@ function App() {
           <Route path="/experiences" element={<Experiences />} />
           <Route path="/admin" element={<AdminLogin />} />
           <Route path="/admin/reservas" element={<AdminReservations />} />
+          <Route path="/conocenos"   element={<Conocenos />}   />
+          <Route path="/restaurants" element={<RestaurantsPage />} />
         </Routes>
       </BrowserRouter>
     </ReservationProvider>
