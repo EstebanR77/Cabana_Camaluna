@@ -19,18 +19,40 @@
   background: var(--color-page-oscuro);
   border-radius: var(--radius-md);
   padding: 0.85rem 1rem;
-  transition: background var(--transition);
+  color: var(--color-text-main);
+  text-decoration: none;
+  transition: background var(--transition), color var(--transition), transform var(--transition);
 }
 
-.itemHighlight {
+.itemLink { cursor: pointer; }
+
+.itemLink:hover,
+.itemLink:focus-visible,
+.itemLink:active {
   background: var(--color-orange-soft);
+  outline: none;
+  transform: translateY(-1px);
 }
 
-.itemHighlight .title,
-.itemHighlight .date,
-.itemHighlight .desc,
-.itemHighlight .icon,
-.itemHighlight .arrow {
+.itemLink:hover .title,
+.itemLink:focus-visible .title,
+.itemLink:active .title,
+.itemLink:hover .date,
+.itemLink:focus-visible .date,
+.itemLink:active .date,
+.itemLink:hover .desc,
+.itemLink:focus-visible .desc,
+.itemLink:active .desc,
+.itemLink:hover .icon,
+.itemLink:focus-visible .icon,
+.itemLink:active .icon {
+  color: var(--color-text-light);
+}
+
+.itemLink:hover .arrow,
+.itemLink:focus-visible .arrow,
+.itemLink:active .arrow {
+  background: rgba(255, 255, 255, 0.25);
   color: var(--color-text-light);
 }
 
@@ -39,6 +61,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: color var(--transition);
 }
 
 .body {
@@ -56,12 +79,14 @@
   margin: 0;
   font-weight: var(--font-weight-regular);
   text-transform: capitalize;
+  transition: color var(--transition);
 }
 
 .date {
   font-family: var(--font-title);
   font-size: 0.9rem;
   margin-left: 0.4rem;
+  transition: color var(--transition);
 }
 
 .desc {
@@ -70,6 +95,7 @@
   color: var(--color-text-main);
   line-height: 1.45;
   margin: 0;
+  transition: color var(--transition);
 }
 
 .arrow {
@@ -78,19 +104,10 @@
   border: none;
   border-radius: var(--radius-sm);
   padding: 0.5rem 0.85rem;
-  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background var(--transition), transform var(--transition);
-}
-
-.itemHighlight .arrow {
-  background: rgba(255, 255, 255, 0.25);
-}
-
-.arrow:hover {
-  transform: translateX(2px);
+  transition: background var(--transition), color var(--transition), transform var(--transition);
 }
 
 @media (max-width: 540px) {
