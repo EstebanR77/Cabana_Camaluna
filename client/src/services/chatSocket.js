@@ -1,14 +1,17 @@
 const WS_URL = import.meta.env.DEV
   ? 'ws://localhost:3000/ws/chat'
-  : `wss://${window.location.host}/ws/chat`;
+  : `${window.location.protocol === 'https:' ? 'wss' : 'ws'}://${window.location.host}/ws/chat`;
 
 let socket = null;
+let pendingMessages = [];
 
-export function connectChat(onMessage, isUnmounted) {
+export function connectChat(onMessage, isUnmounted, name = 'Visitante') {
   socket = new WebSocket(WS_URL);
 
   socket.onopen = () => {
-    console.log('Conectado al chat WebSocket');
+    socket.send(JSON.stringify({ type: 'join', name }));
+    pendingMessages.forEach(message => socket.send(JSON.stringify(message)));
+    pendingMessages = [];
   };
 
   socket.onmessage = (event) => {
@@ -18,8 +21,7 @@ export function connectChat(onMessage, isUnmounted) {
 
   socket.onclose = () => {
     if (isUnmounted && isUnmounted()) return;
-    console.log('Desconectado del chat. Reconectando en 3s...');
-    setTimeout(() => connectChat(onMessage, isUnmounted), 3000);
+    setTimeout(() => connectChat(onMessage, isUnmounted, name), 3000);
   };
 
   socket.onerror = (err) => console.error('Error WebSocket chat:', err);
@@ -28,9 +30,14 @@ export function connectChat(onMessage, isUnmounted) {
 export function sendChatMessage(message) {
   if (socket && socket.readyState === WebSocket.OPEN) {
     socket.send(JSON.stringify(message));
+  } else {
+    pendingMessages.push(message);
   }
 }
 
 export function disconnectChat() {
-  if (socket) { socket.close(); socket = null; }
+  if (socket) {
+    socket.close();
+    socket = null;
+  }
 }

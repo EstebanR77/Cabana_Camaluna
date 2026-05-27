@@ -1,106 +1,72 @@
+/* ── About Villa de Leyva ─────────────────────────────── */
 .section {
-  width: 90%;
-  margin: 0 auto 1.35rem;
-  padding: 1.75rem 1.9rem 2rem;
-  background: var(--color-page-bg);
-  border-radius: 26px;
-  transition: transform var(--transition), box-shadow var(--transition);
-}
-
-.isHovered {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.12);
+  background: var(--cream);
+  padding: 4rem 2.5rem;
 }
 
 .sectionLabel {
-  margin: 0 0 1.55rem;
-  font-family: var(--font-title);
-  font-size: clamp(1.5rem, 2.4vw, 2rem);
-  font-weight: var(--font-weight-regular);
-  line-height: 1;
-  letter-spacing: 0;
-  color: var(--color-orange-soft);
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  color: var(--brown-warm);
+  text-align: center;
+  margin-bottom: 2.5rem;
 }
 
 .inner {
+  max-width: 1100px;
+  margin: 0 auto;
   display: grid;
-  grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.92fr);
-  gap: 2.6rem;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
   align-items: center;
 }
 
 .imageWrap {
-  height: 300px;
+  border-radius: var(--radius-md);
   overflow: hidden;
-  border-radius: 16px;
-  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.12);
 }
 
 .image {
   width: 100%;
-  height: 100%;
+  height: 400px;
   object-fit: cover;
-  transition: transform 0.45s ease;
-}
-
-.isHovered .image {
-  transform: scale(1.035);
+  display: block;
 }
 
 .content {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 1rem;
+  gap: 1.25rem;
 }
 
 .title {
-  margin: 0;
-  font-family: var(--font-title);
-  font-size: clamp(1.8rem, 3vw, 2.4rem);
-  font-weight: var(--font-weight-regular);
-  line-height: 1;
-  letter-spacing: 0;
-  color: var(--color-orange-soft);
+  font-family: var(--font-heading);
+  font-size: 2.25rem;
+  color: var(--brown-warm);
+  line-height: 1.2;
 }
 
 .description {
-  max-width: 520px;
-  margin: 0;
-  font-size: clamp(1.1rem, 2vw, 1.5rem);
-  line-height: 1.22;
-  color: var(--color-text-main);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--black);
+  line-height: 1.75;
 }
 
 .link {
-  width: fit-content;
-  padding: 0.45rem 1.45rem;
-  color: var(--color-orange-soft);
-  border: 1px solid rgba(192, 124, 58, 0.55);
-  border-radius: 999px;
-  font-family: var(--font-title);
-  font-size: 1rem;
-  transition: background var(--transition), color var(--transition), transform var(--transition);
+  display: inline-block;
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  color: var(--brown-warm);
+  transition: opacity var(--transition);
 }
 
-.link:hover {
-  background: var(--color-orange-soft);
-  color: var(--color-text-light);
-  transform: translateY(-2px);
-}
+.link:hover { opacity: 0.75; }
 
-@media (max-width: 900px) {
-  .section {
-    width: calc(100% - 24px);
-    padding: 1.5rem 1rem;
-  }
-
-  .inner {
-    grid-template-columns: 1fr;
-    gap: 1.4rem;
-  }
-
-  .imageWrap {
-    height: 260px;
-  }
+@media (max-width: 768px) {
+  .section { padding: 3rem 1.25rem; }
+  .inner { grid-template-columns: 1fr; gap: 2rem; }
+  .image { height: 260px; }
+  .sectionLabel { font-size: 1.8rem; }
+  .title { font-size: 1.6rem; }
 }

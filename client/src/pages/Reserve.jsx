@@ -1,8 +1,8 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Hero   from '../components/Hero/Hero'
 import Footer from '../components/Footer/Footer'
-import RevealBlock from '../components/RevealBlock/RevealBlock'
+import { createReservation, getReservationById } from '../services/api'
 import styles from './Reserve.module.css'
 
 /* ── Datos ───────────────────────────────────────────── */
@@ -10,7 +10,7 @@ const STEPS = [
   { num: 1, label: 'Selección de estadia' },
   { num: 2, label: 'Información del alojamiento' },
   { num: 3, label: 'Resumen de la reserva' },
-  { num: 4, label: 'Reserva confirmada' },
+  { num: 4, label: 'Validación' },
 ]
 
 const MONTHS = [
@@ -29,10 +29,25 @@ function getFirstDay(year, month) {
   return new Date(year, month, 1).getDay()
 }
 
+function toISODate(date) {
+  return date.toISOString().slice(0, 10)
+}
+
+function fileToBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.onload = () => resolve(reader.result)
+    reader.onerror = reject
+    reader.readAsDataURL(file)
+  })
+}
+
 /* ── Componente Calendar mini ─────────────────────── */
-function MiniCalendar({ year, month, selected, onSelect, range }) {
+function MiniCalendar({ year, month, onSelect, range }) {
   const days = getDaysInMonth(year, month)
   const first = getFirstDay(year, month)
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
 
   return (
     <div className={styles.calendar}>
@@ -43,6 +58,7 @@ function MiniCalendar({ year, month, selected, onSelect, range }) {
         {Array.from({ length: days }).map((_, i) => {
           const day = i + 1
           const date = new Date(year, month, day)
+          const disabled = date < today
           const isStart = range.start && date.toDateString() === range.start.toDateString()
           const isEnd   = range.end   && date.toDateString() === range.end.toDateString()
           const inRange = range.start && range.end && date > range.start && date < range.end
@@ -55,7 +71,9 @@ function MiniCalendar({ year, month, selected, onSelect, range }) {
                 isEnd   ? styles.calEnd   : '',
                 inRange ? styles.calRange : '',
               ].join(' ')}
-              onClick={() => onSelect(date)}
+              onClick={() => !disabled && onSelect(date)}
+              disabled={disabled}
+              type="button"
             >
               {day}
             </button>
@@ -142,7 +160,7 @@ function Step2({ form, onChange }) {
 }
 
 /* ── Step 3: Resumen ──────────────────────────────── */
-function Step3({ range, form }) {
+function Step3({ range, form, proofFile, proofPreview, onProofChange }) {
   const nights = range.start && range.end
     ? Math.round((range.end - range.start) / 86400000)
     : 0
@@ -151,7 +169,7 @@ function Step3({ range, form }) {
 
   return (
     <div className={styles.step}>
-      <p className={styles.stepLabel}>Paso 3 — Resumen de la reserva</p>
+      <p className={styles.stepLabel}>Paso 3 — Resumen y comprobante</p>
       <div className={styles.summary}>
         <div className={styles.summaryCard}>
           <p className={styles.summaryKey}>Check-in</p>
@@ -171,69 +189,159 @@ function Step3({ range, form }) {
         </div>
         <div className={`${styles.summaryCard} ${styles.summaryTotal}`}>
           <p className={styles.summaryKey}>Total estimado</p>
-          <p className={styles.summaryVal}>
-            ${total.toLocaleString('es-CO')} COP
-          </p>
+          <p className={styles.summaryVal}>${total.toLocaleString('es-CO')} COP</p>
         </div>
+      </div>
+
+      <div className={`${styles.field} ${styles.fieldFull}`}>
+        <label className={styles.label}>Comprobante de pago</label>
+        <input
+          className={styles.input}
+          type="file"
+          accept="image/*,.pdf"
+          onChange={onProofChange}
+        />
+        <p className={styles.summaryKey}>El administrador revisará el comprobante para confirmar o rechazar la reserva.</p>
+        {proofFile && <p className={styles.summaryVal}>{proofFile.name}</p>}
+        {proofPreview && proofPreview.startsWith('data:image/') && (
+          <img src={proofPreview} alt="Vista previa del comprobante" style={{ maxWidth: '260px', borderRadius: '12px' }} />
+        )}
       </div>
     </div>
   )
 }
 
-/* ── Step 4: Confirmado ───────────────────────────── */
-function Step4() {
+/* ── Step 4: Estado de validación ───────────────────── */
+function Step4({ reservation }) {
+  if (!reservation) return null
+
+  if (reservation.status === 'approved') {
+    return (
+      <div className={`${styles.step} ${styles.stepConfirmed}`}>
+        <div className={styles.confirmedIcon}>✅</div>
+        <h3 className={styles.confirmedTitle}>¡Reserva confirmada!</h3>
+        <p className={styles.confirmedText}>El administrador aprobó tu comprobante.</p>
+        {reservation.accessCode && (
+          <p className={styles.confirmedText}><b>Código de entrada:</b> {reservation.accessCode}</p>
+        )}
+        <Link to="/" className={styles.confirmedBtn}>Volver al inicio</Link>
+      </div>
+    )
+  }
+
+  if (reservation.status === 'rejected') {
+    return (
+      <div className={`${styles.step} ${styles.stepConfirmed}`}>
+        <div className={styles.confirmedIcon}>⚠️</div>
+        <h3 className={styles.confirmedTitle}>Comprobante rechazado</h3>
+        <p className={styles.confirmedText}>Comunícate con Camaluna para revisar el pago o enviar un nuevo comprobante.</p>
+        <Link to="/contact" className={styles.confirmedBtn}>Contactar</Link>
+      </div>
+    )
+  }
+
   return (
     <div className={`${styles.step} ${styles.stepConfirmed}`}>
-      <div className={styles.confirmedIcon}>📅</div>
-      <h3 className={styles.confirmedTitle}>¡Reserva Confirmada!</h3>
-      <p className={styles.confirmedText}>
-        Te hemos enviado un correo de confirmación. Pronto nos pondremos en contacto contigo.
-      </p>
-      <Link to="/" className={styles.confirmedBtn}>Volver al inicio</Link>
+      <div className={styles.confirmedIcon}>⏳</div>
+      <h3 className={styles.confirmedTitle}>Reserva en revisión</h3>
+      <p className={styles.confirmedText}>Tu comprobante fue enviado. El administrador lo revisará y confirmará tu reserva.</p>
     </div>
   )
 }
 
 /* ── Página Reserve ───────────────────────────────── */
 function Reserve() {
-  const [step, setStep]   = useState(1)
+  const [step, setStep] = useState(1)
   const [range, setRange] = useState({ start: null, end: null })
-  const [form, setForm]   = useState({})
+  const [form, setForm] = useState({})
+  const [proofFile, setProofFile] = useState(null)
+  const [proofPreview, setProofPreview] = useState('')
+  const [reservation, setReservation] = useState(null)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
 
   function handleFormChange(id, val) {
     setForm(f => ({ ...f, [id]: val }))
   }
 
+  async function handleProofChange(e) {
+    const file = e.target.files?.[0]
+    setProofFile(file || null)
+    setProofPreview(file ? await fileToBase64(file) : '')
+  }
+
   function canNext() {
-    if (step === 1) return range.start && range.end
+    if (loading) return false
+    if (step === 1) return range.start && range.end && range.end > range.start
     if (step === 2) return form.nombre && form.email && form.telefono
+    if (step === 3) return Boolean(proofFile && proofPreview)
     return true
   }
 
+  async function submitReservation() {
+    setError('')
+    setLoading(true)
+    try {
+      const payload = {
+        checkIn: toISODate(range.start),
+        checkOut: toISODate(range.end),
+        name: form.nombre,
+        email: form.email,
+        phone: form.telefono,
+        guests: form.huespedes || 1,
+        notes: form.solicitudes || '',
+        paymentProof: {
+          name: proofFile.name,
+          type: proofFile.type,
+          size: proofFile.size,
+          data: proofPreview
+        }
+      }
+      const { data } = await createReservation(payload)
+      setReservation(data.reservation)
+      setStep(4)
+    } catch (err) {
+      setError(err.response?.data?.error || 'No se pudo enviar la reserva. Intenta nuevamente.')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    if (!reservation?.id || reservation.status === 'approved' || reservation.status === 'rejected') return
+
+    const interval = setInterval(async () => {
+      try {
+        const { data } = await getReservationById(reservation.id)
+        setReservation(data.reservation)
+      } catch {
+        // Mantiene el estado actual si el servidor no responde temporalmente.
+      }
+    }, 3000)
+
+    return () => clearInterval(interval)
+  }, [reservation?.id, reservation?.status])
+
   return (
     <div className={styles.page}>
-
-      <RevealBlock variant="heroReveal">
       <Hero
         subtitle="Cabaña Boutique"
         title="Reserva tu estadía"
         description="Elige tus fechas, completa tu información y asegura tu experiencia en Camaluna."
+        bgImage="/images/reserve-hero.jpg"
       />
-      </RevealBlock>
 
-      {/* Booking section */}
-      <RevealBlock as="section" className={styles.bookingSection}>
+      <section className={styles.bookingSection}>
         <h2 className={styles.bookingTitle}>Reserva paso a paso</h2>
 
-        {/* Step bar */}
         <div className={styles.stepBar}>
           {STEPS.map(s => (
             <div
               key={s.num}
               className={[
                 styles.stepItem,
-                step === s.num  ? styles.stepActive    : '',
-                step > s.num    ? styles.stepCompleted : '',
+                step === s.num ? styles.stepActive : '',
+                step > s.num ? styles.stepCompleted : '',
               ].join(' ')}
             >
               <div className={styles.stepCircle}>{step > s.num ? '✓' : s.num}</div>
@@ -242,36 +350,42 @@ function Reserve() {
           ))}
         </div>
 
-        {/* Contenido del paso */}
         <div className={styles.stepContent}>
           {step === 1 && <Step1 range={range} onRangeChange={setRange} />}
           {step === 2 && <Step2 form={form} onChange={handleFormChange} />}
-          {step === 3 && <Step3 range={range} form={form} />}
-          {step === 4 && <Step4 />}
+          {step === 3 && (
+            <Step3
+              range={range}
+              form={form}
+              proofFile={proofFile}
+              proofPreview={proofPreview}
+              onProofChange={handleProofChange}
+            />
+          )}
+          {step === 4 && <Step4 reservation={reservation} />}
+          {error && <p className={styles.confirmedText}>{error}</p>}
         </div>
 
-        {/* Botones de navegación */}
         {step < 4 && (
           <div className={styles.navBtns}>
             {step > 1 && (
-              <button className={styles.btnBack} onClick={() => setStep(s => s - 1)}>
+              <button className={styles.btnBack} onClick={() => setStep(s => s - 1)} type="button">
                 ← Atrás
               </button>
             )}
             <button
               className={styles.btnNext}
-              onClick={() => setStep(s => s + 1)}
+              onClick={() => step === 3 ? submitReservation() : setStep(s => s + 1)}
               disabled={!canNext()}
+              type="button"
             >
-              {step === 3 ? 'Confirmar reserva' : 'Continuar →'}
+              {loading ? 'Enviando...' : step === 3 ? 'Enviar comprobante' : 'Continuar →'}
             </button>
           </div>
         )}
-      </RevealBlock>
+      </section>
 
-      <RevealBlock>
-        <Footer />
-      </RevealBlock>
+      <Footer />
     </div>
   )
 }
