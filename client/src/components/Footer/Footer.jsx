@@ -49,6 +49,10 @@ function Footer({ variant = 'default' }) {
     },
   ]
 
+  const footerClass = variant === 'orange'
+    ? `${styles.footer} ${styles.footerOrange}`
+    : styles.footer
+
   return (
     <footer className={`${styles.footer} ${variant === 'reviews' ? styles.footerReviews : ''}`}>
       <div className={styles.socials}>
