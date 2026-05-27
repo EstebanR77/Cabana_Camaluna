@@ -2,6 +2,9 @@ import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import styles from './CabinDistances.module.css'
 
+const mapsUrl = 'https://maps.app.goo.gl/yQYv2p9FVsxKbKev7'
+const embedMapUrl = 'https://www.google.com/maps?q=CAMALUNA%20Cabana%20Boutique%20Villa%20de%20Leyva&output=embed'
+
 const distances = [
   { icon: 'near_me', text: 'A solo 7 minutos del centro de Villa de Leyva' },
   { icon: 'location_city', text: 'A 1:15 horas de Tunja, Boyacá' },
@@ -42,10 +45,21 @@ function CabinDistances() {
           onMouseLeave={() => setHoveredItem('')}
           onFocus={() => setHoveredItem('map')}
           onBlur={() => setHoveredItem('')}
-          tabIndex={0}
         >
-          <span className={styles.mapPinIcon} aria-hidden="true">location_on</span>
-          <span className={styles.mapPin}>Camaluna</span>
+          <iframe
+            src={embedMapUrl}
+            title="Mapa de Camaluna Cabana Boutique"
+            className={styles.mapFrame}
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          />
+          <a
+            href={mapsUrl}
+            target="_blank"
+            rel="noreferrer"
+            className={styles.mapLink}
+            aria-label="Abrir ubicacion de Camaluna en Google Maps"
+          />
         </motion.div>
 
         <motion.div

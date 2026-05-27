@@ -50,6 +50,10 @@ function CabinEquipment({ active = false }) {
       .join(' ')
   )
 
+  const modalHoverClass = id => (
+    hoveredItem === id ? styles.modalItemHovered : ''
+  )
+
   return (
     <>
       <motion.section
@@ -137,12 +141,24 @@ function CabinEquipment({ active = false }) {
               </button>
               <h2 className={styles.modalTitle}>Todas las comodidades</h2>
               <div className={styles.modalGrid}>
-                {allAmenities.map(item => (
-                  <div key={item.label} className={styles.modalItem}>
+                {allAmenities.map(item => {
+                  const modalItemId = `modal-${item.label}`
+
+                  return (
+                    <div
+                      key={item.label}
+                      className={[styles.modalItem, modalHoverClass(modalItemId)].filter(Boolean).join(' ')}
+                      onMouseEnter={() => setHoveredItem(modalItemId)}
+                      onMouseLeave={() => setHoveredItem('')}
+                      onFocus={() => setHoveredItem(modalItemId)}
+                      onBlur={() => setHoveredItem('')}
+                      tabIndex={0}
+                    >
                     <span className={styles.modalIcon} aria-hidden="true">{item.icon}</span>
                     <span className={styles.modalLabel}>{item.label}</span>
-                  </div>
-                ))}
+                    </div>
+                  )
+                })}
               </div>
             </motion.div>
           </motion.div>

@@ -10,7 +10,7 @@
   font-size: clamp(2.2rem, 3.3vw, 3.7rem);
   font-weight: var(--font-weight-regular);
   line-height: 1;
-  color: var(--color-text-main);
+  color: #FFFFFF ;
   text-align: center;
 }
 
@@ -52,7 +52,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: var(--color-text-main);
+  color: #FFFFFF ;
   font-family: 'Material Symbols Outlined';
   font-weight: normal;
   font-style: normal;
@@ -72,7 +72,7 @@
   font-family: var(--font-body);
   font-size: clamp(0.86rem, 0.82vw, 1rem);
   line-height: 1.05;
-  color: var(--color-text-main);
+  color: #FFFFFF ;
 }
 
 .moreRules {

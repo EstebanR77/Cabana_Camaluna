@@ -37,7 +37,7 @@ function Cabin() {
           <CabinEquipment active />
           <CabinRules />
         </div>
-        <CabinVideo videoUrl="" />
+        <CabinVideo videoUrl="/Videos/Video_Recorrido.mp4" />
         <CabinDistances />
         <CabinReserveCTA />
       </section>
