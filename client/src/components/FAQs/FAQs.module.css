@@ -1,0 +1,99 @@
+.wrap {
+  width: 100%;
+  max-width: 1100px;
+  margin: 1rem auto 0;
+  padding: 0.5rem 1.5rem;
+}
+
+.card {
+  background: var(--color-page-oscuro);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem 1.75rem;
+}
+
+.title {
+  font-family: var(--font-title);
+  font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+  color: var(--color-orange);
+  letter-spacing: 0.04em;
+  margin: 0 0 1rem;
+  font-weight: var(--font-weight-regular);
+  text-transform: capitalize;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.titleIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-orange);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.item {
+  border-top: 1px solid rgba(192, 124, 58, 0.25);
+}
+
+.item:last-child {
+  border-bottom: 1px solid rgba(192, 124, 58, 0.25);
+}
+
+.row {
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 0.85rem;
+  align-items: center;
+  background: transparent;
+  border: none;
+  padding: 0.85rem 0.5rem;
+  cursor: pointer;
+  text-align: left;
+  transition: background var(--transition);
+}
+
+.row:hover { background: rgba(192, 124, 58, 0.08); }
+
+.rowIcon {
+  color: var(--color-orange);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.question {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--color-text-main);
+}
+
+.arrow {
+  color: var(--color-orange);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--transition);
+}
+
+.arrowOpen { transform: rotate(180deg); }
+
+.answer {
+  overflow: hidden;
+  padding: 0 0.5rem 0 2.45rem;
+}
+
+.answer p {
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  color: var(--color-text-main);
+  line-height: 1.6;
+  margin: 0 0 0.85rem;
+  font-weight: var(--font-weight-extra-light);
+}

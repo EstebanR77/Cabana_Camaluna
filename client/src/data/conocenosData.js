@@ -1,7 +1,7 @@
 export const conocenosHero = {
   title: 'Conócenos',
   subtitle: 'Descubre un espacio creado para el descanso, la tranquilidad y la conexión con la naturaleza en Villa de Leyva.',
-  image: '/images/Habitaciones.jpg',
+  image: '/images/habitacion.png',
 }
 
 export const whoWeAre = {

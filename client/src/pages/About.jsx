@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion'
 import Hero from '../components/Hero/Hero'
 import Footer from '../components/Footer/Footer'
-import RevealBlock from '../components/RevealBlock/RevealBlock'
 import styles from './About.module.css'
 
 const logros = [
@@ -30,16 +29,14 @@ function About() {
   return (
     <div className={styles.page}>
 
-      <RevealBlock variant="heroReveal">
       <Hero
         subtitle="Cabaña Boutique"
         title="Conócenos"
         description="Anfitriones apasionados por nuestra tierra ancestral."
       />
-      </RevealBlock>
 
       {/* Logros */}
-      <RevealBlock as="section" className={styles.logros}>
+      <section className={styles.logros}>
         <div className={styles.logrosGrid}>
           {logros.map((l, i) => (
             <motion.div
@@ -55,10 +52,10 @@ function About() {
             </motion.div>
           ))}
         </div>
-      </RevealBlock>
+      </section>
 
       {/* Conocenos cards */}
-      <RevealBlock as="section" className={styles.conocenos}>
+      <section className={styles.conocenos}>
         <div className={styles.conocenosGrid}>
           {conocenos.map((item, i) => (
             <motion.div
@@ -74,10 +71,10 @@ function About() {
             </motion.div>
           ))}
         </div>
-      </RevealBlock>
+      </section>
 
       {/* Villa de Leyva info */}
-      <RevealBlock as="section" className={styles.villa}>
+      <section className={styles.villa}>
         <motion.div
           className={styles.villaContent}
           initial={{ opacity: 0, x: -40 }}
@@ -107,11 +104,9 @@ function About() {
         >
           <img src="/images/villa-de-leyva.jpg" alt="Villa de Leyva" />
         </motion.div>
-      </RevealBlock>
+      </section>
 
-      <RevealBlock>
-        <Footer />
-      </RevealBlock>
+      <Footer />
     </div>
   )
 }
