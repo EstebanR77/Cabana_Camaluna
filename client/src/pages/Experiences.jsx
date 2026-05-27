@@ -1,39 +1,9 @@
-import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import Footer from '../components/Footer/Footer'
-import RevealBlock from '../components/RevealBlock/RevealBlock'
-import ReviewCard from '../components/ReviewCard/ReviewCard'
-import ReviewForm from '../components/ReviewForm/ReviewForm'
-import ReviewSummary from '../components/ReviewSummary/ReviewSummary'
-import { createReview, getReviews } from '../services/api'
-import styles from './Experiences.module.css'
+import Adventures from '../components/Adventures/Adventures'
+import CtaBanner  from '../components/CtaBanner/CtaBanner'
+import Footer     from '../components/Footer/Footer'
+import styles     from './Experiences.module.css'
 
-const fallbackReviews = [
-  {
-    id: 'local-1',
-    name: 'Camilo Guerrero',
-    stayDate: 'Abril 2026',
-    text: 'Excelente, muy buena ubicación cerca del pueblo, las fotos iguales al sitio, todo impecable. Angela y Luis siempre estuvieron pendientes de nosotros, la comunicación con ellos muy buena. Recomendado.',
-    stars: 5,
-    avatar: '/images/Hombre avatar.jpg',
-  },
-  {
-    id: 'local-2',
-    name: 'Francisco Martínez',
-    stayDate: 'Marzo 2026',
-    text: 'Nos gustó mucho la casa, muy cómoda y es un muy buen sitio para descansar, rodeado de naturaleza y cerca a todos los sitios turísticos. Mi familia quedó muy contenta, muchas gracias.',
-    stars: 5,
-    avatar: '/images/Anfitriones.jpeg',
-  },
-  {
-    id: 'local-3',
-    name: 'María C. Díaz',
-    stayDate: 'Febrero 2026',
-    text: 'Todo perfecto, camas grandes y muy cómodas, baños amplios y hermosos, todo como nuevo. Excelente lugar para quedarse en Villa de Leyva.',
-    stars: 5,
-    avatar: '/images/Mujer avatar.jpg',
-  },
-]
+import { allAdventures, experiencesCta } from '../data/experiencesData'
 
 function Experiences() {
   const [reviews, setReviews] = useState(fallbackReviews)
@@ -87,55 +57,11 @@ function Experiences() {
   }
 
   return (
-    <main className={styles.page}>
-      <RevealBlock className={styles.header} variant="heroReveal">
-        <h1 className={styles.title}>Experiencias / Reseñas</h1>
-        <p className={styles.subtitle}>Historias, momentos y experiencias compartidas por nuestros huéspedes.</p>
-      </RevealBlock>
-
-      <div className={styles.content}>
-        <RevealBlock>
-          <ReviewSummary reviews={reviews} />
-        </RevealBlock>
-
-        <RevealBlock as="section" className={styles.reviewsSection}>
-          <h2 className={styles.sectionTitle}>Reseñas</h2>
-          <div className={styles.reviewsGrid}>
-            {reviews.slice(0, 6).map((review) => (
-              <ReviewCard
-                key={review.id}
-                compact
-                name={review.name}
-                date={review.stayDate}
-                text={review.text}
-                stars={review.stars}
-                image={review.avatar}
-                isActive={activeReview === review.id}
-                onHover={() => setHoveredReview(review.id)}
-                onLeave={() => setHoveredReview(null)}
-              />
-            ))}
-          </div>
-        </RevealBlock>
-
-        <RevealBlock>
-          <ReviewForm onSubmit={handleReviewSubmit} isSubmitting={isSubmitting} />
-          {statusMessage && (
-            <p className={`${styles.statusMessage} ${statusType === 'error' ? styles.statusError : ''}`}>
-              {statusMessage}
-            </p>
-          )}
-        </RevealBlock>
-
-        <RevealBlock className={styles.reserveWrap} variant="reserveReveal">
-          <Link to="/reserve" className={styles.reserveButton}>Reserva ya!</Link>
-        </RevealBlock>
-
-        <RevealBlock className={styles.footerWrap}>
-          <Footer variant="reviews" />
-        </RevealBlock>
-      </div>
-    </main>
+    <div className={styles.page}>
+      <Adventures {...allAdventures} />
+      <CtaBanner  {...experiencesCta} />
+      <Footer variant="orange" />
+    </div>
   )
 }
 
