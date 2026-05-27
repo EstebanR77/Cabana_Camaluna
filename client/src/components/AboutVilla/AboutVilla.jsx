@@ -1,30 +1,14 @@
-import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import styles from './AboutVilla.module.css'
 
-function AboutVilla({ description, image, link }) {
-  const [isHovered, setIsHovered] = useState(false)
-  const [hoverClass, setHoverClass] = useState('')
-
-  useEffect(() => {
-    setHoverClass(isHovered ? styles.isHovered : '')
-  }, [isHovered])
-
+function AboutVilla({ title, description, image, link }) {
   return (
-    <section
-      className={`${styles.section} ${hoverClass}`}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      onFocus={() => setIsHovered(true)}
-      onBlur={() => setIsHovered(false)}
-    >
+    <section className={styles.section}>
       <h2 className={styles.sectionLabel}>Sobre Villa de Leyva</h2>
-
       <div className={styles.inner}>
         <div className={styles.imageWrap}>
           <img src={image} alt="Villa de Leyva" className={styles.image} />
         </div>
-
         <div className={styles.content}>
           <h2 className={styles.title}>Un destino de ensueño</h2>
           <p className={styles.description}>{description}</p>

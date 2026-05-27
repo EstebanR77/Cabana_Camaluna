@@ -1,43 +1,54 @@
-import { useEffect } from 'react'
-import Hero from '../components/Hero/Hero'
-import CabinIntroCards from '../components/CabinIntroCards/CabinIntroCards'
-import CabinEquipment from '../components/CabinEquipment/CabinEquipment'
-import CabinRules from '../components/CabinRules/CabinRules'
-import CabinVideo from '../components/CabinVideo/CabinVideo'
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
+import { AnimatePresence, motion } from 'framer-motion'
+import Hero          from '../components/Hero/Hero'
+import CabinRules    from '../components/CabinRules/CabinRules'
+import CabinVideo    from '../components/CabinVideo/CabinVideo'
 import CabinDistances from '../components/CabinDistances/CabinDistances'
-import Footer from '../components/Footer/Footer'
-import styles from './Cabin.module.css'
+import Footer        from '../components/Footer/Footer'
+import styles        from './Cabin.module.css'
+
+const equipment = [
+  { icon: '📶', label: 'Wifi'            },
+  { icon: '🍳', label: 'Cocina'          },
+  { icon: '🛁', label: '2 Baños'         },
+  { icon: '🛏️', label: '2 Habitaciones'  },
+]
+
+const allAmenities = [
+  { icon: '📶', label: 'Wifi de alta velocidad' },
+  { icon: '🍳', label: 'Cocina equipada'         },
+  { icon: '🛁', label: '2 Baños completos'       },
+  { icon: '🛏️', label: '2 Habitaciones'          },
+  { icon: '🔥', label: 'Chimenea'                },
+  { icon: '🌿', label: 'Jardín privado'          },
+  { icon: '🅿️', label: 'Parqueadero'             },
+  { icon: '🧺', label: 'Lavadora'                },
+  { icon: '📺', label: 'Smart TV'                },
+  { icon: '☕', label: 'Cafetera'                },
+  { icon: '🌡️', label: 'Agua caliente'           },
+  { icon: '🔐', label: 'Acceso privado'          },
+]
 
 function Cabin() {
-  useEffect(() => {
-    document.documentElement.classList.add('cabin-page-active')
-    document.body.classList.add('cabin-page-active')
-    document.documentElement.scrollLeft = 0
-    document.body.scrollLeft = 0
-    window.scrollTo({ left: 0, top: window.scrollY })
-
-    return () => {
-      document.documentElement.classList.remove('cabin-page-active')
-      document.body.classList.remove('cabin-page-active')
-    }
-  }, [])
+  const [showModal, setShowModal] = useState(false)
 
   return (
     <div className={styles.page}>
+
+      {/* Hero */}
       <Hero
         subtitle="Cabaña Boutique"
         title="LA CABAÑA"
         description="Conoce cada espacio, sus comodidades y todo lo que necesitas para disfrutar una estadía única en medio de la naturaleza."
+        bgImage="/images/cabin-hero.jpg"
       />
-      </RevealBlock>
 
       {/* Reglas de la Casa */}
-      <RevealBlock>
-        <CabinRules />
-      </RevealBlock>
+      <CabinRules />
 
       {/* Equipamiento — bg #969f74 */}
-      <RevealBlock as="section" className={styles.equipment}>
+      <section className={styles.equipment}>
         <h2 className={styles.equipTitle}>Equipamiento</h2>
         <div className={styles.equipInner}>
           <div className={styles.equipImg}>
@@ -55,22 +66,18 @@ function Cabin() {
             </button>
           </div>
         </div>
-      </RevealBlock>
+      </section>
 
       {/* Video Recorrido */}
-      <RevealBlock>
-        <CabinVideo videoUrl="" />
-      </RevealBlock>
+      <CabinVideo videoUrl="" />
 
       {/* Distancias */}
-      <RevealBlock>
-        <CabinDistances />
-      </RevealBlock>
+      <CabinDistances />
 
       {/* CTA RESERVA YA */}
-      <RevealBlock className={styles.ctaBlock} variant="reserveReveal">
+      <div className={styles.ctaBlock}>
         <Link to="/reserve" className={styles.ctaBtn}>RESERVA YA!</Link>
-      </RevealBlock>
+      </div>
 
       {/* Modal comodidades */}
       <AnimatePresence>
@@ -104,9 +111,7 @@ function Cabin() {
         )}
       </AnimatePresence>
 
-      <RevealBlock>
-        <Footer />
-      </RevealBlock>
+      <Footer />
     </div>
   )
 }

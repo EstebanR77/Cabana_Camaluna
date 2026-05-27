@@ -3,14 +3,14 @@
 
 /* ── Booking section ──────────────────────────────────── */
 .bookingSection {
-  background: var(--color-page-bg);
+  background: var(--cream);
   padding: 4rem 2.5rem;
 }
 
 .bookingTitle {
-  font-family: var(--font-title);
+  font-family: var(--font-heading);
   font-size: 1.75rem;
-  color: var(--color-text-main);
+  color: var(--black);
   text-align: center;
   margin-bottom: 2.5rem;
 }
@@ -46,15 +46,15 @@
   left: calc(50% + 17px);
 }
 
-.stepItem.stepCompleted::after { background: var(--color-green); }
+.stepItem.stepCompleted::after { background: var(--olive-main); }
 
 .stepCircle {
   width: 34px;
   height: 34px;
   border-radius: 50%;
   border: 2px solid rgba(0,0,0,0.2);
-  background: var(--color-text-light);
-  color: var(--color-text-main);
+  background: var(--white);
+  color: var(--black);
   font-family: var(--font-body);
   font-size: 0.9rem;
   font-weight: 600;
@@ -67,15 +67,15 @@
 }
 
 .stepActive .stepCircle {
-  border-color: var(--color-green);
-  background: var(--color-green);
-  color: var(--color-text-light);
+  border-color: var(--olive-main);
+  background: var(--olive-main);
+  color: var(--white);
 }
 
 .stepCompleted .stepCircle {
-  border-color: var(--color-green);
-  background: var(--color-green);
-  color: var(--color-text-light);
+  border-color: var(--olive-main);
+  background: var(--olive-main);
+  color: var(--white);
 }
 
 .stepName {
@@ -86,14 +86,14 @@
   max-width: 100px;
 }
 
-.stepActive .stepName   { color: var(--color-green); font-weight: 600; }
-.stepCompleted .stepName{ color: var(--color-green); }
+.stepActive .stepName   { color: var(--olive-main); font-weight: 600; }
+.stepCompleted .stepName{ color: var(--olive-main); }
 
 /* ── Step content ─────────────────────────────────────── */
 .stepContent {
   max-width: 860px;
   margin: 0 auto;
-  background: var(--color-text-light);
+  background: var(--white);
   border-radius: var(--radius-md);
   padding: 2.5rem;
   box-shadow: var(--shadow-card);
@@ -102,9 +102,9 @@
 .step { display: flex; flex-direction: column; gap: 1.5rem; }
 
 .stepLabel {
-  font-family: var(--font-title);
+  font-family: var(--font-heading);
   font-size: 1.25rem;
-  color: var(--color-green);
+  color: var(--olive-main);
   border-bottom: 2px solid rgba(112,136,95,0.2);
   padding-bottom: 0.75rem;
 }
@@ -117,13 +117,13 @@
 }
 
 .calendar {
-  background: var(--color-text-light);
+  background: var(--white);
 }
 
 .calMonth {
-  font-family: var(--font-title);
+  font-family: var(--font-heading);
   font-size: 1rem;
-  color: var(--color-green);
+  color: var(--olive-main);
   text-align: center;
   margin-bottom: 0.75rem;
 }
@@ -153,22 +153,22 @@
   cursor: pointer;
   text-align: center;
   transition: background var(--transition), color var(--transition);
-  color: var(--color-text-main);
+  color: var(--black);
 }
 
-.calDay:hover  { background: var(--color-page-bg); }
-.calStart, .calEnd { background: var(--color-green) !important; color: var(--color-text-light) !important; }
+.calDay:hover  { background: var(--cream); }
+.calStart, .calEnd { background: var(--olive-main) !important; color: var(--white) !important; }
 .calRange { background: rgba(112,136,95,0.2); }
 
 .rangeInfo {
   display: flex;
   gap: 2rem;
   padding: 1rem 1.25rem;
-  background: var(--color-page-bg);
+  background: var(--cream);
   border-radius: var(--radius-sm);
   font-family: var(--font-body);
   font-size: 0.9rem;
-  color: var(--color-text-main);
+  color: var(--black);
   flex-wrap: wrap;
 }
 
@@ -193,17 +193,17 @@
 .input, .textarea {
   font-family: var(--font-body);
   font-size: 0.93rem;
-  color: var(--color-text-main);
+  color: var(--black);
   border: 1px solid rgba(0,0,0,0.18);
   border-radius: var(--radius-sm);
   padding: 0.7rem 1rem;
-  background: var(--color-text-light);
+  background: var(--white);
   transition: border-color var(--transition);
   resize: vertical;
 }
 
 .input:focus, .textarea:focus {
-  border-color: var(--color-green);
+  border-color: var(--olive-main);
 }
 
 /* ── Resumen ──────────────────────────────────────────── */
@@ -214,14 +214,14 @@
 }
 
 .summaryCard {
-  background: var(--color-page-bg);
+  background: var(--cream);
   border-radius: var(--radius-md);
   padding: 1.25rem 1.5rem;
 }
 
 .summaryTotal {
   grid-column: 1 / -1;
-  background: var(--color-green-light);
+  background: var(--olive-muted);
 }
 
 .summaryKey {
@@ -232,9 +232,9 @@
 }
 
 .summaryVal {
-  font-family: var(--font-title);
+  font-family: var(--font-heading);
   font-size: 1.1rem;
-  color: var(--color-text-main);
+  color: var(--black);
 }
 
 /* ── Confirmado ───────────────────────────────────────── */
@@ -247,24 +247,24 @@
 .confirmedIcon { font-size: 4rem; }
 
 .confirmedTitle {
-  font-family: var(--font-title);
+  font-family: var(--font-heading);
   font-size: 2rem;
-  color: var(--color-green);
+  color: var(--olive-main);
 }
 
 .confirmedText {
   font-family: var(--font-body);
   font-size: 1rem;
-  color: var(--color-text-main);
+  color: var(--black);
   max-width: 420px;
   line-height: 1.7;
 }
 
 .confirmedBtn {
   display: inline-block;
-  background: var(--color-green-dark);
-  color: var(--color-text-light);
-  font-family: var(--font-title);
+  background: var(--olive-dark);
+  color: var(--white);
+  font-family: var(--font-heading);
   font-size: 1rem;
   padding: 0.8rem 2.5rem;
   border-radius: var(--radius-sm);
@@ -284,9 +284,9 @@
 }
 
 .btnBack {
-  background: var(--color-text-light);
+  background: var(--white);
   border: 1px solid rgba(0,0,0,0.2);
-  color: var(--color-text-main);
+  color: var(--black);
   font-family: var(--font-body);
   font-size: 0.9rem;
   padding: 0.75rem 1.75rem;
@@ -295,13 +295,13 @@
   transition: background var(--transition);
 }
 
-.btnBack:hover { background: var(--color-page-bg); }
+.btnBack:hover { background: var(--cream); }
 
 .btnNext {
-  background: var(--color-green-dark);
+  background: var(--olive-dark);
   border: none;
-  color: var(--color-text-light);
-  font-family: var(--font-title);
+  color: var(--white);
+  font-family: var(--font-heading);
   font-size: 0.95rem;
   padding: 0.75rem 2.25rem;
   border-radius: var(--radius-sm);

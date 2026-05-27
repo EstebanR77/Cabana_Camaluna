@@ -1,19 +1,11 @@
-import { useEffect, useState } from 'react'
 import styles from './CabinVideo.module.css'
 
 function CabinVideo({ videoUrl }) {
-  const [hovered, setHovered] = useState(false)
-  const [ready, setReady] = useState(false)
-
-  useEffect(() => {
-    setReady(Boolean(videoUrl))
-  }, [videoUrl])
-
   return (
     <section className={styles.section}>
       <h2 className={styles.title}>Video Recorrido</h2>
       <div className={styles.videoWrapper}>
-        {ready ? (
+        {videoUrl ? (
           <iframe
             src={videoUrl}
             title="Video recorrido Camaluna"
@@ -21,18 +13,13 @@ function CabinVideo({ videoUrl }) {
             className={styles.iframe}
           />
         ) : (
-          <button
-            type="button"
-            className={[styles.placeholder, hovered ? styles.hovered : ''].filter(Boolean).join(' ')}
-            onMouseEnter={() => setHovered(true)}
-            onMouseLeave={() => setHovered(false)}
-            onFocus={() => setHovered(true)}
-            onBlur={() => setHovered(false)}
-            aria-label="Ver video recorrido"
+          <div
+            className={styles.placeholder}
+            style={{ backgroundImage: "url('/images/video-thumb.jpg')" }}
           >
-            <img src="/images/Fonfo home.jpeg" alt="Paisaje natural desde la cabaña" />
-            <span className={styles.playBtn} aria-hidden="true">play_arrow</span>
-          </button>
+            <div className={styles.playBtn}>▶</div>
+            <p className={styles.placeholderText}>Ver video recorrido</p>
+          </div>
         )}
       </div>
     </section>

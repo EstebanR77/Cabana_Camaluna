@@ -1,8 +1,6 @@
 import { motion } from 'framer-motion'
-import Hero from '../components/Hero/Hero'
 import SupportChat from '../components/chat/SupportChat'
 import Footer from '../components/Footer/Footer'
-import RevealBlock from '../components/RevealBlock/RevealBlock'
 import styles from './Contact.module.css'
 
 const faqs = [
@@ -16,15 +14,16 @@ function Contact() {
   return (
     <div className={styles.page}>
 
-      <RevealBlock variant="heroReveal">
-      <Hero
-        subtitle="Camaluna"
-        title="Ayuda y Contacto"
-        description="Estamos aquí para ayudarte."
-      />
-      </RevealBlock>
+      <section className={styles.hero}>
+        <motion.h1 className={styles.title} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+          Ayuda y Contacto
+        </motion.h1>
+        <motion.p className={styles.subtitle} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6, delay: 0.2 }}>
+          Estamos aquí para ayudarte
+        </motion.p>
+      </section>
 
-      <RevealBlock as="section" className={styles.content}>
+      <section className={styles.content}>
 
         {/* Botones de contacto directo */}
         <div className={styles.directBtns}>
@@ -64,11 +63,9 @@ function Contact() {
           <SupportChat />
         </div>
 
-      </RevealBlock>
+      </section>
 
-      <RevealBlock>
-        <Footer />
-      </RevealBlock>
+      <Footer />
     </div>
   )
 }
