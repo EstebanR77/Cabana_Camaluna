@@ -13,11 +13,11 @@ function hashPassword(password) {
 export function findByUsername(username) {
   const data  = fs.readFileSync(FILE, 'utf-8');
   const users = JSON.parse(data || '[]');
-  const normalized = String(username || '').trim().toLowerCase();
+  const value = String(username || '').trim().toLowerCase();
 
   return users.find(u =>
-    String(u.username || '').toLowerCase() === normalized ||
-    String(u.email || '').toLowerCase() === normalized
+    String(u.username || '').toLowerCase() === value ||
+    String(u.email || '').toLowerCase() === value
   ) || null;
 }
 

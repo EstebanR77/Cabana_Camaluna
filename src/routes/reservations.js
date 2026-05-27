@@ -8,15 +8,7 @@ const router = Router();
 let _wss = null;
 export function setWss(wss) { _wss = wss; }
 
-function notify(payload) {
-  if (_wss) broadcast(_wss, payload);
-}
-
-function generateEntryCode() {
-  return String(Math.floor(100000 + Math.random() * 900000));
-}
-
-function hasConflict(checkIn, checkOut) {
+function hasDateConflict({ checkIn, checkOut }) {
   const newIn = new Date(checkIn);
   const newOut = new Date(checkOut);
 
@@ -30,6 +22,10 @@ function hasConflict(checkIn, checkOut) {
   });
 }
 
+function generateAccessCode() {
+  return Math.floor(100000 + Math.random() * 900000).toString();
+}
+
 // GET /api/reservations
 router.get('/', (req, res) => {
   try {
@@ -40,33 +36,25 @@ router.get('/', (req, res) => {
   }
 });
 
-// GET /api/reservations/admin — panel administrativo
+// GET /api/reservations/admin — solo admin
 router.get('/admin', requireAuth, (req, res) => {
   try {
-    const reservations = getAll()
-      .slice()
-      .sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
-
+    const reservations = getAll().sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
     res.json({ reservations });
   } catch (err) {
     res.status(500).json({ error: 'Error al obtener reservas del administrador' });
   }
 });
 
-// GET /api/reservations/:id/status — seguimiento del usuario
-router.get('/:id/status', (req, res) => {
+// GET /api/reservations/:id
+router.get('/:id', (req, res) => {
   const reservation = getById(req.params.id);
 
   if (!reservation) {
     return res.status(404).json({ error: 'Reserva no encontrada' });
   }
 
-  res.json({
-    id: reservation.id,
-    status: reservation.status,
-    entryCode: reservation.entryCode || null,
-    reviewMessage: reservation.reviewMessage || ''
-  });
+  res.json({ reservation });
 });
 
 // POST /api/reservations
@@ -79,16 +67,14 @@ router.post('/', (req, res) => {
     phone,
     guests,
     notes,
-    paymentProof,
-    paymentProofName,
-    total
+    paymentProof
   } = req.body;
 
   if (!checkIn || !checkOut || !name || !email || !phone) {
     return res.status(400).json({ error: 'Faltan campos requeridos' });
   }
 
-  if (!paymentProof) {
+  if (!paymentProof || !paymentProof.dataUrl) {
     return res.status(400).json({ error: 'Debes subir el comprobante de pago' });
   }
 
@@ -96,7 +82,7 @@ router.post('/', (req, res) => {
     return res.status(400).json({ error: 'La fecha de salida debe ser posterior a la entrada' });
   }
 
-  if (hasConflict(checkIn, checkOut)) {
+  if (hasDateConflict({ checkIn, checkOut })) {
     return res.status(409).json({ error: 'Las fechas seleccionadas no están disponibles' });
   }
 
@@ -107,24 +93,30 @@ router.post('/', (req, res) => {
       name: sanitize(name),
       email: sanitize(email),
       phone: sanitize(phone),
-      guests: parseInt(guests, 10) || 1,
+      guests: parseInt(guests) || 1,
       notes: sanitize(notes || ''),
-      total: Number(total) || 0,
-      paymentProof,
-      paymentProofName: sanitize(paymentProofName || 'comprobante'),
+      paymentProof: {
+        fileName: sanitize(paymentProof.fileName || 'comprobante'),
+        fileType: sanitize(paymentProof.fileType || ''),
+        dataUrl: paymentProof.dataUrl
+      },
       status: 'pending_review',
-      reviewMessage: 'Tu comprobante fue recibido. Está pendiente de revisión por el administrador.'
+      accessCode: null,
+      reviewedAt: null,
+      reviewNotes: ''
     });
 
-    notify({ type: 'reservation-created', reservation });
+    if (_wss) {
+      broadcast(_wss, { type: 'reservation-created', reservation });
+    }
 
-    res.status(201).json({ message: 'Reserva recibida para revisión', reservation });
+    res.status(201).json({ message: 'Reserva enviada para revisión', reservation });
   } catch (err) {
     res.status(500).json({ error: 'Error al guardar la reserva' });
   }
 });
 
-// PATCH /api/reservations/:id/approve — admin
+// PATCH /api/reservations/:id/approve — solo admin
 router.patch('/:id/approve', requireAuth, (req, res) => {
   const reservation = getById(req.params.id);
 
@@ -132,22 +124,25 @@ router.patch('/:id/approve', requireAuth, (req, res) => {
     return res.status(404).json({ error: 'Reserva no encontrada' });
   }
 
-  const entryCode = reservation.entryCode || generateEntryCode();
+  if (reservation.status === 'approved') {
+    return res.json({ message: 'La reserva ya estaba aprobada', reservation });
+  }
 
   const updated = update(req.params.id, {
     status: 'approved',
-    entryCode,
+    accessCode: reservation.accessCode || generateAccessCode(),
     reviewedAt: new Date().toISOString(),
-    reviewedBy: req.session.user?.username || 'admin',
-    reviewMessage: 'Tu reserva fue confirmada. Este es tu código de entrada.'
+    reviewNotes: sanitize(req.body?.reviewNotes || '')
   });
 
-  notify({ type: 'reservation-approved', reservation: updated });
+  if (_wss) {
+    broadcast(_wss, { type: 'reservation-approved', reservation: updated });
+  }
 
   res.json({ message: 'Reserva aprobada', reservation: updated });
 });
 
-// PATCH /api/reservations/:id/reject — admin
+// PATCH /api/reservations/:id/reject — solo admin
 router.patch('/:id/reject', requireAuth, (req, res) => {
   const reservation = getById(req.params.id);
 
@@ -158,11 +153,12 @@ router.patch('/:id/reject', requireAuth, (req, res) => {
   const updated = update(req.params.id, {
     status: 'rejected',
     reviewedAt: new Date().toISOString(),
-    reviewedBy: req.session.user?.username || 'admin',
-    reviewMessage: sanitize(req.body.reason || 'El comprobante fue rechazado. Comunícate con Camaluna para revisar la reserva.')
+    reviewNotes: sanitize(req.body?.reviewNotes || '')
   });
 
-  notify({ type: 'reservation-rejected', reservation: updated });
+  if (_wss) {
+    broadcast(_wss, { type: 'reservation-rejected', reservation: updated });
+  }
 
   res.json({ message: 'Reserva rechazada', reservation: updated });
 });
@@ -172,7 +168,9 @@ router.delete('/:id', requireAuth, (req, res) => {
   const { id } = req.params;
   try {
     remove(id);
-    notify({ type: 'reservation-cancelled', id });
+    if (_wss) {
+      broadcast(_wss, { type: 'reservation-cancelled', id });
+    }
     res.json({ message: `Reserva ${id} cancelada` });
   } catch (err) {
     res.status(500).json({ error: 'Error al cancelar la reserva' });

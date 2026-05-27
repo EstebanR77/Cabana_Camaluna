@@ -19,8 +19,8 @@ router.post('/login', (req, res) => {
     return res.status(401).json({ error: 'Credenciales inválidas' });
   }
 
-  req.session.user = { id: user.id, username: user.username, email: user.email, role: user.role };
-  res.json({ message: 'Sesión iniciada', user: req.session.user, role: user.role });
+  req.session.user = { id: user.id, username: user.username, role: user.role };
+  res.json({ message: 'Sesión iniciada', role: user.role });
 });
 
 // POST /api/logout

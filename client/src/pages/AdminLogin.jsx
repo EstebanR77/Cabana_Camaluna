@@ -1,6 +1,9 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import Footer from '../components/Footer/Footer'
+import RevealBlock from '../components/RevealBlock/RevealBlock'
 import { login } from '../services/api'
+import styles from './Reserve.module.css'
 
 function AdminLogin() {
   const navigate = useNavigate()
@@ -8,13 +11,8 @@ function AdminLogin() {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
-  function handleChange(event) {
-    const { name, value } = event.target
-    setForm(prev => ({ ...prev, [name]: value }))
-  }
-
-  async function handleSubmit(event) {
-    event.preventDefault()
+  async function handleSubmit(e) {
+    e.preventDefault()
     setError('')
     setLoading(true)
 
@@ -22,54 +20,57 @@ function AdminLogin() {
       await login(form)
       navigate('/admin/reservas')
     } catch (err) {
-      setError(err.response?.data?.error || 'No se pudo iniciar sesión')
+      setError(err.response?.data?.error || 'No se pudo iniciar sesión.')
     } finally {
       setLoading(false)
     }
   }
 
   return (
-    <main style={{ minHeight: '70vh', padding: '4rem 1.5rem', background: 'var(--color-page-bg)' }}>
-      <section style={{ maxWidth: 420, margin: '0 auto', background: 'white', padding: '2rem', borderRadius: '18px', boxShadow: 'var(--shadow-card)' }}>
-        <p style={{ color: 'var(--color-green)', fontWeight: 700, letterSpacing: '.08em' }}>PANEL DE ADMINISTRACIÓN</p>
-        <h1 style={{ fontFamily: 'var(--font-title)', marginBottom: '1.5rem' }}>Ingreso administrador</h1>
+    <div className={styles.page}>
+      <RevealBlock as="section" className={styles.bookingSection}>
+        <h2 className={styles.bookingTitle}>Administrador</h2>
+        <form className={styles.step} onSubmit={handleSubmit}>
+          <p className={styles.stepLabel}>Ingreso al panel de reservas</p>
 
-        <form onSubmit={handleSubmit} style={{ display: 'grid', gap: '1rem' }}>
-          <label>
-            <span>Correo o usuario</span>
-            <input
-              name="username"
-              value={form.username}
-              onChange={handleChange}
-              placeholder="admin@camaluna.com"
-              style={{ width: '100%', padding: '.8rem', marginTop: '.4rem', border: '1px solid #ccc', borderRadius: '10px' }}
-            />
-          </label>
+          {error && <p className={styles.confirmedText}>{error}</p>}
 
-          <label>
-            <span>Contraseña</span>
-            <input
-              name="password"
-              type="password"
-              value={form.password}
-              onChange={handleChange}
-              placeholder="Contraseña"
-              style={{ width: '100%', padding: '.8rem', marginTop: '.4rem', border: '1px solid #ccc', borderRadius: '10px' }}
-            />
-          </label>
+          <div className={styles.formGrid}>
+            <div className={styles.field}>
+              <label className={styles.label}>Correo o usuario</label>
+              <input
+                className={styles.input}
+                type="text"
+                value={form.username}
+                onChange={e => setForm(prev => ({ ...prev, username: e.target.value }))}
+                placeholder="admin@camaluna.com"
+              />
+            </div>
 
-          {error && <p style={{ color: '#9b2c2c' }}>{error}</p>}
+            <div className={styles.field}>
+              <label className={styles.label}>Contraseña</label>
+              <input
+                className={styles.input}
+                type="password"
+                value={form.password}
+                onChange={e => setForm(prev => ({ ...prev, password: e.target.value }))}
+                placeholder="Contraseña"
+              />
+            </div>
+          </div>
 
-          <button
-            type="submit"
-            disabled={loading}
-            style={{ padding: '.85rem 1rem', border: 0, borderRadius: '10px', background: 'var(--color-green-dark)', color: 'white', cursor: 'pointer' }}
-          >
-            {loading ? 'Ingresando...' : 'Ingresar'}
-          </button>
+          <div className={styles.navBtns}>
+            <button className={styles.btnNext} type="submit" disabled={loading}>
+              {loading ? 'Ingresando...' : 'Ingresar'}
+            </button>
+          </div>
         </form>
-      </section>
-    </main>
+      </RevealBlock>
+
+      <RevealBlock>
+        <Footer />
+      </RevealBlock>
+    </div>
   )
 }
 

@@ -1,103 +1,141 @@
-import { motion } from 'framer-motion'
-import Footer from '../components/Footer/Footer'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import Footer from '../components/Footer/Footer'
+import RevealBlock from '../components/RevealBlock/RevealBlock'
+import ReviewCard from '../components/ReviewCard/ReviewCard'
+import ReviewForm from '../components/ReviewForm/ReviewForm'
+import ReviewSummary from '../components/ReviewSummary/ReviewSummary'
+import { createReview, getReviews } from '../services/api'
 import styles from './Experiences.module.css'
 
-const experiences = [
+const fallbackReviews = [
   {
-    icon: '🌿',
-    title: 'Senderismo',
-    description: 'Rutas naturales por el desierto de La Candelaria y el Parque Nacional El Cañón de la Chorrera, con guías locales.',
-    tag: 'Naturaleza',
+    id: 'local-1',
+    name: 'Camilo Guerrero',
+    stayDate: 'Abril 2026',
+    text: 'Excelente, muy buena ubicación cerca del pueblo, las fotos iguales al sitio, todo impecable. Angela y Luis siempre estuvieron pendientes de nosotros, la comunicación con ellos muy buena. Recomendado.',
+    stars: 5,
+    avatar: '/images/Hombre avatar.jpg',
   },
   {
-    icon: '🏛️',
-    title: 'Centro histórico',
-    description: 'Recorre la plaza mayor más grande de Colombia, sus museos y el mercado artesanal cada sábado.',
-    tag: 'Cultura',
+    id: 'local-2',
+    name: 'Francisco Martínez',
+    stayDate: 'Marzo 2026',
+    text: 'Nos gustó mucho la casa, muy cómoda y es un muy buen sitio para descansar, rodeado de naturaleza y cerca a todos los sitios turísticos. Mi familia quedó muy contenta, muchas gracias.',
+    stars: 5,
+    avatar: '/images/Anfitriones.jpeg',
   },
   {
-    icon: '🍷',
-    title: 'Gastronomía local',
-    description: 'Degusta el mazamorra chiquita, la cocina boyacense y los mejores restaurantes del pueblo.',
-    tag: 'Gastronomía',
-  },
-  {
-    icon: '🌌',
-    title: 'Observación de estrellas',
-    description: 'Gracias al cielo despejado de Villa de Leyva, las noches se convierten en un espectáculo astronómico.',
-    tag: 'Noche',
-  },
-  {
-    icon: '🚴',
-    title: 'Ciclismo y caballos',
-    description: 'Recorre los alrededores en bicicleta o a caballo, explorando las veredas y el paisaje de Boyacá.',
-    tag: 'Aventura',
-  },
-  {
-    icon: '🛕',
-    title: 'Sitios arqueológicos',
-    description: 'El Infiernito, el museo paleontológico y el monasterio de La Candelaria son visita obligada.',
-    tag: 'Historia',
+    id: 'local-3',
+    name: 'María C. Díaz',
+    stayDate: 'Febrero 2026',
+    text: 'Todo perfecto, camas grandes y muy cómodas, baños amplios y hermosos, todo como nuevo. Excelente lugar para quedarse en Villa de Leyva.',
+    stars: 5,
+    avatar: '/images/Mujer avatar.jpg',
   },
 ]
 
 function Experiences() {
+  const [reviews, setReviews] = useState(fallbackReviews)
+  const [hoveredReview, setHoveredReview] = useState(null)
+  const [activeReview, setActiveReview] = useState(null)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [statusMessage, setStatusMessage] = useState('')
+  const [statusType, setStatusType] = useState('')
+
+  useEffect(() => {
+    let isMounted = true
+
+    getReviews()
+      .then(({ data }) => {
+        if (isMounted && Array.isArray(data) && data.length) {
+          setReviews(data)
+        }
+      })
+      .catch(() => {
+        if (isMounted) {
+          setReviews(fallbackReviews)
+        }
+      })
+
+    return () => {
+      isMounted = false
+    }
+  }, [])
+
+  useEffect(() => {
+    setActiveReview(hoveredReview)
+  }, [hoveredReview])
+
+  const handleReviewSubmit = async (review) => {
+    setIsSubmitting(true)
+    setStatusMessage('')
+    setStatusType('')
+
+    try {
+      await createReview(review)
+      setStatusMessage('Gracias por compartir tu experiencia. Tu reseña quedó guardada para revisión.')
+      setStatusType('success')
+      return true
+    } catch (error) {
+      setStatusMessage(error.response?.data?.message || 'No se pudo guardar la reseña. Inténtalo de nuevo.')
+      setStatusType('error')
+      return false
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
   return (
-    <div className={styles.page}>
+    <main className={styles.page}>
+      <RevealBlock className={styles.header} variant="heroReveal">
+        <h1 className={styles.title}>Experiencias / Reseñas</h1>
+        <p className={styles.subtitle}>Historias, momentos y experiencias compartidas por nuestros huéspedes.</p>
+      </RevealBlock>
 
-      <section className={styles.hero}>
-        <motion.h1
-          className={styles.title}
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          Experiencias
-        </motion.h1>
-        <motion.p
-          className={styles.subtitle}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-        >
-          Todo lo que Villa de Leyva tiene para ofrecerte
-        </motion.p>
-      </section>
+      <div className={styles.content}>
+        <RevealBlock>
+          <ReviewSummary reviews={reviews} />
+        </RevealBlock>
 
-      <section className={styles.grid}>
-        {experiences.map((exp, i) => (
-          <motion.div
-            key={i}
-            className={styles.card}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45, delay: i * 0.08 }}
-            viewport={{ once: true, amount: 0.2 }}
-          >
-            <span className={styles.tag}>{exp.tag}</span>
-            <span className={styles.icon}>{exp.icon}</span>
-            <h3 className={styles.cardTitle}>{exp.title}</h3>
-            <p className={styles.cardDesc}>{exp.description}</p>
-          </motion.div>
-        ))}
-      </section>
+        <RevealBlock as="section" className={styles.reviewsSection}>
+          <h2 className={styles.sectionTitle}>Reseñas</h2>
+          <div className={styles.reviewsGrid}>
+            {reviews.slice(0, 6).map((review) => (
+              <ReviewCard
+                key={review.id}
+                compact
+                name={review.name}
+                date={review.stayDate}
+                text={review.text}
+                stars={review.stars}
+                image={review.avatar}
+                isActive={activeReview === review.id}
+                onHover={() => setHoveredReview(review.id)}
+                onLeave={() => setHoveredReview(null)}
+              />
+            ))}
+          </div>
+        </RevealBlock>
 
-      <section className={styles.cta}>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-        >
-          <h2 className={styles.ctaTitle}>¿Listo para vivirlo?</h2>
-          <p className={styles.ctaDesc}>Reserva tu estadía en Camaluna y explora todo lo que Boyacá tiene para ti.</p>
-          <Link to="/reserve" className={styles.ctaBtn}>Reservar ahora</Link>
-        </motion.div>
-      </section>
+        <RevealBlock>
+          <ReviewForm onSubmit={handleReviewSubmit} isSubmitting={isSubmitting} />
+          {statusMessage && (
+            <p className={`${styles.statusMessage} ${statusType === 'error' ? styles.statusError : ''}`}>
+              {statusMessage}
+            </p>
+          )}
+        </RevealBlock>
 
-      <Footer />
-    </div>
+        <RevealBlock className={styles.reserveWrap} variant="reserveReveal">
+          <Link to="/reserve" className={styles.reserveButton}>Reserva ya!</Link>
+        </RevealBlock>
+
+        <RevealBlock className={styles.footerWrap}>
+          <Footer variant="reviews" />
+        </RevealBlock>
+      </div>
+    </main>
   )
 }
 

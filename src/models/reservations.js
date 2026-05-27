@@ -5,15 +5,12 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const FILE = path.join(__dirname, '../data/reservations.json');
 
-function ensureFile() {
-  if (!fs.existsSync(FILE)) {
-    fs.mkdirSync(path.dirname(FILE), { recursive: true });
-    fs.writeFileSync(FILE, '[]');
-  }
+function saveAll(reservations) {
+  fs.writeFileSync(FILE, JSON.stringify(reservations, null, 2));
 }
 
 export function getAll() {
-  ensureFile();
+  if (!fs.existsSync(FILE)) return [];
   const data = fs.readFileSync(FILE, 'utf-8');
   return JSON.parse(data || '[]');
 }
@@ -22,18 +19,14 @@ export function getById(id) {
   return getAll().find(r => r.id === id) || null;
 }
 
-export function saveAll(reservations) {
-  ensureFile();
-  fs.writeFileSync(FILE, JSON.stringify(reservations, null, 2));
-}
-
 export function create(reservation) {
   const reservations = getAll();
   const newReservation = {
+    ...reservation,
     id: Date.now().toString(),
-    createdAt: new Date().toISOString(),
-    ...reservation
+    createdAt: reservation.createdAt || new Date().toISOString()
   };
+
   reservations.push(newReservation);
   saveAll(reservations);
   return newReservation;
@@ -43,9 +36,7 @@ export function update(id, changes) {
   const reservations = getAll();
   const index = reservations.findIndex(r => r.id === id);
 
-  if (index === -1) {
-    return null;
-  }
+  if (index === -1) return null;
 
   reservations[index] = {
     ...reservations[index],

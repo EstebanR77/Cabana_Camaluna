@@ -1,10 +1,24 @@
+import { useLocation } from 'react-router-dom'
 import styles from './Hero.module.css'
 
+const HERO_IMAGES = {
+  '/': '/images/Fonfo home.jpeg',
+  '/cabin': '/images/Cabana.jpg',
+  '/reserve': '/images/Reservas.jpg',
+  '/about': '/images/villa-de-leyva.svg',
+  '/gallery': '/images/area-social.svg',
+  '/experiences': '/images/villa-de-leyva.svg',
+  '/contact': '/images/anfitriones.svg',
+}
+
 function Hero({ title, subtitle, description, bgImage }) {
+  const { pathname } = useLocation()
+  const heroImage = bgImage || HERO_IMAGES[pathname] || HERO_IMAGES['/']
+
   return (
     <section
       className={styles.hero}
-      style={bgImage ? { backgroundImage: `url('${bgImage}')` } : undefined}
+      style={{ '--hero-bg-image': `url('${heroImage}')` }}
     >
       <div className={styles.overlay} />
       <div className={styles.content}>

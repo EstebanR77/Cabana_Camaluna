@@ -1,48 +1,81 @@
-/* ── Distancias y Acceso ──────────────────────────────── */
 .section {
-  background: var(--cream);
-  padding: 4rem 2.5rem;
+  width: 100%;
+  padding: 0.95rem 0 1.25rem;
+  background: var(--color-text-light);
 }
 
 .title {
-  font-family: var(--font-heading);
-  font-size: 2.5rem;
-  color: var(--olive-main);
-  text-align: center;
-  margin-bottom: 2.5rem;
+  margin: 0 0 1rem;
+  font-family: var(--font-title);
+  font-size: clamp(2.1rem, 3vw, 3.6rem);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-green);
 }
 
 .grid {
-  max-width: 1100px;
-  margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3rem;
-  align-items: start;
+  grid-template-columns: minmax(0, 1.1fr) minmax(360px, 0.9fr);
+  gap: 1.4rem;
+  align-items: stretch;
 }
 
-/* Texto distancias */
-.col { display: flex; flex-direction: column; gap: 0.75rem; }
+.col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
 
 .colTitle {
-  font-family: var(--font-heading);
-  font-size: 1.5rem;
-  color: var(--olive-main);
-  margin-bottom: 0.5rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 2px solid rgba(112,136,95,0.3);
+  margin: 0.1rem 0 0.25rem;
+  font-family: var(--font-title);
+  font-size: clamp(1.35rem, 1.8vw, 2rem);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-green-dark);
 }
 
 .item {
+  width: 100%;
+  min-height: 46px;
+  margin: 0;
+  padding: 0.72rem 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.62rem;
+  border-radius: var(--radius-sm);
+  background: rgba(150, 159, 116, 0.14);
+  color: var(--color-text-main);
   font-family: var(--font-body);
-  font-size: 0.93rem;
-  color: var(--black);
-  padding: 0.5rem 0;
-  border-bottom: 1px solid rgba(0,0,0,0.06);
-  line-height: 1.5;
+  font-size: clamp(0.92rem, 0.95vw, 1.08rem);
+  line-height: 1.35;
+  transition: transform var(--transition), background var(--transition), box-shadow var(--transition);
 }
 
-/* Mapa */
+.hoveredItem {
+  transform: translateX(4px);
+  background: rgba(150, 159, 116, 0.24);
+  box-shadow: var(--shadow-card);
+}
+
+.materialIcon,
+.mapPinIcon {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  white-space: nowrap;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
+
+.materialIcon {
+  /* Cambia aqui el tamano y color de los iconos de distancias/acceso. */
+  font-size: 24px;
+  color: var(--color-green);
+}
+
 .mapPlaceholder {
   position: relative;
   display: block;
@@ -84,18 +117,16 @@
   z-index: 2;
 }
 
-.mapPlaceholder span { font-size: 2.5rem; }
+@media (max-width: 980px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
 
-.mapPlaceholder p {
-  font-family: var(--font-body);
-  font-size: 0.9rem;
-  color: var(--black);
+  .mapPlaceholder {
+    min-height: 280px;
+  }
 }
 
-@media (max-width: 768px) {
-  .section { padding: 3rem 1.25rem; }
-  .grid { grid-template-columns: 1fr; }
-  .mapPlaceholder { height: 220px; }
 @media (max-width: 520px) {
   .title {
     font-size: clamp(1.7rem, 10vw, 2.25rem);

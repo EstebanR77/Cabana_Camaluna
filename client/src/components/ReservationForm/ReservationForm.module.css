@@ -1,14 +1,14 @@
 .wrapper {
-  background: var(--white);
+  background: var(--color-text-light);
   border-radius: var(--radius-md);
   padding: 2rem;
   box-shadow: var(--shadow-card);
 }
 
 .title {
-  font-family: var(--font-heading);
+  font-family: var(--font-title);
   font-size: 1.35rem;
-  color: var(--text-dark);
+  color: var(--color-text-main);
   margin-bottom: 1.5rem;
 }
 
@@ -29,32 +29,32 @@
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--text-mid);
+  color: var(--color-text-main);
 }
 
 .field input,
 .field textarea {
   width: 100%;
   padding: 0.75rem 1rem;
-  border: 1.5px solid var(--cream-dark);
+  border: 1.5px solid #eee8d8;
   border-radius: var(--radius-sm);
   font-size: 0.92rem;
-  color: var(--text-dark);
-  background: var(--cream);
+  color: var(--color-text-main);
+  background: var(--color-page-bg);
   transition: border-color var(--transition), box-shadow var(--transition);
 }
 
 .field input:focus,
 .field textarea:focus {
-  border-color: var(--green-main);
+  border-color: var(--color-green);
   box-shadow: 0 0 0 3px rgba(77,112,64,0.12);
-  background: var(--white);
+  background: var(--color-text-light);
 }
 
 .field textarea { resize: vertical; min-height: 80px; }
 
 .summary {
-  background: var(--green-soft);
+  background: var(--color-page-bg);
   border-radius: var(--radius-sm);
   padding: 1rem 1.25rem;
   display: flex;
@@ -64,13 +64,13 @@
 
 .summary p {
   font-size: 0.88rem;
-  color: var(--green-dark);
+  color: var(--color-green-dark);
 }
 
 .status {
   font-size: 0.88rem;
-  color: var(--brown-main);
-  background: var(--brown-soft);
+  color: var(--color-orange-soft);
+  background: var(--color-page-bg);
   padding: 0.75rem 1rem;
   border-radius: var(--radius-sm);
   line-height: 1.5;
@@ -78,8 +78,8 @@
 
 .btn {
   width: 100%;
-  background: var(--brown-main);
-  color: var(--white);
+  background: var(--color-orange-soft);
+  color: var(--color-text-light);
   border: none;
   padding: 1rem;
   border-radius: var(--radius-sm);
@@ -93,7 +93,7 @@
 }
 
 .btn:hover:not(:disabled) {
-  background: var(--brown-dark);
+  background: var(--color-brown-light);
   transform: translateY(-1px);
 }
 

@@ -1,14 +1,14 @@
 .wrapper {
-  background: var(--white);
+  background: var(--color-text-light);
   border-radius: var(--radius-md);
   padding: 2rem;
   box-shadow: var(--shadow-card);
 }
 
 .title {
-  font-family: var(--font-heading);
+  font-family: var(--font-title);
   font-size: 1.35rem;
-  color: var(--text-dark);
+  color: var(--color-text-main);
   margin-bottom: 1.5rem;
 }
 
@@ -21,7 +21,7 @@
 }
 
 :global(.react-calendar__navigation button) {
-  color: var(--text-dark);
+  color: var(--color-text-main);
   font-size: 0.9rem;
   font-family: var(--font-body);
   border-radius: var(--radius-sm);
@@ -30,14 +30,14 @@
 
 :global(.react-calendar__navigation button:hover),
 :global(.react-calendar__navigation button:focus) {
-  background: var(--green-soft) !important;
+  background: var(--color-page-bg) !important;
 }
 
 :global(.react-calendar__month-view__weekdays__weekday) {
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: var(--text-light);
+  color: var(--color-text-green);
   font-weight: 700;
   text-align: center;
   padding: 0.5rem 0;
@@ -50,31 +50,31 @@
 :global(.react-calendar__tile) {
   border-radius: var(--radius-sm);
   font-size: 0.85rem;
-  color: var(--text-dark);
+  color: var(--color-text-main);
   padding: 0.65rem 0.25rem;
   transition: background var(--transition), color var(--transition);
 }
 
 :global(.react-calendar__tile:hover) {
-  background: var(--green-soft) !important;
-  color: var(--green-dark);
+  background: var(--color-page-bg) !important;
+  color: var(--color-green-dark);
 }
 
 :global(.react-calendar__tile--active),
 :global(.react-calendar__tile--rangeStart),
 :global(.react-calendar__tile--rangeEnd) {
-  background: var(--green-main) !important;
-  color: var(--white) !important;
+  background: var(--color-green) !important;
+  color: var(--color-text-light) !important;
   border-radius: var(--radius-sm) !important;
 }
 
 :global(.react-calendar__tile--range) {
-  background: var(--green-soft) !important;
-  color: var(--green-dark);
+  background: var(--color-page-bg) !important;
+  color: var(--color-green-dark);
 }
 
 :global(.react-calendar__tile:disabled) {
-  color: var(--text-light) !important;
+  color: var(--color-text-green) !important;
   background: #f0f0f0 !important;
   cursor: not-allowed;
 }
@@ -90,7 +90,7 @@
   gap: 1.5rem;
   margin-top: 1.25rem;
   padding-top: 1.25rem;
-  border-top: 1px solid var(--cream-dark);
+  border-top: 1px solid #eee8d8;
 }
 
 .legendItem {
@@ -98,14 +98,14 @@
   align-items: center;
   gap: 0.5rem;
   font-size: 0.8rem;
-  color: var(--text-mid);
+  color: var(--color-text-main);
 }
 
 .dotAvailable {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: var(--green-main);
+  background: var(--color-green);
   display: inline-block;
 }
 

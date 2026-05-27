@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import Hero   from '../components/Hero/Hero'
 import Footer from '../components/Footer/Footer'
 import RevealBlock from '../components/RevealBlock/RevealBlock'
-import { createReservation, getReservationStatus } from '../services/api'
+import { createReservation, getReservation } from '../services/api'
 import styles from './Reserve.module.css'
 
 /* ── Datos ───────────────────────────────────────────── */
@@ -11,7 +11,7 @@ const STEPS = [
   { num: 1, label: 'Selección de estadia' },
   { num: 2, label: 'Información del alojamiento' },
   { num: 3, label: 'Resumen de la reserva' },
-  { num: 4, label: 'Validación' },
+  { num: 4, label: 'Reserva confirmada' },
 ]
 
 const MONTHS = [
@@ -21,6 +21,20 @@ const MONTHS = [
 
 const DAYS = ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb']
 
+function formatDateForApi(date) {
+  if (!date) return ''
+  return date.toISOString().slice(0, 10)
+}
+
+function fileToDataUrl(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.onload = () => resolve(reader.result)
+    reader.onerror = reject
+    reader.readAsDataURL(file)
+  })
+}
+
 /* ── Utilidades de calendario ───────────────────────── */
 function getDaysInMonth(year, month) {
   return new Date(year, month + 1, 0).getDate()
@@ -28,19 +42,6 @@ function getDaysInMonth(year, month) {
 
 function getFirstDay(year, month) {
   return new Date(year, month, 1).getDay()
-}
-
-function formatDateForApi(date) {
-  return date.toISOString().slice(0, 10)
-}
-
-function fileToDataURL(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader()
-    reader.onload = () => resolve(reader.result)
-    reader.onerror = reject
-    reader.readAsDataURL(file)
-  })
 }
 
 /* ── Componente Calendar mini ─────────────────────── */
@@ -60,6 +61,7 @@ function MiniCalendar({ year, month, onSelect, range }) {
           const isStart = range.start && date.toDateString() === range.start.toDateString()
           const isEnd   = range.end   && date.toDateString() === range.end.toDateString()
           const inRange = range.start && range.end && date > range.start && date < range.end
+
           return (
             <button
               key={day}
@@ -70,6 +72,7 @@ function MiniCalendar({ year, month, onSelect, range }) {
                 inRange ? styles.calRange : '',
               ].join(' ')}
               onClick={() => onSelect(date)}
+              type="button"
             >
               {day}
             </button>
@@ -124,10 +127,10 @@ function Step2({ form, onChange }) {
       <p className={styles.stepLabel}>Paso 2 — Información del alojamiento</p>
       <div className={styles.formGrid}>
         {[
-          { id: 'nombre',    label: 'Nombre completo',  type: 'text'  },
-          { id: 'email',     label: 'Correo electrónico', type: 'email'},
-          { id: 'telefono',  label: 'Teléfono',          type: 'tel'  },
-          { id: 'huespedes', label: 'N° de huéspedes',   type: 'number'},
+          { id: 'nombre',    label: 'Nombre completo',    type: 'text'  },
+          { id: 'email',     label: 'Correo electrónico', type: 'email' },
+          { id: 'telefono',  label: 'Teléfono',           type: 'tel'   },
+          { id: 'huespedes', label: 'N° de huéspedes',    type: 'number'},
         ].map(({ id, label, type }) => (
           <div key={id} className={styles.field}>
             <label className={styles.label}>{label}</label>
@@ -140,6 +143,7 @@ function Step2({ form, onChange }) {
             />
           </div>
         ))}
+
         <div className={`${styles.field} ${styles.fieldFull}`}>
           <label className={styles.label}>Solicitudes especiales</label>
           <textarea
@@ -155,8 +159,8 @@ function Step2({ form, onChange }) {
   )
 }
 
-/* ── Step 3: Resumen ──────────────────────────────── */
-function Step3({ range, form, paymentProof, onPaymentProofChange }) {
+/* ── Step 3: Resumen + comprobante ─────────────────── */
+function Step3({ range, form, paymentFile, onPaymentFile }) {
   const nights = range.start && range.end
     ? Math.round((range.end - range.start) / 86400000)
     : 0
@@ -166,6 +170,7 @@ function Step3({ range, form, paymentProof, onPaymentProofChange }) {
   return (
     <div className={styles.step}>
       <p className={styles.stepLabel}>Paso 3 — Resumen de la reserva</p>
+
       <div className={styles.summary}>
         <div className={styles.summaryCard}>
           <p className={styles.summaryKey}>Check-in</p>
@@ -197,81 +202,60 @@ function Step3({ range, form, paymentProof, onPaymentProofChange }) {
           className={styles.input}
           type="file"
           accept="image/*,.pdf"
-          onChange={e => onPaymentProofChange(e.target.files?.[0] || null)}
+          onChange={e => onPaymentFile(e.target.files?.[0] || null)}
         />
         <p className={styles.summaryKey}>
-          El administrador revisará este comprobante antes de confirmar la reserva.
+          {paymentFile ? `Archivo seleccionado: ${paymentFile.name}` : 'Sube el comprobante para que el administrador pueda revisarlo.'}
         </p>
-        {paymentProof && (
-          <p className={styles.summaryVal}>{paymentProof.name}</p>
-        )}
       </div>
     </div>
   )
 }
 
-/* ── Step 4: Validación ───────────────────────────── */
-function Step4({ reservation }) {
-  const [status, setStatus] = useState(reservation?.status || 'pending_review')
-  const [entryCode, setEntryCode] = useState(reservation?.entryCode || null)
-  const [message, setMessage] = useState(
-    reservation?.reviewMessage || 'Tu comprobante está en revisión por el administrador.'
-  )
-
-  useEffect(() => {
-    if (!reservation?.id || status === 'approved' || status === 'rejected') return
-
-    const interval = setInterval(async () => {
-      try {
-        const { data } = await getReservationStatus(reservation.id)
-        setStatus(data.status)
-        setEntryCode(data.entryCode || null)
-        setMessage(data.reviewMessage || '')
-      } catch (err) {
-        console.error('No se pudo consultar el estado de la reserva', err)
-      }
-    }, 4000)
-
-    return () => clearInterval(interval)
-  }, [reservation?.id, status])
-
-  if (status === 'approved') {
-    return (
-      <div className={`${styles.step} ${styles.stepConfirmed}`}>
-        <div className={styles.confirmedIcon}>✅</div>
-        <h3 className={styles.confirmedTitle}>¡Reserva Confirmada!</h3>
-        <p className={styles.confirmedText}>
-          El administrador aprobó tu comprobante. Pronto nos pondremos en contacto contigo.
-        </p>
-        {entryCode && (
-          <p className={styles.confirmedText}>
-            Tu código de entrada es: <b>{entryCode}</b>
-          </p>
-        )}
-        <Link to="/" className={styles.confirmedBtn}>Volver al inicio</Link>
-      </div>
-    )
-  }
-
-  if (status === 'rejected') {
-    return (
-      <div className={`${styles.step} ${styles.stepConfirmed}`}>
-        <div className={styles.confirmedIcon}>⚠️</div>
-        <h3 className={styles.confirmedTitle}>Comprobante rechazado</h3>
-        <p className={styles.confirmedText}>{message}</p>
-        <Link to="/reserve" className={styles.confirmedBtn}>Intentar nuevamente</Link>
-      </div>
-    )
-  }
-
+/* ── Estados finales ──────────────────────────────── */
+function WaitingReview({ reservation, onRefresh }) {
   return (
     <div className={`${styles.step} ${styles.stepConfirmed}`}>
       <div className={styles.confirmedIcon}>⏳</div>
-      <h3 className={styles.confirmedTitle}>Comprobante en revisión</h3>
+      <h3 className={styles.confirmedTitle}>Comprobante enviado</h3>
       <p className={styles.confirmedText}>
-        {message || 'Tu comprobante fue enviado. Espera la aprobación del administrador para confirmar la reserva.'}
+        Tu reserva quedó en revisión. El administrador debe aceptar el comprobante antes de confirmar la estadía.
       </p>
-      <p className={styles.summaryKey}>Esta pantalla se actualizará automáticamente cuando el administrador revise tu comprobante.</p>
+      <button className={styles.confirmedBtn} type="button" onClick={onRefresh}>
+        Consultar estado
+      </button>
+      {reservation?.id && <p className={styles.summaryKey}>Código de solicitud: {reservation.id}</p>}
+    </div>
+  )
+}
+
+function RejectedReservation() {
+  return (
+    <div className={`${styles.step} ${styles.stepConfirmed}`}>
+      <div className={styles.confirmedIcon}>⚠️</div>
+      <h3 className={styles.confirmedTitle}>Comprobante rechazado</h3>
+      <p className={styles.confirmedText}>
+        El administrador rechazó el comprobante. Comunícate con Camaluna para revisar el pago o realizar una nueva solicitud.
+      </p>
+      <Link to="/contact" className={styles.confirmedBtn}>Contactar</Link>
+    </div>
+  )
+}
+
+function Step4({ reservation }) {
+  return (
+    <div className={`${styles.step} ${styles.stepConfirmed}`}>
+      <div className={styles.confirmedIcon}>📅</div>
+      <h3 className={styles.confirmedTitle}>¡Reserva Confirmada!</h3>
+      <p className={styles.confirmedText}>
+        Tu comprobante fue aprobado. Pronto nos pondremos en contacto contigo.
+      </p>
+      {reservation?.accessCode && (
+        <p className={styles.confirmedText}>
+          Código de entrada: <b>{reservation.accessCode}</b>
+        </p>
+      )}
+      <Link to="/" className={styles.confirmedBtn}>Volver al inicio</Link>
     </div>
   )
 }
@@ -281,9 +265,9 @@ function Reserve() {
   const [step, setStep]   = useState(1)
   const [range, setRange] = useState({ start: null, end: null })
   const [form, setForm]   = useState({})
-  const [paymentProof, setPaymentProof] = useState(null)
+  const [paymentFile, setPaymentFile] = useState(null)
   const [reservation, setReservation] = useState(null)
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
   function handleFormChange(id, val) {
@@ -293,59 +277,69 @@ function Reserve() {
   function canNext() {
     if (step === 1) return range.start && range.end
     if (step === 2) return form.nombre && form.email && form.telefono
-    if (step === 3) return paymentProof && !isSubmitting
+    if (step === 3) return Boolean(paymentFile) && !loading
     return true
   }
 
-  async function handleNext() {
-    setError('')
+  async function refreshReservation() {
+    if (!reservation?.id) return
 
-    if (step < 3) {
-      setStep(s => s + 1)
-      return
-    }
-
-    if (step === 3) {
-      try {
-        setIsSubmitting(true)
-
-        const nights = Math.round((range.end - range.start) / 86400000)
-        const total = nights * 350000
-        const paymentProofData = await fileToDataURL(paymentProof)
-
-        const payload = {
-          checkIn: formatDateForApi(range.start),
-          checkOut: formatDateForApi(range.end),
-          name: form.nombre,
-          email: form.email,
-          phone: form.telefono,
-          guests: form.huespedes,
-          notes: form.solicitudes || '',
-          total,
-          paymentProof: paymentProofData,
-          paymentProofName: paymentProof.name
-        }
-
-        const { data } = await createReservation(payload)
-        setReservation(data.reservation)
-        setStep(4)
-      } catch (err) {
-        setError(err.response?.data?.error || 'No se pudo enviar la reserva. Intenta nuevamente.')
-      } finally {
-        setIsSubmitting(false)
-      }
+    try {
+      const { data } = await getReservation(reservation.id)
+      setReservation(data.reservation)
+    } catch (err) {
+      setError(err.response?.data?.error || 'No se pudo consultar el estado de la reserva.')
     }
   }
+
+  async function submitReservation() {
+    setError('')
+    setLoading(true)
+
+    try {
+      const paymentDataUrl = await fileToDataUrl(paymentFile)
+
+      const payload = {
+        checkIn: formatDateForApi(range.start),
+        checkOut: formatDateForApi(range.end),
+        name: form.nombre,
+        email: form.email,
+        phone: form.telefono,
+        guests: form.huespedes,
+        notes: form.solicitudes || '',
+        paymentProof: {
+          fileName: paymentFile.name,
+          fileType: paymentFile.type,
+          dataUrl: paymentDataUrl
+        }
+      }
+
+      const { data } = await createReservation(payload)
+      setReservation(data.reservation)
+      setStep(4)
+    } catch (err) {
+      setError(err.response?.data?.error || 'No se pudo enviar la reserva.')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    if (!reservation?.id || reservation.status !== 'pending_review') return
+
+    const interval = setInterval(refreshReservation, 5000)
+    return () => clearInterval(interval)
+  }, [reservation?.id, reservation?.status])
 
   return (
     <div className={styles.page}>
 
       <RevealBlock variant="heroReveal">
-      <Hero
-        subtitle="Cabaña Boutique"
-        title="Reserva tu estadía"
-        description="Elige tus fechas, completa tu información y asegura tu experiencia en Camaluna."
-      />
+        <Hero
+          subtitle="Cabaña Boutique"
+          title="Reserva tu estadía"
+          description="Elige tus fechas, completa tu información y asegura tu experiencia en Camaluna."
+        />
       </RevealBlock>
 
       {/* Booking section */}
@@ -369,6 +363,8 @@ function Reserve() {
           ))}
         </div>
 
+        {error && <p className={styles.confirmedText}>{error}</p>}
+
         {/* Contenido del paso */}
         <div className={styles.stepContent}>
           {step === 1 && <Step1 range={range} onRangeChange={setRange} />}
@@ -377,28 +373,33 @@ function Reserve() {
             <Step3
               range={range}
               form={form}
-              paymentProof={paymentProof}
-              onPaymentProofChange={setPaymentProof}
+              paymentFile={paymentFile}
+              onPaymentFile={setPaymentFile}
             />
           )}
-          {step === 4 && <Step4 reservation={reservation} />}
-          {error && <p className={styles.confirmedText}>{error}</p>}
+          {step === 4 && reservation?.status === 'pending_review' && (
+            <WaitingReview reservation={reservation} onRefresh={refreshReservation} />
+          )}
+          {step === 4 && reservation?.status === 'rejected' && <RejectedReservation />}
+          {step === 4 && reservation?.status === 'approved' && <Step4 reservation={reservation} />}
+          {step === 4 && !reservation && <Step4 />}
         </div>
 
         {/* Botones de navegación */}
         {step < 4 && (
           <div className={styles.navBtns}>
             {step > 1 && (
-              <button className={styles.btnBack} onClick={() => setStep(s => s - 1)}>
+              <button className={styles.btnBack} type="button" onClick={() => setStep(s => s - 1)}>
                 ← Atrás
               </button>
             )}
             <button
               className={styles.btnNext}
-              onClick={handleNext}
+              type="button"
+              onClick={step === 3 ? submitReservation : () => setStep(s => s + 1)}
               disabled={!canNext()}
             >
-              {step === 3 ? (isSubmitting ? 'Enviando...' : 'Enviar comprobante') : 'Continuar →'}
+              {loading ? 'Enviando...' : step === 3 ? 'Enviar comprobante' : 'Continuar →'}
             </button>
           </div>
         )}
