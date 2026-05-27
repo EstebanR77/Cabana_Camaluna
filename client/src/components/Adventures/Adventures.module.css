@@ -43,6 +43,20 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  color: inherit;
+  text-decoration: none;
+}
+
+.itemLink {
+  cursor: pointer;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.itemLink:hover,
+.itemLink:focus-visible {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-card);
+  outline: none;
 }
 
 .itemImg {
