@@ -29,16 +29,32 @@ function Footer() {
           </div>
         </a>
 
-        <a href="https://maps.google.com/?q=CAMALUNA+Cabaña+Boutique+Villa+de+Leyva" target="_blank" rel="noreferrer" className={styles.socialItem}>
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
-            <circle cx="12" cy="10" r="3"/>
-          </svg>
-          <div>
-            <p className={styles.socialName}>Google Maps</p>
-            <p className={styles.socialHandle}>CAMALUNA Cabaña Boutique, Villa de Leyva, Boyacá</p>
-          </div>
-        </a>
+  const footerClass = variant === 'orange'
+    ? `${styles.footer} ${styles.footerOrange}`
+    : styles.footer
+
+  return (
+    <footer className={`${styles.footer} ${variant === 'reviews' ? styles.footerReviews : ''}`}>
+      <div className={styles.socials}>
+        {socialItems.map((item) => (
+          <a
+            key={item.id}
+            href={item.href}
+            target="_blank"
+            rel="noreferrer"
+            className={`${styles.socialItem} ${activeItem === item.id ? styles.itemActive : ''}`}
+            onMouseEnter={() => setHoveredItem(item.id)}
+            onMouseLeave={() => setHoveredItem(null)}
+            onFocus={() => setHoveredItem(item.id)}
+            onBlur={() => setHoveredItem(null)}
+          >
+            {item.icon}
+            <div>
+              <p className={styles.socialName}>{item.name}</p>
+              <p className={styles.socialHandle}>{item.handle}</p>
+            </div>
+          </a>
+        ))}
       </div>
 
       {/* Columnas de links */}

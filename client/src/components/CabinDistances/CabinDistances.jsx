@@ -1,6 +1,9 @@
 import { motion } from 'framer-motion'
 import styles from './CabinDistances.module.css'
 
+const mapsUrl = 'https://maps.app.goo.gl/yQYv2p9FVsxKbKev7'
+const embedMapUrl = 'https://www.google.com/maps?q=CAMALUNA%20Cabana%20Boutique%20Villa%20de%20Leyva&output=embed'
+
 const distances = [
   { text: 'A solo 7 minutos del centro de Villa de Leyva' },
   { text: 'A 1:15 hrs de Tunja - Boyacá' },
@@ -24,15 +27,25 @@ function CabinDistances() {
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
+          onMouseEnter={() => setHoveredItem('map')}
+          onMouseLeave={() => setHoveredItem('')}
+          onFocus={() => setHoveredItem('map')}
+          onBlur={() => setHoveredItem('')}
         >
-          <h3 className={styles.colTitle}>Distancia hasta la Cabaña</h3>
-          {distances.map((d, i) => (
-            <p key={i} className={styles.item}>📍 {d.text}</p>
-          ))}
-          <h3 className={styles.colTitle} style={{ marginTop: '1.5rem' }}>Acceso</h3>
-          {access.map((a, i) => (
-            <p key={i} className={styles.item}>🚗 {a.text}</p>
-          ))}
+          <iframe
+            src={embedMapUrl}
+            title="Mapa de Camaluna Cabana Boutique"
+            className={styles.mapFrame}
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          />
+          <a
+            href={mapsUrl}
+            target="_blank"
+            rel="noreferrer"
+            className={styles.mapLink}
+            aria-label="Abrir ubicacion de Camaluna en Google Maps"
+          />
         </motion.div>
         <motion.div
           className={styles.mapPlaceholder}

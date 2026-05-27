@@ -1,25 +1,69 @@
+import { useEffect, useRef, useState } from 'react'
 import styles from './CabinVideo.module.css'
 
 function CabinVideo({ videoUrl }) {
+  const videoRef = useRef(null)
+  const [hovered, setHovered] = useState(false)
+  const [hasVideo, setHasVideo] = useState(false)
+  const [isPlaying, setIsPlaying] = useState(false)
+
+  useEffect(() => {
+    setHasVideo(Boolean(videoUrl))
+  }, [videoUrl])
+
+  useEffect(() => {
+    if (!isPlaying || !videoRef.current) return
+
+    videoRef.current.play().catch(() => {
+      setIsPlaying(false)
+    })
+  }, [isPlaying])
+
+  const handlePlayRequest = () => {
+    if (!hasVideo) return
+    setIsPlaying(true)
+  }
+
   return (
     <section className={styles.section}>
       <h2 className={styles.title}>Video Recorrido</h2>
       <div className={styles.videoWrapper}>
-        {videoUrl ? (
-          <iframe
+        {isPlaying ? (
+          <video
+            ref={videoRef}
             src={videoUrl}
             title="Video recorrido Camaluna"
-            allowFullScreen
-            className={styles.iframe}
+            className={styles.video}
+            controls
+            playsInline
+            preload="metadata"
           />
         ) : (
-          <div
-            className={styles.placeholder}
-            style={{ backgroundImage: "url('/images/video-thumb.jpg')" }}
+          <button
+            type="button"
+            className={[styles.placeholder, hovered ? styles.hovered : ''].filter(Boolean).join(' ')}
+            onClick={handlePlayRequest}
+            onMouseEnter={() => setHovered(true)}
+            onMouseLeave={() => setHovered(false)}
+            onFocus={() => setHovered(true)}
+            onBlur={() => setHovered(false)}
+            aria-label="Ver video recorrido"
           >
-            <div className={styles.playBtn}>▶</div>
-            <p className={styles.placeholderText}>Ver video recorrido</p>
-          </div>
+            {hasVideo ? (
+              <video
+                src={videoUrl}
+                className={styles.thumbnail}
+                muted
+                playsInline
+                preload="metadata"
+                aria-hidden="true"
+                tabIndex="-1"
+              />
+            ) : (
+              <img src="/images/Fonfo home.jpeg" alt="Paisaje natural desde la cabana" />
+            )}
+            {hasVideo && <span className={styles.playBtn} aria-hidden="true">play_arrow</span>}
+          </button>
         )}
       </div>
     </section>
