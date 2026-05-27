@@ -1,11 +1,50 @@
-.page { display: flex; flex-direction: column; min-height: 100vh; }
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: var(--color-page-bg);
+}
 
-/* Filtros */
+.galleryHero {
+  width: calc(100% - 60px);
+  margin: 0 auto;
+}
+
+.galleryHero :global(section) {
+  width: 100%;
+  min-height: 470px;
+  margin: 0 auto 20px;
+  border-radius: var(--radius-card-md);
+  background-position: center 45%;
+}
+
+.galleryHero :global(section) > :global(div:first-child) {
+  background: rgba(30, 20, 14, 0.28);
+}
+
+.galleryHero :global(section) :global(div:last-child) {
+  width: min(92%, 1180px);
+  padding: 3rem 1.2rem;
+}
+
+.galleryHero :global(h1) {
+  margin-bottom: 0.35rem;
+  font-size: clamp(4rem, 5vw, var(--font-size-title));
+}
+
+.galleryHero :global(p) {
+  font-size: clamp(1.6rem, 1.8vw, var(--font-size-subtitle));
+  line-height: 1.15;
+}
+
 .filters {
+  width: calc(100% - 60px);
+  margin: 0 auto;
+  padding: 0 0 20px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
+  justify-content: flex-start;
+  gap: 18px;
   flex-wrap: wrap;
   padding: 2rem 1.5rem 1rem;
   background: var(--cream);
@@ -23,7 +62,7 @@
   padding: 0.5rem 1.25rem;
   border-radius: 999px;
   cursor: pointer;
-  transition: all var(--transition);
+  transition: transform var(--transition), background var(--transition), color var(--transition), border-color var(--transition), box-shadow var(--transition);
 }
 
 .filterBtn:hover {
@@ -37,7 +76,6 @@
   color: var(--white) !important;
 }
 
-/* Grid */
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -46,65 +84,231 @@
   padding: 1.5rem 2.5rem 5rem;
   max-width: 1200px;
   margin: 0 auto;
-  width: 100%;
+  padding: 0 0 1.65rem;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-rows: 290px 220px 220px;
+  grid-template-areas:
+    "entrance entrance bedroom detail"
+    "terrace bath social sofa"
+    "pet kitchen stairs door";
+  gap: 14px;
 }
 
 .item {
   position: relative;
-  border-radius: var(--radius-md);
+  min-width: 0;
+  min-height: 0;
+  padding: 0;
   overflow: hidden;
+  border: 0;
+  border-radius: 0;
+  background: var(--color-green-light);
   cursor: pointer;
+  box-shadow: none;
+  transition: transform var(--transition), box-shadow var(--transition), filter var(--transition);
+}
+
+.entrance {
+  grid-area: entrance;
+}
+
+.bedroom {
+  grid-area: bedroom;
+}
+
+.detail {
+  grid-area: detail;
+}
+
+.terrace {
+  grid-area: terrace;
+}
+
+.bath {
+  grid-area: bath;
+}
+
+.social {
+  grid-area: social;
+}
+
+.sofa {
+  grid-area: sofa;
+}
+
+.pet {
+  grid-area: pet;
+}
+
+.kitchen {
+  grid-area: kitchen;
+}
+
+.stairs {
+  grid-area: stairs;
+}
+
+.door {
+  grid-area: door;
+}
+
+.filteredGrid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-rows: none;
+  grid-auto-rows: 260px;
+  grid-template-areas: none;
+  padding-bottom: 1.65rem;
+}
+
+.filteredItem {
+  grid-column: span 1;
+  grid-row: span 1;
+  border-radius: var(--radius-sm);
   box-shadow: var(--shadow-card);
+}
+
+.itemHovered {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-soft);
+  filter: saturate(1.08);
 }
 
 .img {
   width: 100%;
-  height: 260px;
-  object-fit: cover;
+  height: 100%;
   display: block;
   transition: transform 0.5s ease;
   background: var(--olive-muted);
 }
 
-.item:hover .img { transform: scale(1.05); }
+.itemHovered .img {
+  transform: scale(1.045);
+}
 
 .imgOverlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.55), transparent);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 0.25rem;
+  background: linear-gradient(to top, rgba(30, 20, 14, 0.7), rgba(30, 20, 14, 0.08) 58%, transparent);
   opacity: 0;
   transition: opacity var(--transition);
-  display: flex;
-  align-items: flex-end;
-  padding: 1.25rem;
+  text-align: left;
 }
 
-.item:hover .imgOverlay { opacity: 1; }
+.itemHovered .imgOverlay {
+  opacity: 1;
+}
 
+.imgCategory,
 .imgCaption {
   color: var(--white);
   font-family: var(--font-body);
-  font-size: 0.88rem;
+  line-height: 1.2;
 }
 
-/* Lightbox */
+.imgCategory {
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.imgCaption {
+  font-size: clamp(0.88rem, 1vw, 1rem);
+  font-weight: 600;
+}
+
+.reserveWrap {
+  width: calc(100% - 52px);
+  margin: 0 auto;
+  padding: 0 0 1.85rem;
+  display: flex;
+  justify-content: center;
+}
+
+.reserveBtn {
+  min-width: 230px;
+  min-height: 54px;
+  padding: 0.6rem 1.45rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  background: var(--color-green);
+  color: var(--color-text-light);
+  font-family: var(--font-title);
+  font-size: clamp(1.45rem, 1.5vw, 1.85rem);
+  line-height: 1;
+  box-shadow: var(--shadow-card);
+  transition: transform var(--transition), background var(--transition), box-shadow var(--transition);
+}
+
+.reserveBtnHovered {
+  transform: translateY(-3px);
+  background: var(--color-orange-soft);
+  box-shadow: var(--shadow-soft);
+}
+
+.galleryFooter {
+  width: min(calc(100% - 60px), 1720px);
+  margin: 0 auto 1.15rem;
+}
+
+.galleryFooter :global(footer) {
+  width: 100%;
+  min-height: 0;
+  margin: 0;
+  padding: 2.35rem 1.35rem 1.35rem;
+  border-radius: var(--radius-md);
+}
+
+.galleryFooter :global(footer > div:first-child) {
+  padding: 0 0 1.25rem;
+  gap: 2.2rem;
+}
+
+.galleryFooter :global(footer > div:last-child) {
+  margin-top: 1.4rem;
+  padding: 1.15rem 1.4rem;
+}
+
 .lightbox {
   position: fixed;
   inset: 0;
   z-index: 200;
-  background: rgba(0,0,0,0.88);
+  padding: 2rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
+  background: rgba(30, 20, 14, 0.88);
+}
+
+.lightboxFigure {
+  width: min(92vw, 980px);
+  margin: 0;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  background: var(--color-text-light);
+  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.46);
 }
 
 .lightboxImg {
-  max-width: 90vw;
-  max-height: 85vh;
-  border-radius: var(--radius-md);
+  width: 100%;
+  max-height: 78vh;
+  display: block;
   object-fit: contain;
-  box-shadow: 0 20px 80px rgba(0,0,0,0.5);
+  background: var(--color-text-main);
+}
+
+.lightboxCaption {
+  padding: 0.75rem 1rem;
+  color: var(--color-text-main);
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  font-weight: 700;
 }
 
 .closeBtn {
@@ -122,12 +326,176 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background var(--transition);
+  border-radius: 50%;
+  background: rgba(249, 249, 240, 0.16);
+  border: 1px solid rgba(249, 249, 240, 0.36);
+  color: var(--color-text-light);
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: background var(--transition), transform var(--transition);
 }
 
-.closeBtn:hover { background: rgba(255,255,255,0.25); }
+.closeBtn:hover,
+.closeBtn:focus-visible {
+  background: rgba(249, 249, 240, 0.28);
+  transform: scale(1.06);
+}
 
-@media (max-width: 768px) {
-  .grid { grid-template-columns: repeat(2, 1fr); padding: 1rem 1.25rem 4rem; }
-  .img { height: 180px; }
+@media (max-width: 900px) {
+  .galleryHero,
+  .filters,
+  .grid,
+  .reserveWrap,
+  .galleryFooter {
+    width: min(calc(100vw - 28px), 720px);
+  }
+
+  .galleryHero :global(section) {
+    min-height: 190px;
+    margin-bottom: 0.55rem;
+    border-radius: var(--radius-md);
+  }
+
+  .galleryHero :global(section) :global(div:last-child) {
+    width: min(92%, 520px);
+    padding: 1.15rem 0.65rem 1.35rem;
+  }
+
+  .galleryHero :global(h1) {
+    margin-bottom: 0.1rem;
+    font-size: clamp(2.25rem, 6vw, 4.15rem);
+  }
+
+  .galleryHero :global(p) {
+    font-size: clamp(0.78rem, 1.65vw, 1rem);
+    line-height: 1.15;
+  }
+
+  .filters {
+    justify-content: center;
+    gap: 0.45rem;
+    padding-bottom: 0.55rem;
+  }
+
+  .filterBtn {
+    min-width: 112px;
+    min-height: 28px;
+    padding: 0.28rem 0.8rem;
+    border-radius: 4px;
+    font-size: clamp(0.78rem, 1.35vw, 0.96rem);
+  }
+
+  .grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-rows: 118px 118px 118px;
+    grid-template-areas:
+      "entrance entrance bedroom detail"
+      "terrace bath social sofa"
+      "pet kitchen stairs door";
+    gap: 0.45rem;
+  }
+
+  .filteredGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: none;
+    grid-auto-rows: 140px;
+    grid-template-areas: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .filters {
+    justify-content: flex-start;
+    padding-right: 84px;
+  }
+
+  .filterBtn {
+    flex: 1 1 calc(50% - 0.55rem);
+  }
+}
+
+@media (max-width: 520px) {
+  .galleryHero {
+    width: min(calc(100vw - 22px), 420px);
+  }
+
+  .galleryHero :global(section) {
+    min-height: 210px;
+    border-radius: var(--radius-md);
+  }
+
+  .filters {
+    justify-content: flex-start;
+    padding-top: 1.5rem;
+    padding-right: 0;
+  }
+
+  .filterBtn {
+    flex: 1 1 calc(50% - 0.55rem);
+  }
+
+  .grid {
+    width: min(calc(100vw - 22px), 420px);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: 112px;
+    grid-template-rows: 112px 112px 112px 112px 112px 112px;
+    grid-template-areas:
+      "entrance bedroom"
+      "entrance detail"
+      "terrace bath"
+      "social sofa"
+      "pet kitchen"
+      "stairs door";
+    gap: 0.38rem;
+    padding-bottom: 1rem;
+  }
+
+  .filteredGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: 128px;
+  }
+
+  .reserveWrap {
+    width: min(calc(100vw - 22px), 420px);
+    padding-bottom: 1.3rem;
+  }
+
+  .reserveBtn {
+    min-height: 40px;
+    font-size: clamp(1.15rem, 1.8vw, 1.45rem);
+  }
+
+  .reserveBtn {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .entrance,
+  .bedroom,
+  .detail,
+  .terrace,
+  .bath,
+  .social,
+  .sofa,
+  .pet,
+  .kitchen,
+  .stairs,
+  .door,
+  .filteredItem {
+    border-radius: var(--radius-sm);
+  }
+
+  .galleryFooter {
+    width: min(calc(100vw - 22px), 420px);
+  }
+
+  .galleryFooter :global(footer) {
+    padding: 1.85rem 1rem 1rem;
+  }
+
+  .lightbox {
+    padding: 1rem;
+  }
 }
