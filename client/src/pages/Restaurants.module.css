@@ -1,0 +1,7 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: var(--color-page-bg);
+  padding-top: 90px; /* compensa navbar fixed */
+}
