@@ -122,7 +122,7 @@ function Gallery() {
 
       {/* Filtros */}
       <RevealBlock as="section" className={styles.filters}>
-        {categories.map(cat => (
+        {categories.map(category => (
           <button
             key={category}
             type="button"
@@ -139,12 +139,15 @@ function Gallery() {
       </RevealBlock>
 
       {/* Grid */}
-      <RevealBlock as="section" className={styles.grid}>
+      <RevealBlock
+        as="section"
+        className={[styles.grid, active ? styles.filteredGrid : ''].filter(Boolean).join(' ')}
+      >
         <AnimatePresence>
-          {filtered.map((img, i) => (
+          {filtered.map((image, index) => (
             <motion.div
-              key={img.alt + i}
-              className={styles.item}
+              key={image.alt + index}
+              className={getItemClass(image)}
               layout
               initial={{ opacity: 0, y: 18, scale: 0.96 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -161,7 +164,7 @@ function Gallery() {
                 <span className={styles.imgCategory}>{image.category}</span>
                 <span className={styles.imgCaption}>{image.alt}</span>
               </span>
-            </motion.button>
+            </motion.div>
           ))}
         </AnimatePresence>
       </RevealBlock>
