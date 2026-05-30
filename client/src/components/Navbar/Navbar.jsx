@@ -4,13 +4,15 @@ import styles from './Navbar.module.css';
 
 const NAV_LINKS = [
   { label: 'La cabaña', to: '/cabin' },
+  { label: 'Reservar', to: '/reserve' },
   { label: 'Sobre Villa de Leyva', to: '/about' },
   { label: 'Galería', to: '/gallery' },
   { label: 'Conócenos', to: '/conocenos' },
-  { label: 'Experiencias', to: '/experiences' },
-  { label: 'Restaurantes', to: '/restaurants' },
-  { label: 'Contacto', to: '/contact' },
+  { label: 'Reseñas', to: '/experiences' },
+  { label: 'Ayuda', to: '/contact' },
 ];
+
+const RESERVE_CTA_URL = 'https://wa.me/573107777579';
 
 function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -71,12 +73,14 @@ function Navbar() {
           </li>
         ))}
         <li>
-          <Link
-            to="/reserve"
-            className={`${styles.ctaBtn} ${isActiveLink('/reserve') ? styles.activeCta : ''}`}
+          <a
+            href={RESERVE_CTA_URL}
+            className={styles.ctaBtn}
+            target="_blank"
+            rel="noreferrer"
           >
-            Reservar
-          </Link>
+            Reservar ya
+          </a>
         </li>
       </ul>
     </nav>

@@ -114,7 +114,7 @@ function Home() {
         </a>
       </RevealBlock>
 
-      <RevealBlock>
+      <RevealBlock className={styles.footerWrap}>
         <Footer />
       </RevealBlock>
     </main>

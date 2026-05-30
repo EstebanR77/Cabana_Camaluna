@@ -33,21 +33,6 @@
   --font-size-subtitle: 26px; /* Tamano - textos subtitulos */
   --font-size-button: 34px; /* Tamano - texto- botones */
 
-  /* Navbar */
-  --nav-height: 92px;
-  --nav-height-scrolled: 80px;
-  --nav-inline: clamp(32px, 4vw, 64px);
-  --nav-logo-width: clamp(250px, 18vw, 320px);
-  --nav-logo-img-width: clamp(190px, 14vw, 250px);
-  --nav-logo-img-height: 62px;
-  --nav-link-height: 40px;
-  --nav-link-font-size: 13px;
-  --nav-link-letter-spacing: 0.16em;
-  --nav-gap: clamp(1rem, 1.45vw, 1.85rem);
-  --nav-cta-width: 150px;
-  --nav-cta-height: 52px;
-  --nav-cta-font-size: 15px;
-
   /* Peso de las fuentes */
 
   --font-weight-regular: 300; /* Peso regular de las fuentes */
@@ -192,19 +177,6 @@ button {
     --card-padding: 18px;
     --radius-card-md: 24px;
     --radius-card-lg: 30px;
-    --nav-height: 76px;
-    --nav-height-scrolled: 72px;
-    --nav-inline: 16px;
-    --nav-logo-width: 0;
-    --nav-logo-img-width: min(52vw, 160px);
-    --nav-logo-img-height: 54px;
-    --nav-link-height: 50px;
-    --nav-link-font-size: 16px;
-    --nav-link-letter-spacing: 0.12em;
-    --nav-gap: 0;
-    --nav-cta-width: 100%;
-    --nav-cta-height: 52px;
-    --nav-cta-font-size: 17px;
     --hero-width: calc(100% - 24px);
     --hero-min-height: 360px;
     --hero-margin-top: 18px;
