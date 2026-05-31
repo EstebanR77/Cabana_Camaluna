@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import Hero from '../components/Hero/Hero'
+import CabinReserveCTA from '../components/CabinReserveCTA/CabinReserveCTA'
 import Footer from '../components/Footer/Footer'
 import RevealBlock from '../components/RevealBlock/RevealBlock'
 import styles from './Gallery.module.css'
@@ -114,6 +114,7 @@ function Gallery() {
 
       <RevealBlock variant="heroReveal">
       <Hero
+        variant="gallery"
         subtitle="Cabaña Boutique"
         title="Galería"
         description="Vive la cabaña antes de llegar."
@@ -170,19 +171,7 @@ function Gallery() {
       </RevealBlock>
 
       <RevealBlock className={styles.reserveWrap}>
-        <Link
-          to="/reserve"
-          className={[
-            styles.reserveBtn,
-            hoveredItem === 'reserve-cta' ? styles.reserveBtnHovered : '',
-          ].filter(Boolean).join(' ')}
-          onMouseEnter={() => setHoveredItem('reserve-cta')}
-          onMouseLeave={() => setHoveredItem('')}
-          onFocus={() => setHoveredItem('reserve-cta')}
-          onBlur={() => setHoveredItem('')}
-        >
-          RESERVA YA!
-        </Link>
+        <CabinReserveCTA variant="inline" />
       </RevealBlock>
 
       <AnimatePresence>

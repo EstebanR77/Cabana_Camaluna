@@ -1,5 +1,8 @@
+/* Solo Home — edita ancho, padding y tamanos aqui */
 .section {
-  width: min(94%, var(--home-max-width, 960px));
+  --max-width: 960px;
+
+  width: min(94%, var(--max-width));
   margin: 0 auto 0.35rem;
   padding: 0.9rem 1.15rem 1rem;
   background: var(--color-page-bg);

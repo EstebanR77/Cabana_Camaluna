@@ -3,5 +3,4 @@
   flex-direction: column;
   min-height: 100vh;
   background: var(--color-page-bg);
-  padding-top: 70px; /* compensa navbar fixed */
 }

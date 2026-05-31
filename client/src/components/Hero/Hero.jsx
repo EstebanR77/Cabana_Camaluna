@@ -11,13 +11,17 @@ const HERO_IMAGES = {
   '/contact': '/images/anfitriones.svg',
 }
 
-function Hero({ title, subtitle, description, bgImage }) {
+function Hero({ title, subtitle, description, bgImage, variant = 'default' }) {
   const { pathname } = useLocation()
   const heroImage = bgImage || HERO_IMAGES[pathname] || HERO_IMAGES['/']
 
+  const heroClass = [styles.hero, variant !== 'default' ? styles[variant] : '']
+    .filter(Boolean)
+    .join(' ')
+
   return (
     <section
-      className={styles.hero}
+      className={heroClass}
       style={{ '--hero-bg-image': `url('${heroImage}')` }}
     >
       <div className={styles.overlay} />

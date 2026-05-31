@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import CabinReserveCTA from '../CabinReserveCTA/CabinReserveCTA';
 import styles from './Navbar.module.css';
 
 const NAV_LINKS = [
@@ -11,8 +12,6 @@ const NAV_LINKS = [
   { label: 'Reseñas', to: '/experiences' },
   { label: 'Ayuda', to: '/contact' },
 ];
-
-const RESERVE_CTA_URL = 'https://wa.me/573107777579';
 
 function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -72,15 +71,8 @@ function Navbar() {
             </Link>
           </li>
         ))}
-        <li>
-          <a
-            href={RESERVE_CTA_URL}
-            className={styles.ctaBtn}
-            target="_blank"
-            rel="noreferrer"
-          >
-            Reservar ya
-          </a>
+        <li className={styles.ctaItem}>
+          <CabinReserveCTA variant="navbar" />
         </li>
       </ul>
     </nav>

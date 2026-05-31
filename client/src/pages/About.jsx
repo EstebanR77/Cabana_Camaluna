@@ -1,4 +1,4 @@
-import AboutHero        from '../components/AboutHero/AboutHero'
+import Hero             from '../components/Hero/Hero'
 import Weather          from '../components/Weather/Weather'
 import Adventures       from '../components/Adventures/Adventures'
 import FeaturedFestival from '../components/FeaturedFestival/FeaturedFestival'
@@ -25,7 +25,11 @@ import {
 function About() {
   return (
     <div className={styles.page}>
-      <AboutHero        {...aboutHero} />
+      <Hero
+        title={aboutHero.title}
+        description={aboutHero.subtitle}
+        bgImage={aboutHero.image}
+      />
       <Weather          {...weather} />
       <Adventures       {...adventures} />
       <FeaturedFestival {...featuredFestival} />
@@ -34,7 +38,7 @@ function About() {
       <TouristSites     {...touristSites} />
       <Restaurants      {...restaurants} />
       <CtaBanner        {...aboutCta} />
-      <Footer variant="orange" />
+      <Footer />
     </div>
   )
 }

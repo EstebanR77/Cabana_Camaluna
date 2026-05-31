@@ -1,4 +1,7 @@
+/* Solo Home — edita ancho, padding y tamanos aqui */
 .section {
+  --max-width: 960px;
+
   width: 100%;
   padding: 0 0 0.65rem;
   background: var(--color-text-light);
@@ -26,7 +29,7 @@
 }
 
 .grid {
-  width: min(100% - 40px, var(--home-max-width, 960px));
+  width: min(100% - 40px, var(--max-width));
   height: auto;
   margin: 0 auto;
   display: grid;

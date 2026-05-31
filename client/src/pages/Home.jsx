@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
 import Hero from '../components/Hero/Hero'
+import CabinReserveCTA from '../components/CabinReserveCTA/CabinReserveCTA'
 import QuickAccess from '../components/QuickAccess/QuickAccess'
 import AboutVilla from '../components/AboutVilla/AboutVilla'
 import KnowUs from '../components/KnowUs/KnowUs'
@@ -51,17 +51,11 @@ const reviews = [
 ]
 
 function Home() {
-  const [isReserveHovered, setIsReserveHovered] = useState(false)
-  const [reserveHoverClass, setReserveHoverClass] = useState('')
-
-  useEffect(() => {
-    setReserveHoverClass(isReserveHovered ? styles.reserveButtonActive : '')
-  }, [isReserveHovered])
-
   return (
     <main className={styles.home}>
       <RevealBlock variant="heroReveal">
         <Hero
+          variant="home"
           subtitle="Cabaña Boutique"
           title="CAMALUNA"
           description="Escapa de la rutina y vive una experiencia única rodeada de naturaleza, tranquilidad y comodidad en Villa de Leyva."
@@ -101,20 +95,11 @@ function Home() {
         <ContactButtons />
       </RevealBlock>
 
-      <RevealBlock className={styles.reserveWrap} variant="reserveReveal">
-        <a
-          href="/reserve"
-          className={`${styles.reserveButton} ${reserveHoverClass}`}
-          onMouseEnter={() => setIsReserveHovered(true)}
-          onMouseLeave={() => setIsReserveHovered(false)}
-          onFocus={() => setIsReserveHovered(true)}
-          onBlur={() => setIsReserveHovered(false)}
-        >
-          RESERVA YA!
-        </a>
+      <RevealBlock variant="reserveReveal">
+        <CabinReserveCTA />
       </RevealBlock>
 
-      <RevealBlock className={styles.footerWrap}>
+      <RevealBlock>
         <Footer />
       </RevealBlock>
     </main>

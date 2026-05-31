@@ -1,30 +1,21 @@
 .footer {
   width: calc(100% - 70px);
-  min-height: 500px;
   max-width: 1700px;
+  min-height: 500px;
   margin: 0 auto 1.5rem;
   padding: 2.25rem 2rem 2.8rem;
+  align-content: center;
   background: var(--color-green);
   color: var(--color-text-light);
-  border-radius: 18px;
-  align-content: center;
-
-}
-
-.footerReviews {
-  width: 100%;
-  min-height: 420px;
-  margin: 0;
-  background: var(--color-brown);
-  border-radius: 18px;
+  border-radius: var(--radius-lg);
 }
 
 .socials {
   padding: 0 1rem 1.75rem;
   display: flex;
   justify-content: center;
-  gap: 2.7rem;
   align-items: center;
+  gap: 2.7rem;
   flex-wrap: wrap;
   border-bottom: 1px solid rgba(255, 255, 255, 0.34);
 }
@@ -59,14 +50,14 @@
 }
 
 .links {
-  background: rgba(255, 255, 255, 0.12);
   margin-top: 2rem;
   padding: 1.55rem 8rem;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
+  background: rgba(255, 255, 255, 0.12);
   border: 1px solid rgba(255, 255, 255, 0.55);
-  border-radius: 14px;
+  border-radius: var(--radius-md);
 }
 
 .col {
@@ -95,13 +86,13 @@
 
   .socials {
     flex-direction: column;
-    gap: 1.5rem;
     align-items: flex-start;
+    gap: 1.5rem;
   }
 
   .links {
     grid-template-columns: 1fr;
-    padding: 1.5rem;
     gap: 1.2rem;
+    padding: 1.5rem;
   }
 }

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import CabinReserveCTA from '../components/CabinReserveCTA/CabinReserveCTA'
 import Footer from '../components/Footer/Footer'
 import RevealBlock from '../components/RevealBlock/RevealBlock'
 import ReviewCard from '../components/ReviewCard/ReviewCard'
@@ -128,13 +128,14 @@ function Experiences() {
         </RevealBlock>
 
         <RevealBlock className={styles.reserveWrap} variant="reserveReveal">
-          <Link to="/reserve" className={styles.reserveButton}>Reserva ya!</Link>
+          <CabinReserveCTA variant="inline" />
         </RevealBlock>
 
-        <RevealBlock className={styles.footerWrap}>
-          <Footer variant="reviews" />
-        </RevealBlock>
       </div>
+
+      <RevealBlock>
+        <Footer />
+      </RevealBlock>
     </main>
   )
 }

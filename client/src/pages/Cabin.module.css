@@ -1,3 +1,4 @@
+/* Layout de pagina: contenedor principal y panel de equipamiento. */
 .page {
   display: flex;
   flex-direction: column;

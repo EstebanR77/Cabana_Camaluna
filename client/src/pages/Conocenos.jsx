@@ -1,4 +1,4 @@
-import ConocenosHero from '../components/ConocenosHero/ConocenosHero'
+import Hero          from '../components/Hero/Hero'
 import WhoWeAre      from '../components/WhoWeAre/WhoWeAre'
 import OurHistory    from '../components/OurHistory/OurHistory'
 import Achievements  from '../components/Achievements/Achievements'
@@ -19,7 +19,11 @@ import {
 function Conocenos() {
   return (
     <div className={styles.page}>
-      <ConocenosHero {...conocenosHero} />
+      <Hero
+        title={conocenosHero.title}
+        description={conocenosHero.subtitle}
+        bgImage={conocenosHero.image}
+      />
       <WhoWeAre      {...whoWeAre} />
       <OurHistory    {...ourHistory} />
       <Achievements  {...achievements} />

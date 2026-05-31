@@ -1,6 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Girassol&family=Inter:wght@200;300;400&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap');
 
-/* Variables globales del proyecto */
+/* Variables globales del proyecto
+ *
+ * Paginas (*.module.css en /pages):
+ *   - Solo layout: fondo, contenedor, espaciado entre secciones.
+ *   - Componen y ordenan componentes; no estilizan su interior.
+ *
+ * Componentes (*.module.css en /components):
+ *   - Usan var(--...) de :root cuando existe la variable.
+ *   - Si no hay variable global, definen el valor en el propio componente.
+ */
 :root {
   /* Fondos */
   --color-page-bg: #f9f9f0;
@@ -32,6 +41,8 @@
   --font-size-secondary: 40px; /* Tamano - textos secundarios */
   --font-size-subtitle: 26px; /* Tamano - textos subtitulos */
   --font-size-button: 34px; /* Tamano - texto- botones */
+  --font-size-lg: 1.125rem;
+  --font-size-xs: 0.75rem;
 
   /* Peso de las fuentes */
 
@@ -41,6 +52,9 @@
 
   /* Padding general para algunas cards */
   --card-padding: 30px;
+
+  /* Espaciado entre componentes del Home */
+  --home-component-gap: 2rem;
 
   /* Radio para cards */
   --radius-card-md: 40px;
@@ -175,12 +189,8 @@ button {
     --font-size-button: 22px;
 
     --card-padding: 18px;
+    --home-component-gap: 1rem;
     --radius-card-md: 24px;
     --radius-card-lg: 30px;
-    --hero-width: calc(100% - 24px);
-    --hero-min-height: 360px;
-    --hero-margin-top: 18px;
-    --hero-margin-bottom: 3rem;
-    --hero-radius: 18px;
   }
 }
