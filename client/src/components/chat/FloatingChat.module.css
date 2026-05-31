@@ -3,54 +3,362 @@
   right: 32px;
   bottom: 32px;
   z-index: 250;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 14px;
+}
+
+.materialIcon {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  white-space: nowrap;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+/* Botón flotante redondo con haz de luz que lo atraviesa */
+.fabShell {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  display: grid;
+  place-items: center;
 }
 
 .button {
-  width: 64px;
-  height: 64px;
+  position: relative;
+  width: 60px;
+  height: 60px;
   border: none;
-  border-radius: 999px;
+  border-radius: 50%;
   background: var(--color-green);
   color: var(--color-text-light);
   display: grid;
   place-items: center;
-  box-shadow: 0 10px 26px rgba(0,0,0,0.25);
-  cursor: pointer;
-  transition: transform var(--transition), background var(--transition);
-}
-
-.button:hover { transform: translateY(-3px); background: var(--color-green-dark); }
-.button svg { width: 34px; height: 34px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-
-.window {
-  width: 315px;
-  margin-bottom: 14px;
-  background: var(--color-text-light);
-  border-radius: 18px;
   overflow: hidden;
-  box-shadow: 0 16px 36px rgba(0,0,0,0.22);
-  border: 1px solid rgba(0,0,0,0.10);
+  isolation: isolate;
+  box-shadow: 0 10px 20px rgba(73, 88, 33, 0.24);
+  cursor: pointer;
+  transition:
+    transform var(--transition),
+    box-shadow var(--transition),
+    background var(--transition);
 }
 
-.header {
-  background: var(--color-green);
+.lightBeam {
+  position: absolute;
+  top: -20%;
+  left: -130%;
+  width: 55%;
+  height: 140%;
+  pointer-events: none;
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    rgba(249, 249, 240, 0.05) 28%,
+    rgba(249, 249, 240, 0.55) 46%,
+    rgba(255, 255, 255, 0.85) 50%,
+    rgba(236, 131, 47, 0.45) 54%,
+    rgba(249, 249, 240, 0.35) 62%,
+    transparent 100%
+  );
+  transform: skewX(-22deg);
+  opacity: 0;
+  z-index: 4;
+  mix-blend-mode: screen;
+}
+
+.lightBeamActive {
+  animation: beamSweep 1.2s ease-in-out forwards;
+}
+
+.buttonIcon {
+  position: relative;
+  z-index: 2;
+  font-size: 30px !important;
   color: var(--color-text-light);
-  padding: 0.95rem 1rem;
+}
+
+.button:hover,
+.buttonOpen {
+  transform: translateY(-5px) scale(1.04);
+  background: var(--color-orange);
+  box-shadow: 0 18px 34px rgba(192, 124, 58, 0.36);
+}
+
+.button:focus-visible {
+  outline: 3px solid rgba(236, 131, 47, 0.6);
+  outline-offset: 3px;
+}
+
+@keyframes beamSweep {
+  0% {
+    left: -130%;
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  88% {
+    opacity: 1;
+  }
+  100% {
+    left: 130%;
+    opacity: 0;
+  }
+}
+
+/* Ventana — card como FAQs / contacto */
+.window {
+  width: 360px;
+  max-width: calc(100vw - 36px);
+}
+
+.card {
+  background: var(--color-page-oscuro);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1.35rem 1.1rem;
+  box-shadow: var(--shadow-card);
+  border: 1px solid rgba(192, 124, 58, 0.15);
+}
+
+.cardHeader {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
 }
-.header strong { display: block; font-family: var(--font-title); font-size: 1.2rem; font-weight: 400; }
-.header span { display: block; font-size: 0.72rem; opacity: 0.82; }
-.header button { background: transparent; border: none; color: var(--color-text-light); font-size: 1.6rem; cursor: pointer; }
 
-.body { padding: 1rem; background: var(--color-page-bg); min-height: 98px; }
-.message { background: var(--color-text-light); border-radius: 12px; padding: 0.85rem; font-size: 0.86rem; color: #333; line-height: 1.4; }
-.inputRow { display: flex; gap: 0.5rem; padding: 0.75rem; background: var(--color-text-light); }
-.inputRow input { flex: 1; border: 1px solid rgba(0,0,0,0.15); border-radius: 999px; padding: 0.65rem 0.9rem; font-size: 0.82rem; }
-.inputRow button { border: none; background: var(--color-green); color: var(--color-text-light); border-radius: 999px; padding: 0.55rem 0.9rem; font-size: 0.8rem; cursor: pointer; }
+.title {
+  margin: 0;
+  font-family: var(--font-title);
+  font-size: clamp(1.15rem, 2.5vw, 1.45rem);
+  color: var(--color-orange);
+  letter-spacing: 0.04em;
+  font-weight: var(--font-weight-regular);
+  text-transform: capitalize;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.titleIcon {
+  font-size: 24px !important;
+  color: var(--color-orange);
+}
+
+.closeHeaderBtn {
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: var(--color-text-light);
+  color: var(--color-text-main);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  box-shadow: var(--shadow-card);
+  transition: background var(--transition), transform var(--transition);
+}
+
+.closeHeaderBtn .materialIcon {
+  font-size: 22px;
+}
+
+.closeHeaderBtn:hover {
+  background: var(--color-orange-soft);
+  color: var(--color-text-light);
+}
+
+.intro {
+  margin: 0 0 0.85rem;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: var(--font-weight-extra-light);
+  color: var(--color-text-main);
+  line-height: 1.55;
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.item {
+  border-top: 1px solid rgba(192, 124, 58, 0.25);
+}
+
+.item:last-child {
+  border-bottom: 1px solid rgba(192, 124, 58, 0.25);
+}
+
+.row {
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 0.75rem;
+  align-items: center;
+  background: transparent;
+  border: none;
+  padding: 0.8rem 0.35rem;
+  cursor: pointer;
+  text-align: left;
+  transition: background var(--transition);
+}
+
+.row:hover {
+  background: rgba(192, 124, 58, 0.08);
+}
+
+.rowIcon {
+  color: var(--color-orange);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rowIcon .materialIcon {
+  font-size: 20px;
+}
+
+.question {
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  color: var(--color-text-main);
+  line-height: 1.35;
+}
+
+.arrow {
+  color: var(--color-orange);
+  display: inline-flex;
+  align-items: center;
+}
+
+.arrow .materialIcon {
+  font-size: 20px;
+}
+
+.adminRow .question {
+  color: var(--color-green-dark);
+}
+
+.detail {
+  border-top: 1px solid rgba(192, 124, 58, 0.25);
+  padding-top: 0.75rem;
+}
+
+.backBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  border: none;
+  background: transparent;
+  padding: 0;
+  margin-bottom: 0.65rem;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  color: var(--color-orange);
+  cursor: pointer;
+  transition: color var(--transition);
+}
+
+.backBtn .materialIcon {
+  font-size: 18px;
+}
+
+.backBtn:hover {
+  color: var(--color-orange-bright);
+}
+
+.detailQuestion {
+  margin: 0 0 0.5rem;
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  color: var(--color-text-main);
+  line-height: 1.4;
+}
+
+.answer {
+  padding: 0 0 0.25rem 0.15rem;
+}
+
+.answer p {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  color: var(--color-text-main);
+  line-height: 1.6;
+  font-weight: var(--font-weight-extra-light);
+}
+
+/* WhatsApp — estilo botón de reserva / contacto */
+.whatsappBtn {
+  position: fixed;
+  right: 108px;
+  bottom: 38px;
+  z-index: 251;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 48px;
+  padding: 0.65rem 1.2rem;
+  border-radius: var(--radius-sm);
+  background: var(--color-orange);
+  color: var(--color-text-light);
+  font-family: var(--font-title);
+  font-size: 1.1rem;
+  letter-spacing: 0.03em;
+  text-decoration: none;
+  box-shadow: 0 10px 20px rgba(192, 124, 58, 0.28);
+  transition:
+    transform var(--transition),
+    box-shadow var(--transition),
+    background var(--transition);
+}
+
+.whatsappBtn .materialIcon {
+  font-size: 22px;
+  color: var(--color-text-light);
+}
+
+.whatsappBtn:hover {
+  transform: translateY(-4px);
+  background: var(--color-orange-bright);
+  box-shadow: 0 14px 28px rgba(192, 124, 58, 0.36);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lightBeamActive {
+    animation: none;
+  }
+}
 
 @media (max-width: 480px) {
-  .wrap { right: 18px; bottom: 18px; }
-  .window { width: calc(100vw - 36px); }
+  .wrap {
+    right: 18px;
+    bottom: 18px;
+  }
+
+  .window {
+    width: calc(100vw - 36px);
+  }
+
+  .whatsappBtn {
+    right: 18px;
+    bottom: 88px;
+    font-size: 1rem;
+  }
 }
