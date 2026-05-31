@@ -2,14 +2,14 @@ import { useEffect, useState } from 'react'
 import Footer from '../components/Footer/Footer'
 import RevealBlock from '../components/RevealBlock/RevealBlock'
 import { approveReservation, getAdminReservations, rejectReservation } from '../services/api'
-import styles from './Reserve.module.css'
+import styles from './AdminReservations.module.css'
 
 function statusLabel(status) {
   const labels = {
-    pending_review: 'Pendiente de revisión',
+    pending_review: 'Pendiente de revisi\u00f3n',
     approved: 'Aprobada',
     rejected: 'Rechazada',
-    pending: 'Pendiente'
+    pending: 'Pendiente',
   }
 
   return labels[status] || status || 'Sin estado'
@@ -61,86 +61,92 @@ function AdminReservations() {
 
   return (
     <div className={styles.page}>
-      <RevealBlock as="section" className={styles.bookingSection}>
-        <h2 className={styles.bookingTitle}>Reservas recibidas</h2>
+      <RevealBlock as="section" className={styles.panel}>
+        <p className={styles.kicker}>Panel privado</p>
+        <h2 className={styles.title}>Reservas recibidas</h2>
 
-        {loading && <p className={styles.confirmedText}>Cargando reservas...</p>}
-        {error && <p className={styles.confirmedText}>{error}</p>}
+        {loading && <p className={styles.message}>Cargando reservas...</p>}
+        {error && <p className={styles.error}>{error}</p>}
 
-        <div className={styles.stepContent}>
+        <div className={styles.list}>
           {reservations.length === 0 && !loading && (
-            <div className={styles.step}>
-              <p className={styles.confirmedText}>Aún no hay comprobantes por revisar.</p>
+            <div className={styles.empty}>
+              {'A\u00fan no hay comprobantes por revisar.'}
             </div>
           )}
 
           {reservations.map(reservation => (
-            <div key={reservation.id} className={styles.step}>
-              <p className={styles.stepLabel}>
-                {reservation.name} — {statusLabel(reservation.status)}
-              </p>
+            <article key={reservation.id} className={styles.card}>
+              <header className={styles.cardHeader}>
+                <div>
+                  <h3>{reservation.name}</h3>
+                  <p>{statusLabel(reservation.status)}</p>
+                </div>
+                {reservation.status === 'pending_review' && (
+                  <span className={styles.badge}>{'Revisi\u00f3n'}</span>
+                )}
+              </header>
 
               <div className={styles.summary}>
-                <div className={styles.summaryCard}>
-                  <p className={styles.summaryKey}>Entrada</p>
-                  <p className={styles.summaryVal}>{reservation.checkIn}</p>
+                <div>
+                  <span>Entrada</span>
+                  <strong>{reservation.checkIn}</strong>
                 </div>
-                <div className={styles.summaryCard}>
-                  <p className={styles.summaryKey}>Salida</p>
-                  <p className={styles.summaryVal}>{reservation.checkOut}</p>
+                <div>
+                  <span>Salida</span>
+                  <strong>{reservation.checkOut}</strong>
                 </div>
-                <div className={styles.summaryCard}>
-                  <p className={styles.summaryKey}>Teléfono</p>
-                  <p className={styles.summaryVal}>{reservation.phone}</p>
+                <div>
+                  <span>{'Tel\u00e9fono'}</span>
+                  <strong>{reservation.phone}</strong>
                 </div>
-                <div className={styles.summaryCard}>
-                  <p className={styles.summaryKey}>Correo</p>
-                  <p className={styles.summaryVal}>{reservation.email}</p>
+                <div>
+                  <span>Correo</span>
+                  <strong>{reservation.email}</strong>
                 </div>
-                <div className={styles.summaryCard}>
-                  <p className={styles.summaryKey}>Huéspedes</p>
-                  <p className={styles.summaryVal}>{reservation.guests}</p>
+                <div>
+                  <span>{'Hu\u00e9spedes'}</span>
+                  <strong>{reservation.guests}</strong>
                 </div>
                 {reservation.accessCode && (
-                  <div className={`${styles.summaryCard} ${styles.summaryTotal}`}>
-                    <p className={styles.summaryKey}>Código de entrada</p>
-                    <p className={styles.summaryVal}>{reservation.accessCode}</p>
+                  <div className={styles.highlight}>
+                    <span>{'C\u00f3digo de entrada'}</span>
+                    <strong>{reservation.accessCode}</strong>
                   </div>
                 )}
               </div>
 
               {reservation.notes && (
-                <p className={styles.confirmedText}>Notas: {reservation.notes}</p>
+                <p className={styles.message}>Notas: {reservation.notes}</p>
               )}
 
               {reservation.paymentProof?.dataUrl && (
-                <div className={`${styles.field} ${styles.fieldFull}`}>
-                  <label className={styles.label}>Comprobante</label>
+                <div className={styles.proof}>
+                  <p>Comprobante</p>
                   {reservation.paymentProof.fileType?.includes('pdf') ? (
-                    <a className={styles.confirmedBtn} href={reservation.paymentProof.dataUrl} target="_blank" rel="noreferrer">
+                    <a href={reservation.paymentProof.dataUrl} target="_blank" rel="noreferrer">
                       Ver comprobante PDF
                     </a>
                   ) : (
                     <img
                       src={reservation.paymentProof.dataUrl}
                       alt={`Comprobante de ${reservation.name}`}
-                      style={{ maxWidth: '100%', borderRadius: '12px' }}
                     />
                   )}
                 </div>
               )}
 
               {reservation.status === 'pending_review' && (
-                <div className={styles.navBtns}>
-                  <button className={styles.btnBack} type="button" onClick={() => handleReject(reservation.id)}>
+                <div className={styles.actions}>
+                  <button className={styles.reject} type="button" onClick={() => handleReject(reservation.id)}>
                     Rechazar
                   </button>
-                  <button className={styles.btnNext} type="button" onClick={() => handleApprove(reservation.id)}>
+                  <button type="button" onClick={() => handleApprove(reservation.id)}>
                     Aceptar comprobante
                   </button>
                 </div>
               )}
-            </div>
+            </article>
           ))}
         </div>
       </RevealBlock>

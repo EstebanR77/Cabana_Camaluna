@@ -17,15 +17,6 @@
   --nav-link-color-hover: var(--color-orange-soft);
   --nav-link-underline-color: var(--color-orange-soft);
   --nav-gap: clamp(1rem, 1.4vw, 1.75rem);
-  --nav-cta-width: 164px;
-  --nav-cta-height: 54px;
-  --nav-cta-font-size: 17.2px;
-  --nav-cta-letter-spacing: 0.12em;
-  --nav-cta-bg: var(--color-green);
-  --nav-cta-bg-hover: var(--color-green-dark);
-  --nav-cta-shadow: 0 12px 24px rgba(73, 88, 33, 0.22);
-  --nav-cta-shine: rgba(255, 255, 255, 0.48);
-  --nav-cta-shine-duration: 0.62s;
 
   position: sticky;
   top: 0;
@@ -143,6 +134,7 @@
 .ctaItem a:hover,
 .ctaItem a:focus-visible {
   color: var(--color-text-light);
+  transform: translateY(-4px) scale(1.045);
 }
 
 .hamburger {
@@ -185,8 +177,6 @@
     --nav-link-font-size: 14.5px;
     --nav-link-letter-spacing: 0.15em;
     --nav-gap: clamp(0.72rem, 0.95vw, 1.05rem);
-    --nav-cta-width: 150px;
-    --nav-cta-font-size: 16.5px;
   }
 
 }
@@ -275,7 +265,9 @@
     justify-content: center;
     width: 100%;
     min-width: 0;
+    max-width: none;
     min-height: var(--nav-cta-height);
+    height: var(--nav-cta-height);
     margin-top: 0.55rem;
   }
 }
@@ -317,8 +309,5 @@
     --nav-link-font-size: 17px;
     --nav-link-letter-spacing: 0.12em;
     --nav-gap: 0;
-    --nav-cta-width: 100%;
-    --nav-cta-height: 52px;
-    --nav-cta-font-size: 18px;
   }
 }

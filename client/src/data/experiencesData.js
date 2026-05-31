@@ -63,6 +63,19 @@ export const allAdventures = {
   ctaLink: '/about',
 }
 
+export const reviewSources = [
+  {
+    id: 'airbnb',
+    label: 'Airbnb',
+    href: 'https://www.airbnb.com.co/s/Villa-de-Leyva--Boyac%C3%A1--Colombia/homes',
+  },
+  {
+    id: 'maps',
+    label: 'Maps',
+    href: 'https://maps.app.goo.gl/yQYv2p9FVsxKbKev7',
+  },
+]
+
 export const experiencesCta = {
   title: '¿Listos para vivir la aventura?',
   subtitle: 'Reserva tu estancia y vive la experiencia de Villa de leyva desde nuestra cabaña',

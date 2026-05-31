@@ -8,7 +8,6 @@ export const weather = {
   title: 'Clima y mejor época para viajar',
   paragraphs: [
     'Villa de Leyva cuenta con un clima templado y agradable durante gran parte del año, con temperaturas que suelen variar entre los 13°C y 22°C. Sus días soleados y noches frescas crean el ambiente perfecto para descansar y disfrutar de la naturaleza.',
-    'Villa de Leyva cuenta con un clima templado y agradable durante gran parte del año, con temperaturas que suelen variar entre los 13°C y 22°C. Sus días soleados y noches frescas crean el ambiente perfecto para descansar y disfrutar de la naturaleza.',
   ],
   images: [
     { src: '/images/hero-plaza.png', alt: 'Plaza Mayor Villa de Leyva' },
@@ -155,6 +154,7 @@ export const touristSites = {
     },
   ],
   mapEmbed: 'https://www.google.com/maps?q=Villa+de+Leyva,+Boyac%C3%A1,+Colombia&output=embed',
+  mapUrl: 'https://www.google.com/maps/search/?api=1&query=Villa+de+Leyva,+Boyac%C3%A1,+Colombia',
 }
 
 export const restaurants = {
@@ -177,6 +177,24 @@ export const restaurants = {
       desc: 'Perfecto para desayunos, brunch y cenas tranquilas con un ambiente cálido y elegante.',
       image: '/images/happy money.png',
       href: 'https://www.google.com/search?q=Happy+Monkey+Villa+de+Leyva',
+    },
+    {
+      title: 'El Español tapas & paellas',
+      desc: 'Ideal para compartir tapas, paellas y comida española en un ambiente romántico.',
+      image: '/images/tapas y paella.png',
+      href: 'https://www.google.com/search?q=El+Espa%C3%B1ol+tapas+paellas+Villa+de+Leyva',
+    },
+    {
+      title: 'Restaurante Casa San Pedro campestre',
+      desc: 'Restaurante campestre muy conocido por sus pastas, pizzas y ambiente natural.',
+      image: '/images/restaurantes.png',
+      href: 'https://www.google.com/search?q=Casa+San+Pedro+campestre+Villa+de+Leyva',
+    },
+    {
+      title: 'La Maria Mar y Tierra',
+      desc: 'Restaurante moderno con mezcla de sabores de mar y tierra y platos bien presentados.',
+      image: '/images/34337b17d92bc46343f555c176196d8895da80b3.png',
+      href: 'https://www.google.com/search?q=La+Maria+Mar+y+Tierra+Villa+de+Leyva',
     },
   ],
   ctaText: 'Ver mas →',

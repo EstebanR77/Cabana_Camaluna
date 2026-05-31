@@ -39,7 +39,7 @@ function Cabin() {
         </div>
         <CabinVideo videoUrl="/Videos/Video_Recorrido.mp4" />
         <CabinDistances />
-        <CabinReserveCTA />
+        <CabinReserveCTA centered />
       </section>
 
       <Footer />

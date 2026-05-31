@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
-import './ReviewCard.css'
+import styles from './ReviewCard.module.css'
 
 export default function ReviewCard({
-  name = 'Huésped',
-  text = 'Reseña',
+  name = 'Hu\u00e9sped',
+  text = 'Rese\u00f1a',
   stars = 5,
   image = null,
   date = '',
@@ -16,7 +16,7 @@ export default function ReviewCard({
   const [activeClass, setActiveClass] = useState('')
 
   useEffect(() => {
-    setActiveClass(isHovered || isActive ? 'review-card--active' : '')
+    setActiveClass(isHovered || isActive ? styles.active : '')
   }, [isHovered, isActive])
 
   const handleEnter = () => {
@@ -32,8 +32,8 @@ export default function ReviewCard({
   return (
     <article
       className={[
-        'review-card',
-        compact ? 'review-card--compact' : '',
+        styles.card,
+        compact ? styles.compact : '',
         activeClass,
       ].join(' ')}
       onMouseEnter={handleEnter}
@@ -42,23 +42,23 @@ export default function ReviewCard({
       onBlur={handleLeave}
       tabIndex={0}
     >
-      <div className="review-card__header">
+      <div className={styles.header}>
         <div
-          className="review-card__circle"
+          className={styles.avatar}
           style={image ? { backgroundImage: `url(${image})` } : {}}
         />
         <div>
-          <h3 className="review-card__title">{name}</h3>
-          {date && <p className="review-card__date">{date}</p>}
+          <h3 className={styles.title}>{name}</h3>
+          {date && <p className={styles.date}>{date}</p>}
         </div>
       </div>
 
-      <p className="review-card__description">{text}</p>
+      <p className={styles.description}>{text}</p>
 
-      <div className="review-card__stars">
+      <div className={styles.stars}>
         {Array.from({ length: 5 }).map((_, index) => (
-          <span key={index} className={index < stars ? '' : 'review-card__star--empty'}>
-            ★
+          <span key={index} className={index < stars ? '' : styles.emptyStar}>
+            {'\u2605'}
           </span>
         ))}
       </div>

@@ -1,5 +1,5 @@
 .wrap {
-  padding: 2.5rem 1.5rem 1.5rem;
+  padding: var(--home-component-gap) 1.5rem;
   display: flex;
   justify-content: center;
 }
@@ -9,14 +9,15 @@
   max-width: 1100px;
   background: var(--color-page-oscuro);
   border-radius: var(--radius-lg);
-  padding: 2.5rem;
+  padding-block: 1.15rem;
+  padding-inline: var(--card-padding);
 }
 
 .title {
   font-family: var(--font-title);
   font-size: clamp(1.75rem, 3vw, 2.4rem);
   color: var(--color-green-dark);
-  margin: 0 0 1.75rem;
+  margin: 0 0 0.5rem;
   letter-spacing: 0.04em;
   font-weight: var(--font-weight-regular);
   text-transform: capitalize;
@@ -25,7 +26,7 @@
 .grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 2.5rem;
+  gap: 1.25rem;
   align-items: center;
 }
 
@@ -45,7 +46,11 @@
 .text {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0;
+}
+
+.text > div:first-child .subhead {
+  margin-top: 0;
 }
 
 .subhead {
@@ -53,7 +58,7 @@
   font-size: 1.25rem;
   color: var(--color-green-dark);
   letter-spacing: 0.04em;
-  margin: 0.5rem 0 0.4rem;
+  margin: 0.25rem 0 0.2rem;
   font-weight: var(--font-weight-regular);
   text-transform: capitalize;
 }
@@ -62,36 +67,42 @@
   font-family: var(--font-body);
   font-size: 0.92rem;
   color: var(--color-text-main);
-  line-height: 1.7;
-  margin: 0 0 0.75rem;
+  line-height: 1.55;
+  margin: 0 0 0.4rem;
 }
 
 .tags {
   display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
-  margin-top: 0.75rem;
-  align-items: flex-start;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.35rem;
+  align-items: center;
 }
 
 .tag {
   display: inline-flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: 0.5rem;
   background: transparent;
   border: 1.5px solid var(--color-green-dark);
   color: var(--color-green-dark);
   font-family: var(--font-body);
   font-weight: 500;
   font-size: 0.9rem;
-  padding: 0.55rem 1.1rem;
+  padding: 0.4rem 0.95rem;
   border-radius: var(--radius-sm);
 }
 
 .tag svg { color: var(--color-green-dark); }
 
 @media (max-width: 900px) {
-  .grid { grid-template-columns: 1fr; gap: 2rem; }
-  .card { padding: 1.75rem; }
+  .card {
+    padding-block: 1rem;
+    padding-inline: var(--card-padding);
+  }
+
+  .grid { grid-template-columns: 1fr; gap: 1rem; }
   .img img { height: 240px; }
+  .tags { flex-direction: column; align-items: flex-start; }
 }

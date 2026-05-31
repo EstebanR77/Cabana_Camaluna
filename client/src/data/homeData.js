@@ -1,38 +1,39 @@
 export const quickAccess = [
-  { title: 'Galería',    description: 'Conoce los espacios y rincones de nuestra cabaña.',  link: '/gallery'     },
-  { title: 'Reservas',   description: 'Tu hospedaje nos importa, te ofrecemos lo mejor.',   link: '/reserve'     },
-  { title: 'Conócenos',  description: 'Descúbrenos y aprende más sobre nosotros.',           link: '/experiences' },
+  { title: 'Galer\u00eda', description: 'Momentos y espacios de la caba\u00f1a.', link: '/gallery' },
+  { title: 'Reservar', description: 'Tu pr\u00f3xima escapada comienza aqu\u00ed.', link: '/reserve' },
+  { title: 'Con\u00f3cenos', description: 'Descubre la esencia de nuestra caba\u00f1a.', link: '/conocenos' },
+]
+
+export const galleryPreview = [
+  { url: '/images/Area social.jpg', alt: '\u00c1rea social y terraza' },
+  { url: '/images/Fachada.jpg', alt: 'Fachada y entorno' },
+  { url: '/images/Habitaciones.jpg', alt: 'Habitaciones' },
 ]
 
 export const aboutVilla = {
-  title: 'Un destino de ensueño',
-  description: 'A 3 horas de Bogotá, Villa de Leyva ha sido uno de los pueblos más hermosos de Colombia, declarado monumento nacional. Calles empedradas, cielos despejados y el paso que siempre soñarás.',
-  image: '/images/villa-de-leyva.jpg',
+  description: 'A 3 horas de Bogot\u00e1, Villa de Leyva es uno de los pueblos m\u00e1s hermosos de Colombia, declarado monumento nacional. Calles empedradas, cielos despejados y paisajes que enamoran.',
+  image: '/images/Fachada.jpg',
   link: '/about',
 }
 
 export const knowUs = {
-  title: 'Conócenos',
-  subtitle: 'Somos anfitriones apasionados por nuestra tierra ancestral.',
-  description: 'Construimos una cabaña con gran amor para compartir nuestra región contigo.',
-  image: '/images/anfitriones.jpg',
-  link: '/about',
+  subtitle: 'Somos anfitriones apasionados por ofrecer una estad\u00eda aut\u00e9ntica',
+  description: 'Construimos esta caba\u00f1a con amor para compartirla contigo',
+  image: '/images/Anfitriones.jpeg',
+  link: '/conocenos',
 }
 
-export const contactButtons = [
-  { label: 'WhatsApp',            icon: '📱', href: 'https://wa.me/573000000000' },
-  { label: 'Teléfono',            icon: '📞', href: 'tel:+573000000000'           },
-  { label: 'Preguntas Frecuentes',icon: '❓', href: '/contact'                    },
-  { label: 'Correo',              icon: '✉️', href: 'mailto:info@camaluna.com'    },
-]
-
-export const galleryPreview = [
-  { url: '/images/area-social.jpg',   alt: 'Área social y terraza' },
-  { url: '/images/habitaciones.jpg',  alt: 'Habitaciones'          },
-  { url: '/images/fachada.jpg',       alt: 'Fachada y entorno'     },
-]
-
 export const reviews = [
-  { name: 'Ana María Jiménez', stars: 5, text: 'La cabaña Camaluna es un lugar maravilloso y quiero decir esto con mucha sinceridad, hay demasiado valor en la estadía y el servicio fue excepcional.' },
-  { name: 'Carlos Rodríguez Mesa', stars: 5, text: 'Excelente hospedaje, la cabaña Camaluna superó todas las expectativas. Muy recomendado, el lugar es magnífico y la atención de los anfitriones fue extraordinaria.' },
+  {
+    name: 'Ana Mar\u00eda Jim\u00e9nez',
+    avatar: '/images/Mujer avatar.jpg',
+    stars: 5,
+    text: 'Nos gust\u00f3 mucho la casa, muy c\u00f3moda y es un muy buen sitio para descansar, rodeado de naturaleza y cerca a todos los sitios tur\u00edsticos. Mi familia qued\u00f3 muy contenta, muchas gracias.',
+  },
+  {
+    name: 'Carlos Roberto Mesa',
+    avatar: '/images/Hombre avatar.jpg',
+    stars: 5,
+    text: 'Excelente, muy buena ubicaci\u00f3n cerca del pueblo, las fotos iguales al sitio, todo impecable, comunicaci\u00f3n muy buena. Recomendado.',
+  },
 ]

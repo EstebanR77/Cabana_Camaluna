@@ -3,4 +3,37 @@
   flex-direction: column;
   min-height: 100vh;
   background: var(--color-page-bg);
+  color: var(--color-text-main);
+}
+
+.header {
+  width: min(100% - 32px, 1180px);
+  margin: var(--home-component-gap) auto 0.5rem;
+  padding-top: 0.55rem;
+  text-align: center;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-title);
+  font-size: clamp(2.25rem, 5vw, 4.4rem);
+  font-weight: var(--font-weight-regular);
+  line-height: 0.95;
+  color: var(--color-orange-soft);
+  text-transform: capitalize;
+}
+
+.subtitle {
+  margin: 0.55rem 0 0;
+  font-family: var(--font-body);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-extra-light);
+  line-height: 1.45;
+  color: rgba(30, 20, 14, 0.62);
+}
+
+@media (max-width: 520px) {
+  .header {
+    width: calc(100% - 20px);
+  }
 }

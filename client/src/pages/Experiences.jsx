@@ -6,6 +6,7 @@ import ReviewCard from '../components/ReviewCard/ReviewCard'
 import ReviewForm from '../components/ReviewForm/ReviewForm'
 import ReviewSummary from '../components/ReviewSummary/ReviewSummary'
 import { createReview, getReviews } from '../services/api'
+import { reviewSources } from '../data/experiencesData'
 import styles from './Experiences.module.css'
 
 const fallbackReviews = [
@@ -89,17 +90,16 @@ function Experiences() {
   return (
     <main className={styles.page}>
       <RevealBlock className={styles.header} variant="heroReveal">
-        <h1 className={styles.title}>Experiencias / Reseñas</h1>
+        <h1 className={styles.title}>Reseñas</h1>
         <p className={styles.subtitle}>Historias, momentos y experiencias compartidas por nuestros huéspedes.</p>
       </RevealBlock>
 
       <div className={styles.content}>
         <RevealBlock>
-          <ReviewSummary reviews={reviews} />
+          <ReviewSummary reviews={reviews} sources={reviewSources} />
         </RevealBlock>
 
         <RevealBlock as="section" className={styles.reviewsSection}>
-          <h2 className={styles.sectionTitle}>Reseñas</h2>
           <div className={styles.reviewsGrid}>
             {reviews.slice(0, 6).map((review) => (
               <ReviewCard
@@ -128,7 +128,7 @@ function Experiences() {
         </RevealBlock>
 
         <RevealBlock className={styles.reserveWrap} variant="reserveReveal">
-          <CabinReserveCTA variant="inline" />
+          <CabinReserveCTA centered />
         </RevealBlock>
 
       </div>

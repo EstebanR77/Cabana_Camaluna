@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import styles from './ReviewSummary.module.css'
 
-function ReviewSummary({ reviews = [] }) {
+function ReviewSummary({ reviews = [], sources = [] }) {
   const [hoveredRow, setHoveredRow] = useState(null)
   const [activeRow, setActiveRow] = useState(null)
 
@@ -23,8 +23,18 @@ function ReviewSummary({ reviews = [] }) {
   }, [reviews])
 
   const rows = [
-    { stars: 5, percent: summary.fivePercent, label: 'Arriba' },
-    { stars: 4, percent: summary.fourPercent, label: 'Mejor' },
+    {
+      stars: 5,
+      percent: summary.fivePercent,
+      label: sources[0]?.label || 'Airbnb',
+      href: sources[0]?.href,
+    },
+    {
+      stars: 4,
+      percent: summary.fourPercent,
+      label: sources[1]?.label || 'Maps',
+      href: sources[1]?.href,
+    },
   ]
 
   return (
@@ -53,7 +63,20 @@ function ReviewSummary({ reviews = [] }) {
             <span className={styles.barTrack}>
               <span className={styles.barFill} style={{ width: `${Math.max(row.percent, 8)}%` }} />
             </span>
-            <span className={styles.barTag}>{row.label}</span>
+            {row.href ? (
+              <a
+                href={row.href}
+                target="_blank"
+                rel="noreferrer"
+                className={styles.barTag}
+                onFocus={() => setHoveredRow(row.stars)}
+                onBlur={() => setHoveredRow(null)}
+              >
+                {row.label}
+              </a>
+            ) : (
+              <span className={styles.barTag}>{row.label}</span>
+            )}
           </div>
         ))}
       </div>
