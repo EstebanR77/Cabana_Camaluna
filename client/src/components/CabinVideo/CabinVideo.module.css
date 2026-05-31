@@ -1,10 +1,8 @@
 .section {
-  --max-width: 960px;
-
   width: 100%;
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding: 0.75rem 1rem 0.65rem;
+  max-width: 100%;
+  margin: 0;
+  padding: 0.75rem 0 0.65rem;
   background: var(--color-text-light);
 }
 
@@ -110,7 +108,7 @@
 
 @media (max-width: 768px) {
   .section {
-    padding: 0 0.85rem 0.65rem;
+    padding: 0 0 0.65rem;
   }
 
   .video,
