@@ -21,6 +21,9 @@ function FeaturedFestival({ sectionTitle, image, ctaText, ctaLink, title, date, 
         </div>
 
         <div className={styles.content}>
+          <h3 className={styles.title}>{title}</h3>
+          <p className={styles.date}>{date}</p>
+          <p className={styles.description}>{description}</p>
           {ctaText && (
             isExternalLink ? (
               <a href={ctaLink} target="_blank" rel="noreferrer" className={styles.cta}>
@@ -30,9 +33,6 @@ function FeaturedFestival({ sectionTitle, image, ctaText, ctaLink, title, date, 
               <Link to={ctaLink} className={styles.cta}>{ctaText}</Link>
             )
           )}
-          <h3 className={styles.title}>{title}</h3>
-          <p className={styles.date}>{date}</p>
-          <p className={styles.description}>{description}</p>
         </div>
       </motion.div>
     </section>

@@ -7,6 +7,7 @@ import Footer            from '../components/Footer/Footer'
 import styles            from './Contact.module.css'
 
 import {
+  contactHero,
   contactInfo,
   socialNetworks,
   emergencyContacts,
@@ -17,6 +18,11 @@ import {
 function Contact() {
   return (
     <div className={styles.page}>
+      <header className={styles.header}>
+        <h1 className={styles.title}>{contactHero.title}</h1>
+        <p className={styles.subtitle}>{contactHero.subtitle}</p>
+      </header>
+
       <ContactInfo       items={contactInfo} />
       <SocialNetworks    {...socialNetworks} />
       <EmergencyContacts {...emergencyContacts} />

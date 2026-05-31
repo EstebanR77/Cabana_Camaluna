@@ -1,9 +1,9 @@
 .review-card {
   width: 100%;
-  min-height: 220px;
+  min-height: 0;
   background-color: var(--color-brown);
-  border-radius: 22px;
-  padding: 1.4rem 1.6rem 1.25rem;
+  border-radius: var(--radius-md);
+  padding: 1.15rem 1.2rem 1rem;
   position: relative;
   color: var(--color-text-light);
   outline: none;
@@ -16,7 +16,7 @@
 }
 
 .review-card--compact {
-  min-height: 210px;
+  padding: 0.95rem 1.05rem 0.85rem;
 }
 
 .review-card--active {
@@ -26,17 +26,26 @@
 }
 
 .review-card__header {
-  min-height: 54px;
+  min-height: 0;
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
+  justify-content: flex-start;
+  gap: 0.65rem;
   text-align: left;
 }
 
+.review-card--compact .review-card__header {
+  gap: 0.55rem;
+}
+
 .review-card__circle {
-  width: 50px;
-  height: 50px;
+  width: 44px;
+  height: 44px;
+}
+
+.review-card--compact .review-card__circle {
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   background-color: var(--color-green-dark);
   background-size: cover;
@@ -48,7 +57,7 @@
 .review-card__title {
   margin: 0;
   font-family: var(--font-title);
-  font-size: clamp(1.15rem, 1.8vw, 1.45rem);
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
   font-weight: var(--font-weight-regular);
   line-height: 1;
   color: var(--color-text-light);
@@ -62,24 +71,28 @@
 }
 
 .review-card__description {
-  margin: 1.15rem 0 1rem;
+  margin: 0.6rem 0 0.5rem;
   font-family: var(--font-body);
-  font-size: clamp(0.86rem, 1.4vw, 0.98rem);
+  font-size: clamp(0.82rem, 1.2vw, 0.9rem);
   font-weight: var(--font-weight-extra-light);
-  line-height: 1.25;
+  line-height: 1.4;
   color: rgba(249, 249, 240, 0.92);
 }
 
+.review-card--compact .review-card__description {
+  margin: 0.5rem 0 0.4rem;
+}
+
 .review-card__stars {
-  margin-top: auto;
+  margin-top: 0;
   display: flex;
   justify-content: center;
-  gap: 0.5rem;
+  gap: 0.35rem;
   line-height: 1;
 }
 
 .review-card__stars span {
-  font-size: 1.05rem;
+  font-size: 0.9rem;
   color: var(--color-text-light);
 }
 
@@ -89,7 +102,10 @@
 
 @media (max-width: 640px) {
   .review-card {
-    border-radius: 18px;
-    padding: 1.25rem;
+    padding: 1rem;
+  }
+
+  .review-card--compact {
+    padding: 0.9rem;
   }
 }

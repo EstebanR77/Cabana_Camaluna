@@ -36,30 +36,37 @@ function CabinDistances() {
       <h2 className={styles.title}>Distancias y Acceso</h2>
       <div className={styles.grid}>
         <motion.div
-          className={[styles.mapPlaceholder, hoveredItem === 'map' ? styles.mapHovered : ''].filter(Boolean).join(' ')}
+          className={styles.mapCell}
           initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.45 }}
           viewport={{ once: true }}
-          onMouseEnter={() => setHoveredItem('map')}
-          onMouseLeave={() => setHoveredItem('')}
-          onFocus={() => setHoveredItem('map')}
-          onBlur={() => setHoveredItem('')}
         >
-          <iframe
-            src={embedMapUrl}
-            title="Mapa de Camaluna Cabana Boutique"
-            className={styles.mapFrame}
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-          />
-          <a
-            href={mapsUrl}
-            target="_blank"
-            rel="noreferrer"
-            className={styles.mapLink}
-            aria-label="Abrir ubicacion de Camaluna en Google Maps"
-          />
+          <div
+            className={[styles.mapPlaceholder, hoveredItem === 'map' ? styles.mapHovered : ''].filter(Boolean).join(' ')}
+            onMouseEnter={() => setHoveredItem('map')}
+            onMouseLeave={() => setHoveredItem('')}
+            onFocus={() => setHoveredItem('map')}
+            onBlur={() => setHoveredItem('')}
+            tabIndex={0}
+            role="group"
+            aria-label="Mapa de ubicacion"
+          >
+            <iframe
+              src={embedMapUrl}
+              title="Mapa de Camaluna Cabana Boutique"
+              className={styles.mapFrame}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+            <a
+              href={mapsUrl}
+              target="_blank"
+              rel="noreferrer"
+              className={styles.mapLink}
+              aria-label="Abrir ubicacion de Camaluna en Google Maps"
+            />
+          </div>
         </motion.div>
 
         <motion.div

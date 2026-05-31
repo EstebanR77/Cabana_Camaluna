@@ -2,22 +2,13 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import styles from './CabinReserveCTA.module.css'
 
-function CabinReserveCTA({ variant = 'default', wrapClassName = '', className = '' }) {
+function CabinReserveCTA({ centered = false, className = '' }) {
   const [isHovered, setIsHovered] = useState(false)
-
-  const buttonClass = [
-    styles.button,
-    styles[variant],
-    isHovered ? styles.active : '',
-    className,
-  ]
-    .filter(Boolean)
-    .join(' ')
 
   const button = (
     <Link
       to="/reserve"
-      className={buttonClass}
+      className={[styles.button, isHovered ? styles.active : '', className].filter(Boolean).join(' ')}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onFocus={() => setIsHovered(true)}
@@ -28,15 +19,11 @@ function CabinReserveCTA({ variant = 'default', wrapClassName = '', className = 
     </Link>
   )
 
-  if (variant === 'navbar') {
+  if (!centered) {
     return button
   }
 
-  return (
-    <div className={[styles.wrap, styles[`wrap_${variant}`], wrapClassName].filter(Boolean).join(' ')}>
-      {button}
-    </div>
-  )
+  return <div className={styles.wrapCentered}>{button}</div>
 }
 
 export default CabinReserveCTA

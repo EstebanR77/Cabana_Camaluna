@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion'
 import styles from './TouristSites.module.css'
 
-function TouristSites({ title, items = [], mapEmbed }) {
+function TouristSites({ title, items = [], mapEmbed, mapUrl }) {
+  const mapsLink = mapUrl || 'https://www.google.com/maps/search/?api=1&query=Villa+de+Leyva,+Boyac%C3%A1,+Colombia'
   return (
     <section className={styles.wrap}>
       <h2 className={styles.title}>{title}</h2>
@@ -51,15 +52,22 @@ function TouristSites({ title, items = [], mapEmbed }) {
       </div>
 
       {mapEmbed && (
-        <div className={styles.map}>
+        <a
+          href={mapsLink}
+          target="_blank"
+          rel="noreferrer"
+          className={styles.map}
+          aria-label="Abrir mapa de Villa de Leyva en Google Maps"
+        >
           <iframe
             src={mapEmbed}
-            title="Mapa de Villa de Leyva"
+            title=""
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
-            allowFullScreen
+            tabIndex={-1}
+            aria-hidden="true"
           />
-        </div>
+        </a>
       )}
     </section>
   )

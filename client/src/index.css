@@ -55,6 +55,19 @@
   --shadow-soft: 0 8px 24px rgba(0, 0, 0, 0.12);
   --shadow-card: 0 4px 18px rgba(0, 0, 0, 0.10);
   --transition: 0.28s ease;
+
+  /* Boton RESERVA YA (navbar y paginas — mismo tamano) */
+  --nav-cta-width: 164px;
+  --nav-cta-height: 54px;
+  --nav-cta-font-size: 17.2px;
+  --nav-cta-padding-x: 1.85rem;
+}
+
+@media (max-width: 1380px) {
+  :root {
+    --nav-cta-width: 150px;
+    --nav-cta-font-size: 16.5px;
+  }
 }
 
 * {

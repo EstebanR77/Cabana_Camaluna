@@ -72,7 +72,7 @@ function Navbar() {
           </li>
         ))}
         <li className={styles.ctaItem}>
-          <CabinReserveCTA variant="navbar" />
+          <CabinReserveCTA />
         </li>
       </ul>
     </nav>

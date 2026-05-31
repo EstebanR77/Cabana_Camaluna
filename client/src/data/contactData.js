@@ -1,5 +1,5 @@
 export const contactHero = {
-  title: 'Ayuda y contácto',
+  title: 'Ayuda',
   subtitle: 'Estamos disponibles para ayudarte y resolver cualquier duda sobre tu estadía en CAMALUNA.',
 }
 

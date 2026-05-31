@@ -96,7 +96,7 @@ function Home() {
       </RevealBlock>
 
       <RevealBlock variant="reserveReveal">
-        <CabinReserveCTA />
+        <CabinReserveCTA centered />
       </RevealBlock>
 
       <RevealBlock>

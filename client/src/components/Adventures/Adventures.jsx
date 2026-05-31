@@ -228,31 +228,33 @@ function Adventures({ title, subtitle, items = [], ctaText }) {
                 </p>
               </div>
 
-              <div className={styles.modalGrid}>
-                {items.map((item, index) => (
-                  <article key={item.title} className={styles.modalItem}>
-                    <img src={item.image} alt={item.title} className={styles.modalImage} />
-                    <div className={styles.modalItemBody}>
-                      <div className={styles.modalIcon}>{ICONS[item.icon]}</div>
-                      <h4 className={styles.modalItemTitle}>{item.title}</h4>
-                      <p className={styles.modalItemDesc}>{item.desc}</p>
-                      {item.href && (
-                        <a
-                          href={item.href}
-                          target="_blank"
-                          rel="noreferrer"
-                          className={getModalActionClass(index)}
-                          onMouseEnter={() => setHoveredItem(`modal-action-${index}`)}
-                          onMouseLeave={() => setHoveredItem('')}
-                          onFocus={() => setHoveredItem(`modal-action-${index}`)}
-                          onBlur={() => setHoveredItem('')}
-                        >
-                          Explorar ruta
-                        </a>
-                      )}
-                    </div>
-                  </article>
-                ))}
+              <div className={styles.modalBody}>
+                <div className={styles.modalGrid}>
+                  {items.map((item, index) => (
+                    <article key={item.title} className={styles.modalItem}>
+                      <img src={item.image} alt={item.title} className={styles.modalImage} />
+                      <div className={styles.modalItemBody}>
+                        <div className={styles.modalIcon}>{ICONS[item.icon]}</div>
+                        <h4 className={styles.modalItemTitle}>{item.title}</h4>
+                        <p className={styles.modalItemDesc}>{item.desc}</p>
+                        {item.href && (
+                          <a
+                            href={item.href}
+                            target="_blank"
+                            rel="noreferrer"
+                            className={getModalActionClass(index)}
+                            onMouseEnter={() => setHoveredItem(`modal-action-${index}`)}
+                            onMouseLeave={() => setHoveredItem('')}
+                            onFocus={() => setHoveredItem(`modal-action-${index}`)}
+                            onBlur={() => setHoveredItem('')}
+                          >
+                            Explorar ruta
+                          </a>
+                        )}
+                      </div>
+                    </article>
+                  ))}
+                </div>
               </div>
             </motion.div>
           </motion.div>

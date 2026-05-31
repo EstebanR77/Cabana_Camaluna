@@ -1,19 +1,22 @@
+/* Solo La Cabaña — edita proporciones de foto y cards aqui */
 .section {
+  --equipment-photo-ratio: 2.15 / 1;
+  --equipment-photo-max-height: 280px;
+  --equipment-card-height: 72px;
+  --equipment-inner-gap: 1.25rem;
+
   width: 100%;
   max-width: 100%;
   min-width: 0;
   margin: 0;
-  height: auto;
-  min-height: 0;
   padding: 0;
-  border-radius: 0;
   background: transparent;
 }
 
 .title {
-  margin: 0 0 0.75rem;
+  margin: 0 0 0.85rem;
   font-family: var(--font-title);
-  font-size: clamp(1.5rem, 2.8vw, 2.15rem);
+  font-size: clamp(1.75rem, 2.4vw, 2.5rem);
   font-weight: var(--font-weight-regular);
   line-height: 1;
   color: var(--color-text-light);
@@ -22,33 +25,29 @@
 
 .inner {
   display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(240px, 0.95fr);
-  align-items: center;
-  gap: 1rem;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+  align-items: stretch;
+  gap: var(--equipment-inner-gap);
   width: 100%;
-  max-width: 100%;
   min-width: 0;
 }
 
-/* Contenedor general de la foto: cambia aqui ancho, alto y posicion. */
+/* Foto: mas ancho y menos alto = sube el primer numero de --equipment-photo-ratio */
 .photoContainer {
   width: 100%;
   max-width: 100%;
   min-width: 0;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: var(--equipment-photo-ratio);
+  max-height: var(--equipment-photo-max-height);
 }
 
-/* Caja interna de la foto: cambia aqui radio, fondo, sombra o recorte. */
 .imageWrap {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  padding: 0;
   border-radius: var(--radius-md);
   background: var(--color-page-bg);
-  max-width: 100%;
-  min-width: 0;
-  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.12);
+  box-shadow: var(--shadow-card);
   transition: transform var(--transition), box-shadow var(--transition), filter var(--transition);
 }
 
@@ -69,64 +68,52 @@
   transition: transform var(--transition);
 }
 
-/* Contenedor general de las comodidades: cambia aqui ancho, alto y posicion del bloque derecho. */
 .amenitiesContainer {
-  padding: 0;
   width: 100%;
-  max-width: 100%;
   min-width: 0;
+  padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* Contenedor exacto donde estan las cards de comodidades. */
 .controlsCard {
   width: 100%;
-  height: 100%;
-  min-height: auto;
-  display: flex;
-  align-items: center;
-  max-width: 100%;
   min-width: 0;
   padding: 0;
-  border-radius: var(--radius-sm);
   background: transparent;
 }
 
-/* Distribucion interna de las cards: cambia aqui columnas y separacion entre fichas. */
 .grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0.75rem;
-  align-content: center;
   width: 100%;
   min-width: 0;
 }
 
-/* Tamano y estilo de cada ficha de comodidad. */
 .item,
 .moreBtn {
-  min-height: 120px;
+  height: var(--equipment-card-height);
+  min-height: var(--equipment-card-height);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  border-radius: var(--radius-md);
-  padding: 0.65rem 0.6rem;
+  padding: 0.45rem 0.85rem;
+  border-radius: 11px;
   background: var(--color-text-light);
   color: var(--color-green);
   font-family: var(--font-body);
-  font-size: clamp(0.88rem, 1.2vw, 1.05rem);
+  font-size: clamp(1rem, 1.05vw, 1.35rem);
   font-weight: var(--font-weight-regular);
   min-width: 0;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
   transition: transform var(--transition), box-shadow var(--transition), background var(--transition), color var(--transition);
 }
 
 .moreBtn {
   grid-column: 1 / -1;
-  min-height: 0;
 }
 
 .materialIcon,
@@ -144,8 +131,7 @@
 }
 
 .materialIcon {
-  /* Cambia aqui el tamano y color de los iconos principales. */
-  font-size: clamp(22px, 2vw, 28px);
+  font-size: clamp(22px, 1.6vw, 28px);
   color: var(--color-green);
 }
 
@@ -248,7 +234,6 @@
 }
 
 .modalIcon {
-  /* Cambia aqui el tamano y color de los iconos del modal. */
   font-size: 34px;
   font-weight: var(--font-weight-regular);
   color: var(--color-green);
@@ -263,7 +248,12 @@
 @media (max-width: 900px) {
   .inner {
     grid-template-columns: 1fr;
-    gap: 0.75rem;
+    gap: 1rem;
+  }
+
+  .photoContainer {
+    max-height: none;
+    aspect-ratio: 16 / 9;
   }
 }
 
@@ -273,14 +263,12 @@
     grid-template-columns: 1fr;
   }
 
-  .item,
-  .moreBtn {
-    min-height: 120px;
+  .section {
+    --equipment-card-height: 64px;
   }
-}
 
-@media (max-width: 480px) {
-  .inner {
-    gap: 0.65rem;
+  .title {
+    margin-bottom: 0.65rem;
+    font-size: clamp(1.5rem, 8vw, 2rem);
   }
 }

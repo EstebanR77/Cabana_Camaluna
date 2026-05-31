@@ -1,4 +1,5 @@
 /* Layout de pagina: contenedor principal y panel de equipamiento. */
+
 .page {
   display: flex;
   flex-direction: column;
@@ -18,21 +19,31 @@
 }
 
 .content {
-  --max-width: 960px;
+  /* Ancho general de la pagina (intro, video, distancias…) */
+  --panel-width: 1600px;
 
-  width: min(100% - 40px, var(--max-width));
-  max-width: var(--max-width);
+  width: min(100% - 40px, var(--panel-width));
+  max-width: var(--panel-width);
+
   margin: 0 auto;
+
   display: flex;
   flex-direction: column;
   gap: var(--home-component-gap);
+
   min-width: 0;
 }
 
+/* Fondo verde: mismo ancho que CabinIntroCards (--max-width: 1200px) */
 .equipmentPanel {
-  width: 100%;
-  margin: 0;
-  padding: var(--card-padding);
+  --equipment-panel-width: 1200px;
+  --equipment-panel-height: auto;
+
+  width: min(100% - 40px, var(--equipment-panel-width));
+  max-width: var(--equipment-panel-width);
+  height: var(--equipment-panel-height);
+  margin: 0 auto;
+  padding: 1rem 2rem 1.15rem;
   border-radius: var(--radius-card-md);
   background: var(--color-green-light);
   overflow: hidden;
@@ -42,10 +53,18 @@
   .content {
     width: calc(100% - 24px);
   }
+
+  .equipmentPanel {
+    padding: 1.5rem 2rem;
+  }
 }
 
 @media (max-width: 480px) {
   .content {
     width: calc(100% - 24px);
+  }
+
+  .equipmentPanel {
+    padding: 1.25rem 1.5rem;
   }
 }

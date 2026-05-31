@@ -171,7 +171,7 @@ function Gallery() {
       </RevealBlock>
 
       <RevealBlock className={styles.reserveWrap}>
-        <CabinReserveCTA variant="inline" />
+        <CabinReserveCTA centered />
       </RevealBlock>
 
       <AnimatePresence>

@@ -7,6 +7,7 @@ function Restaurants({ title, items = [], ctaText, ctaLink }) {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [hoveredItem, setHoveredItem] = useState('')
   const usesModal = ctaText?.toLowerCase().includes('ver mas')
+  const previewItems = usesModal ? items.slice(0, 3) : items
 
   useEffect(() => {
     if (!hoveredItem) return undefined
@@ -51,7 +52,7 @@ function Restaurants({ title, items = [], ctaText, ctaLink }) {
       <h2 className={styles.title}>{title}</h2>
 
       <div className={styles.grid}>
-        {items.map((item, i) => {
+        {previewItems.map((item, i) => {
           const motionProps = {
             initial: { opacity: 0, y: 20 },
             whileInView: { opacity: 1, y: 0 },
@@ -161,30 +162,32 @@ function Restaurants({ title, items = [], ctaText, ctaLink }) {
                 </p>
               </div>
 
-              <div className={styles.modalGrid}>
-                {items.map((item, index) => (
-                  <article key={item.title} className={styles.modalItem}>
-                    <img src={item.image} alt={item.title} className={styles.modalImage} />
-                    <div className={styles.modalItemBody}>
-                      <h4 className={styles.modalItemTitle}>{item.title}</h4>
-                      <p className={styles.modalItemDesc}>{item.desc}</p>
-                      {item.href && (
-                        <a
-                          href={item.href}
-                          target="_blank"
-                          rel="noreferrer"
-                          className={getModalActionClass(index)}
-                          onMouseEnter={() => setHoveredItem(`modal-action-${index}`)}
-                          onMouseLeave={() => setHoveredItem('')}
-                          onFocus={() => setHoveredItem(`modal-action-${index}`)}
-                          onBlur={() => setHoveredItem('')}
-                        >
-                          Ver restaurante
-                        </a>
-                      )}
-                    </div>
-                  </article>
-                ))}
+              <div className={styles.modalBody}>
+                <div className={styles.modalGrid}>
+                  {items.map((item, index) => (
+                    <article key={item.title} className={styles.modalItem}>
+                      <img src={item.image} alt={item.title} className={styles.modalImage} />
+                      <div className={styles.modalItemBody}>
+                        <h4 className={styles.modalItemTitle}>{item.title}</h4>
+                        <p className={styles.modalItemDesc}>{item.desc}</p>
+                        {item.href && (
+                          <a
+                            href={item.href}
+                            target="_blank"
+                            rel="noreferrer"
+                            className={getModalActionClass(index)}
+                            onMouseEnter={() => setHoveredItem(`modal-action-${index}`)}
+                            onMouseLeave={() => setHoveredItem('')}
+                            onFocus={() => setHoveredItem(`modal-action-${index}`)}
+                            onBlur={() => setHoveredItem('')}
+                          >
+                            Ver restaurante
+                          </a>
+                        )}
+                      </div>
+                    </article>
+                  ))}
+                </div>
               </div>
             </motion.div>
           </motion.div>
