@@ -50,7 +50,7 @@ const NAV_LINKS = [
   },
   {
     label: 'Experiencias/Reseñas',
-    to: '/Experiences',
+    to: '/experiences',
     hover: {
       background: 'var(--color-orange)',
       border: 'var(--color-orange)',
