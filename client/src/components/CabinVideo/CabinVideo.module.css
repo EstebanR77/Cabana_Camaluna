@@ -1,15 +1,20 @@
 .section {
+  --max-width: 960px;
+
   width: 100%;
-  padding: 0.95rem 0 1.15rem;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0.75rem 1rem 0.65rem;
   background: var(--color-text-light);
 }
 
 .title {
-  margin: 0 0 1rem;
+  margin: 0 0 0.75rem;
   font-family: var(--font-title);
-  font-size: clamp(2.1rem, 3vw, 3.6rem);
+  font-size: clamp(1.5rem, 2.8vw, 2.15rem);
   font-weight: var(--font-weight-regular);
-  color: var(--color-green);
+  line-height: 1;
+  color: var(--color-brown);
 }
 
 .videoWrapper {
@@ -21,7 +26,7 @@
 
 .video {
   width: 100%;
-  aspect-ratio: 16 / 6.8;
+  aspect-ratio: 4 / 3;
   border: none;
   display: block;
   background: #111;
@@ -31,7 +36,7 @@
 .placeholder {
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 6.2;
+  aspect-ratio: 4 / 3;
   padding: 0;
   overflow: hidden;
   background: var(--color-green-light);
@@ -103,14 +108,14 @@
   transform: translate(-50%, -50%) scale(1.08);
 }
 
-@media (max-width: 760px) {
-  .title {
-    font-size: clamp(1.7rem, 10vw, 2.25rem);
+@media (max-width: 768px) {
+  .section {
+    padding: 0 0.85rem 0.65rem;
   }
 
   .video,
   .placeholder {
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 4 / 3;
   }
 
   .playBtn {

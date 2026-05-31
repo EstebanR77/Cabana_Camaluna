@@ -2,6 +2,7 @@
 .page {
   display: flex;
   flex-direction: column;
+  gap: var(--home-component-gap);
   width: 100%;
   max-width: 100vw;
   background: var(--color-text-light);
@@ -17,41 +18,34 @@
 }
 
 .content {
-  width: min(calc(100vw - 90px), 1760px);
-  max-width: 1760px;
+  --max-width: 960px;
+
+  width: min(100% - 40px, var(--max-width));
+  max-width: var(--max-width);
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 0;
+  gap: var(--home-component-gap);
   min-width: 0;
 }
 
 .equipmentPanel {
-  width: min(100%, 1806px);
-  height: auto;
-  margin: 0 auto 1.25rem;
-  padding: 34px 38px 32px;
+  width: 100%;
+  margin: 0;
+  padding: var(--card-padding);
   border-radius: var(--radius-card-md);
   background: var(--color-green-light);
   overflow: hidden;
 }
 
-@media (max-width: 980px) {
+@media (max-width: 768px) {
   .content {
-    width: calc(100vw - 24px);
-  }
-
-  .equipmentPanel {
-    padding: 30px 24px 48px;
+    width: calc(100% - 24px);
   }
 }
 
-@media (max-width: 620px) {
+@media (max-width: 480px) {
   .content {
-    width: calc(100vw - 14px);
-  }
-
-  .equipmentPanel {
-    padding: 24px 18px 34px;
+    width: calc(100% - 24px);
   }
 }
