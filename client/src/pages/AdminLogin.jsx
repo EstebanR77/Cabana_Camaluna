@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import Footer from '../components/Footer/Footer'
 import RevealBlock from '../components/RevealBlock/RevealBlock'
 import { login } from '../services/api'
-import styles from './Reserve.module.css'
+import styles from './AdminLogin.module.css'
 
 function AdminLogin() {
   const navigate = useNavigate()
@@ -20,7 +20,7 @@ function AdminLogin() {
       await login(form)
       navigate('/admin/reservas')
     } catch (err) {
-      setError(err.response?.data?.error || 'No se pudo iniciar sesión.')
+      setError(err.response?.data?.error || 'No se pudo iniciar sesi\u00f3n.')
     } finally {
       setLoading(false)
     }
@@ -28,18 +28,18 @@ function AdminLogin() {
 
   return (
     <div className={styles.page}>
-      <RevealBlock as="section" className={styles.bookingSection}>
-        <h2 className={styles.bookingTitle}>Administrador</h2>
-        <form className={styles.step} onSubmit={handleSubmit}>
-          <p className={styles.stepLabel}>Ingreso al panel de reservas</p>
+      <RevealBlock as="section" className={styles.card}>
+        <p className={styles.kicker}>Panel privado</p>
+        <h2 className={styles.title}>Administrador</h2>
+        <form className={styles.form} onSubmit={handleSubmit}>
+          <p className={styles.text}>Ingreso al panel de reservas</p>
 
-          {error && <p className={styles.confirmedText}>{error}</p>}
+          {error && <p className={styles.error}>{error}</p>}
 
-          <div className={styles.formGrid}>
+          <div className={styles.fields}>
             <div className={styles.field}>
-              <label className={styles.label}>Correo o usuario</label>
+              <label>Correo o usuario</label>
               <input
-                className={styles.input}
                 type="text"
                 value={form.username}
                 onChange={e => setForm(prev => ({ ...prev, username: e.target.value }))}
@@ -48,19 +48,18 @@ function AdminLogin() {
             </div>
 
             <div className={styles.field}>
-              <label className={styles.label}>Contraseña</label>
+              <label>{'Contrase\u00f1a'}</label>
               <input
-                className={styles.input}
                 type="password"
                 value={form.password}
                 onChange={e => setForm(prev => ({ ...prev, password: e.target.value }))}
-                placeholder="Contraseña"
+                placeholder={'Contrase\u00f1a'}
               />
             </div>
           </div>
 
-          <div className={styles.navBtns}>
-            <button className={styles.btnNext} type="submit" disabled={loading}>
+          <div className={styles.actions}>
+            <button type="submit" disabled={loading}>
               {loading ? 'Ingresando...' : 'Ingresar'}
             </button>
           </div>
