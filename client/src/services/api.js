@@ -21,6 +21,10 @@ export const getContact = () => api.get('/contact');
 export const getReviews = () => api.get('/reviews');
 export const createReview = (data) => api.post('/reviews', data);
 
+// ── Reseñas ─────────────────────────────────────────────
+export const getReviews = () => api.get('/reviews')
+export const createReview = (data) => api.post('/reviews', data)
+
 // ── Auth ────────────────────────────────────────────────
 export const login  = (data) => api.post('/login', data);
 export const logout = ()     => api.post('/logout');
