@@ -10,7 +10,7 @@ function RestaurantsPage() {
     <div className={styles.page}>
       <Restaurants {...allRestaurants} />
       <CtaBanner   {...restaurantsCta} />
-      <Footer variant="orange" />
+      <Footer />
     </div>
   )
 }

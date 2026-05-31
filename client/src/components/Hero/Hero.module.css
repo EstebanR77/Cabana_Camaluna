@@ -1,13 +1,13 @@
 .hero {
   position: relative;
-  width: calc(100% - 60px);
+  width: calc(100% - 40px);
   min-height: 430px;
-  margin: 20px auto 20px;
-  display: flex  ;
+  margin: 8px auto 4px;
+  display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  border-radius: var(--radius-card-md);
+  border-radius: var(--radius-lg);
   background: var(--hero-bg-image, url('/images/hero.svg')) center 45% / cover no-repeat;
   background-color: var(--color-green);
 }
@@ -18,52 +18,171 @@
   background: rgba(0, 0, 0, 0.34);
 }
 
+.waves,
+.particles,
+.drawLine {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.waves {
+  opacity: 0.34;
+  mix-blend-mode: screen;
+}
+
+.wave {
+  fill: none;
+  stroke: rgba(228, 206, 149, 0.72);
+  stroke-width: 1;
+  stroke-linecap: round;
+  stroke-dasharray: 6 12;
+}
+
+.waveOne {
+  animation: heroWaveDrift 19s linear infinite;
+}
+
+.waveTwo {
+  stroke: rgba(176, 196, 143, 0.58);
+  animation: heroWaveDrift 25s linear infinite reverse;
+}
+
+.particles {
+  opacity: 0.86;
+}
+
+.particle {
+  fill: rgba(238, 220, 170, 0.88);
+  filter: drop-shadow(0 0 5px rgba(238, 220, 170, 0.58));
+  transform-box: fill-box;
+  transform-origin: center;
+  animation:
+    heroParticleFloat var(--duration) ease-in-out infinite,
+    heroParticleGlow calc(var(--duration) * 0.65) ease-in-out infinite;
+  animation-delay: var(--delay), var(--delay);
+}
+
+.drawLine {
+  inset: auto 0 0;
+  height: 120px;
+  opacity: 0.58;
+}
+
+.drawLinePath {
+  fill: none;
+  stroke: rgba(228, 206, 149, 0.78);
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-dasharray: 2600;
+  stroke-dashoffset: 2600;
+  animation: heroLineDraw 3.1s ease 0.45s forwards;
+}
+
 .content {
   position: relative;
   z-index: 2;
-  width: min(1010px, 86%);
-  padding: 32px 20px 38px;
+  width: min(720px, 86%);
+  padding: 18px 16px 22px;
   text-align: center;
 }
 
 .subtitle {
   margin: 0 0 4px;
   font-family: var(--font-body);
-  font-size: var(--font-size-subtitle);
-  font-weight: 300;
+  font-size: 1rem;
+  font-weight: var(--font-weight-light);
   line-height: 1.15;
-  letter-spacing: 0;
-  text-transform: none;
   color: rgba(255, 255, 255, 0.78);
 }
 
 .title {
+  composes: title from global;
   margin: 0 0 8px;
-  font-family: var(--font-title);
-  font-size:  var(--font-size-title);
-  font-weight: 400;
-  line-height: 0.92;
   color: var(--color-text-light);
-  letter-spacing: 0;
+  line-height: 0.92;
 }
 
 .description {
-  max-width: 1000px;
+  max-width: 620px;
   margin: 0 auto;
   font-family: var(--font-body);
   font-size: var(--font-size-subtitle);
-  font-weight: 400;
-  line-height: 0.92;
+  font-weight: var(--font-weight-extra-light);
+  line-height: 1.35rem;
   color: var(--color-text-light);
+}
+
+@keyframes heroWaveDrift {
+  to {
+    stroke-dashoffset: -170;
+  }
+}
+
+@keyframes heroParticleFloat {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(0.86);
+  }
+
+  50% {
+    transform: translate(var(--drift), -18px) scale(1.06);
+  }
+}
+
+@keyframes heroParticleGlow {
+  0%,
+  100% {
+    opacity: 0.18;
+  }
+
+  50% {
+    opacity: 0.92;
+  }
+}
+
+@keyframes heroLineDraw {
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 
 @media (max-width: 900px) {
 }
 
 @media (max-width: 560px) {
+  .waves {
+    opacity: 0.24;
+  }
+
+  .particles {
+    opacity: 0.66;
+  }
+
+  .drawLine {
+    height: 86px;
+    opacity: 0.42;
+  }
+
   .content {
     width: 92%;
     padding: 28px 12px;
   }
 
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .waveOne,
+  .waveTwo,
+  .particle,
+  .drawLinePath {
+    animation: none;
+  }
+
+  .drawLinePath {
+    stroke-dashoffset: 0;
+  }
 }

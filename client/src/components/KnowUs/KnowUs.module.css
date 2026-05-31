@@ -1,36 +1,39 @@
 .section {
   position: relative;
   width: 100%;
-  min-height: 330px;
-  padding: 1.3rem 3.2rem 1.7rem;
+  min-height: 0;
+  margin: 0 0 0.9rem;
+  padding: clamp(1.5rem, 3vw, 2.5rem);
   overflow: hidden;
+  border-radius: 0;
   background-size: cover;
   background-position: center 42%;
   color: var(--color-text-main);
+  box-shadow: none;
 }
 
 .overlay {
   position: absolute;
   inset: 0;
   z-index: 0;
-  background: rgba(112, 136, 95, 0.721);
+  background: rgba(112, 136, 95, 0.72);
   transition: background var(--transition);
 }
 
 .isHovered .overlay {
-  background: rgba(112, 136, 95, 0.556);
+  background: rgba(112, 136, 95, 0.58);
 }
 
 .content {
   position: relative;
   z-index: 1;
-  max-width: 980px;
+  width: 100%;
+  max-width: 1160px;
   margin: 0 auto;
 }
 
 .textBlock {
-  max-width: 720px;
-  margin: 0 auto 1.15rem;
+  margin: 0 auto clamp(1.25rem, 2.5vw, 2rem);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -39,43 +42,50 @@
 }
 
 .eyebrow {
-  margin: 0 0 0.2rem;
-  font-size: 0.82rem;
+  margin: 0 0 0.25rem;
+  font-family: var(--font-body);
+  font-size: var(--font-size-xs);
   color: var(--color-text-main);
+  letter-spacing: 0.05em;
 }
 
 .heading {
-  margin: 0;
+  margin: 0 0 0.4rem;
   font-family: var(--font-title);
-  font-size: clamp(2.2rem, 4.5vw, 3.35rem);
+  font-size: clamp(2.4rem, 5vw, 3.8rem);
   font-weight: var(--font-weight-regular);
   line-height: 1;
-  letter-spacing: 0;
   color: var(--color-text-main);
 }
 
 .intro {
-  margin: 0.1rem 0 0;
-  font-size: 0.88rem;
-  line-height: 1.35;
+  max-width: 620px;
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: clamp(0.9rem, 1.5vw, 1rem);
+  line-height: 1.5;
   color: var(--color-text-main);
 }
 
+/* ── Grid imagen + card ──────────────────────────────── */
 .mediaWrap {
   display: grid;
-  grid-template-columns: 1.15fr 0.9fr;
-  gap: 5rem;
+  grid-template-columns: minmax(0, 1.25fr) minmax(280px, 0.85fr);
+  gap: clamp(1.25rem, 3vw, 2.5rem);
   align-items: stretch;
+  max-width: 600px;                   /* ← EDITABLE: ancho máximo del bloque */
+  margin: 0 auto;
 }
 
+/* ── Foto ────────────────────────────────────────────── */
 .imageCard {
   width: 100%;
-  min-height: 215px;
+  min-height: clamp(160px, 20vw, 140px); /* ← EDITABLE: altura mínima */
   overflow: hidden;
-  border-radius: 18px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  aspect-ratio: 4 / 3;               /* ← EDITABLE: proporción (16/9, 1/1, etc.) */
   transition: transform var(--transition), box-shadow var(--transition);
-  aspect-ratio: 4 / 3;
 }
 
 .image {
@@ -87,56 +97,58 @@
 
 .isHovered .imageCard {
   transform: translateY(-3px);
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--shadow-soft);
 }
 
 .isHovered .image {
   transform: scale(1.04);
 }
 
+/* ── Card texto ──────────────────────────────────────── */
 .card {
-  min-height: 215px;
-  padding: 1.65rem 1.85rem;
+  min-height: 100%;
+  padding: var(--card-padding);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0.9rem;
+  gap: 1rem;
   text-align: center;
-  background: rgba(255, 255, 255, 0.82);
-  border-radius: 24px;
-  backdrop-filter: blur(3px);
+  background: rgba(249, 249, 240, 0.9);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(4px);
   transition: transform var(--transition), background var(--transition), box-shadow var(--transition);
 }
 
 .isHovered .card {
   transform: translateY(-3px);
-  background: rgba(255, 255, 255, 0.9);
-  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.14);
+  background: rgba(249, 249, 240, 0.96);
+  box-shadow: var(--shadow-card);
 }
 
 .cardTitle {
   margin: 0;
   font-family: var(--font-title);
-  font-size: 1.8rem;
+  font-size: clamp(1.45rem, 2.8vw, 1.9rem);
   font-weight: var(--font-weight-regular);
   line-height: 1;
   color: var(--color-text-main);
 }
 
 .cardText {
-  max-width: 230px;
+  max-width: 320px;
   margin: 0;
-  font-size: 1.05rem;
-  line-height: 1.28;
-  color: #333;
+  font-family: var(--font-body);
+  font-size: clamp(0.9rem, 1.5vw, 1rem);
+  line-height: 1.45;
+  color: var(--color-text-main);
 }
 
 .cardLink {
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  padding: 0.45rem 1.45rem;
+  padding: 0.5rem 1.6rem;
   background: var(--color-page-bg);
   color: var(--color-green);
   font-family: var(--font-title);
@@ -152,22 +164,26 @@
   transform: translateY(-2px);
 }
 
+/* ── Responsive ──────────────────────────────────────── */
 @media (max-width: 768px) {
   .section {
-    padding: 2rem 1.25rem;
+    width: 100%;
+    padding: var(--card-padding);
   }
 
   .mediaWrap {
     grid-template-columns: 1fr;
     gap: 1.5rem;
+    max-width: 100%;
   }
 
   .imageCard {
-    min-height: 220px;
+    min-height: 200px;
+    aspect-ratio: 4 / 3;
   }
 
   .card {
     min-height: auto;
-    border-radius: 18px;
+    border-radius: var(--radius-md);
   }
 }

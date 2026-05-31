@@ -1,40 +1,9 @@
+/* Layout de pagina */
 .page {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
   background: var(--color-page-bg);
-}
-
-.galleryHero {
-  width: calc(100% - 60px);
-  margin: 0 auto;
-}
-
-.galleryHero :global(section) {
-  width: 100%;
-  min-height: 470px;
-  margin: 0 auto 20px;
-  border-radius: var(--radius-card-md);
-  background-position: center 45%;
-}
-
-.galleryHero :global(section) > :global(div:first-child) {
-  background: rgba(30, 20, 14, 0.28);
-}
-
-.galleryHero :global(section) :global(div:last-child) {
-  width: min(92%, 1180px);
-  padding: 3rem 1.2rem;
-}
-
-.galleryHero :global(h1) {
-  margin-bottom: 0.35rem;
-  font-size: clamp(4rem, 5vw, var(--font-size-title));
-}
-
-.galleryHero :global(p) {
-  font-size: clamp(1.6rem, 1.8vw, var(--font-size-subtitle));
-  line-height: 1.15;
 }
 
 .filters {
@@ -229,52 +198,6 @@
   justify-content: center;
 }
 
-.reserveBtn {
-  min-width: 230px;
-  min-height: 54px;
-  padding: 0.6rem 1.45rem;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: var(--radius-sm);
-  background: var(--color-green);
-  color: var(--color-text-light);
-  font-family: var(--font-title);
-  font-size: clamp(1.45rem, 1.5vw, 1.85rem);
-  line-height: 1;
-  box-shadow: var(--shadow-card);
-  transition: transform var(--transition), background var(--transition), box-shadow var(--transition);
-}
-
-.reserveBtnHovered {
-  transform: translateY(-3px);
-  background: var(--color-orange-soft);
-  box-shadow: var(--shadow-soft);
-}
-
-.galleryFooter {
-  width: min(calc(100% - 60px), 1720px);
-  margin: 0 auto 1.15rem;
-}
-
-.galleryFooter :global(footer) {
-  width: 100%;
-  min-height: 0;
-  margin: 0;
-  padding: 2.35rem 1.35rem 1.35rem;
-  border-radius: var(--radius-md);
-}
-
-.galleryFooter :global(footer > div:first-child) {
-  padding: 0 0 1.25rem;
-  gap: 2.2rem;
-}
-
-.galleryFooter :global(footer > div:last-child) {
-  margin-top: 1.4rem;
-  padding: 1.15rem 1.4rem;
-}
-
 .lightbox {
   position: fixed;
   inset: 0;
@@ -344,33 +267,10 @@
 }
 
 @media (max-width: 900px) {
-  .galleryHero,
   .filters,
   .grid,
-  .reserveWrap,
-  .galleryFooter {
+  .reserveWrap {
     width: min(calc(100vw - 28px), 720px);
-  }
-
-  .galleryHero :global(section) {
-    min-height: 190px;
-    margin-bottom: 0.55rem;
-    border-radius: var(--radius-md);
-  }
-
-  .galleryHero :global(section) :global(div:last-child) {
-    width: min(92%, 520px);
-    padding: 1.15rem 0.65rem 1.35rem;
-  }
-
-  .galleryHero :global(h1) {
-    margin-bottom: 0.1rem;
-    font-size: clamp(2.25rem, 6vw, 4.15rem);
-  }
-
-  .galleryHero :global(p) {
-    font-size: clamp(0.78rem, 1.65vw, 1rem);
-    line-height: 1.15;
   }
 
   .filters {
@@ -417,15 +317,6 @@
 }
 
 @media (max-width: 520px) {
-  .galleryHero {
-    width: min(calc(100vw - 22px), 420px);
-  }
-
-  .galleryHero :global(section) {
-    min-height: 210px;
-    border-radius: var(--radius-md);
-  }
-
   .filters {
     justify-content: flex-start;
     padding-top: 1.5rem;
@@ -462,16 +353,6 @@
     padding-bottom: 1.3rem;
   }
 
-  .reserveBtn {
-    min-height: 40px;
-    font-size: clamp(1.15rem, 1.8vw, 1.45rem);
-  }
-
-  .reserveBtn {
-    width: 100%;
-    min-width: 0;
-  }
-
   .entrance,
   .bedroom,
   .detail,
@@ -485,14 +366,6 @@
   .door,
   .filteredItem {
     border-radius: var(--radius-sm);
-  }
-
-  .galleryFooter {
-    width: min(calc(100vw - 22px), 420px);
-  }
-
-  .galleryFooter :global(footer) {
-    padding: 1.85rem 1rem 1rem;
   }
 
   .lightbox {
