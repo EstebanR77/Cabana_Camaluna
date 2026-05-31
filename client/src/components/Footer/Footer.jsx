@@ -49,10 +49,6 @@ function Footer({ variant = 'default' }) {
     },
   ]
 
-  const footerClass = variant === 'orange'
-    ? `${styles.footer} ${styles.footerOrange}`
-    : styles.footer
-
   return (
     <footer className={`${styles.footer} ${variant === 'reviews' ? styles.footerReviews : ''}`}>
       <div className={styles.socials}>
@@ -91,7 +87,7 @@ function Footer({ variant = 'default' }) {
         <div className={styles.col}>
           <Link to="/about">Quienes Somos?</Link>
           <Link to="/cabin">Reglas de la casa</Link>
-          <Link to="/cabin">Seguridad y Propiedad</Link>
+          <Link to="/admin">Administrador</Link>
         </div>
       </div>
     </footer>
