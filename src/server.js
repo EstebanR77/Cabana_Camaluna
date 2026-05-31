@@ -7,7 +7,6 @@ import 'dotenv/config';
 import authRoutes                          from './routes/auth.js';
 import reservationRoutes, { setWss }       from './routes/reservations.js';
 import contactRoutes                       from './routes/contact.js';
-import reviewRoutes                        from './routes/reviews.js';
 
 import handleCalendarWS from './web/calendar.js';
 import handleChatWS     from './web/chat.js';
@@ -37,7 +36,6 @@ app.use(session({
 app.use('/api', authRoutes);
 app.use('/api/reservations', reservationRoutes);
 app.use('/api/contact', contactRoutes);
-app.use('/api/reviews', reviewRoutes);
 
 // ── Ruta de salud ───────────────────────────────────────
 app.get('/api/health', (_, res) => res.json({ status: 'ok' }));
