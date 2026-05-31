@@ -1,18 +1,8 @@
 .hero {
-  --hero-width: calc(100% - 40px);
-  --hero-min-height: 430px;
-  --hero-margin-top: 8px;
-  --hero-margin-bottom: 4px;
-  --hero-content-max: 720px;
-  --hero-title-size: clamp(2.25rem, 4.5vw, 2.875rem);
-  --hero-subtitle-size: 1rem;
-  --hero-desc-size: 1rem;
-  --hero-overlay: rgba(0, 0, 0, 0.34);
-
   position: relative;
-  width: var(--hero-width);
-  min-height: var(--hero-min-height);
-  margin: var(--hero-margin-top) auto var(--hero-margin-bottom);
+  width: calc(100% - 40px);
+  min-height: 430px;
+  margin: 8px auto 4px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -22,20 +12,20 @@
   background-color: var(--color-green);
 }
 
-.gallery {
-  --hero-overlay: rgba(30, 20, 14, 0.28);
-}
-
 .overlay {
   position: absolute;
   inset: 0;
-  background: var(--hero-overlay);
+  background: rgba(0, 0, 0, 0.34);
+}
+
+.gallery .overlay {
+  background: rgba(30, 20, 14, 0.28);
 }
 
 .content {
   position: relative;
   z-index: 2;
-  width: min(var(--hero-content-max), 86%);
+  width: min(720px, 86%);
   padding: 18px 16px 22px;
   text-align: center;
 }
@@ -43,44 +33,39 @@
 .subtitle {
   margin: 0 0 4px;
   font-family: var(--font-body);
-  font-size: var(--hero-subtitle-size);
+  font-size: 1rem;
   font-weight: var(--font-weight-light);
   line-height: 1.15;
-  letter-spacing: 0;
-  text-transform: none;
   color: rgba(255, 255, 255, 0.78);
 }
 
 .title {
+  composes: title from global;
   margin: 0 0 8px;
-  font-family: var(--font-title);
-  font-size: var(--hero-title-size);
-  font-weight: var(--font-weight-regular);
-  line-height: 0.92;
   color: var(--color-text-light);
-  letter-spacing: 0;
+  line-height: 0.92;
 }
 
 .description {
   max-width: 620px;
   margin: 0 auto;
   font-family: var(--font-body);
-  font-size: var(--hero-desc-size);
+  font-size: var(--font-size-subtitle);
   font-weight: var(--font-weight-extra-light);
-  line-height: 1.35;
+  line-height: 1.35rem;
   color: var(--color-text-light);
 }
 
 @media (max-width: 768px) {
   .hero {
-    --hero-width: calc(100% - 24px);
-    --hero-min-height: 360px;
+    width: calc(100% - 24px);
+    min-height: 360px;
   }
 }
 
 @media (max-width: 560px) {
   .hero {
-    --hero-min-height: 320px;
+    min-height: 320px;
   }
 
   .content {

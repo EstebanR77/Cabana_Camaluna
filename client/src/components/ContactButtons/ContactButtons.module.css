@@ -38,7 +38,7 @@
 }
 
 .card {
-  min-height: 72px;
+  min-height: 120px;
   padding: 0.65rem 0.6rem;
   display: flex;
   flex-direction: column;
