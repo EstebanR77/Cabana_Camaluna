@@ -120,6 +120,48 @@
 }
 
 /* ── Calendarios ──────────────────────────────────────── */
+.calNavRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+
+.calNavSpacer {
+  height: 1px;
+}
+
+.calNextBtn {
+  justify-self: end;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 1px solid rgba(112, 136, 95, 0.25);
+  background: var(--color-text-light);
+  color: var(--color-green-dark);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+  box-shadow: var(--shadow-soft);
+}
+
+.calNextBtn:hover {
+  transform: translateY(-2px);
+  background: var(--color-page-bg);
+}
+
+.calNextBtn:active {
+  transform: translateY(0);
+}
+
+.calNextBtn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
 .calendars {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -954,6 +996,7 @@
   .bookingSection { padding: 3rem 1.25rem; }
   .summaryCompact { grid-template-columns: 1fr; }
   .infoCard { padding: 1.15rem 1.1rem; border-radius: var(--radius-md); }
+  .calNavRow { grid-template-columns: 1fr; gap: 0.75rem; }
   .calendars { grid-template-columns: 1fr; }
   .titularRow { grid-template-columns: 1fr; }
   .splitField { grid-template-columns: 1fr; padding: 0.75rem 1rem; }

@@ -74,6 +74,14 @@ function getFirstDay(year, month) {
   return new Date(year, month, 1).getDay()
 }
 
+function addMonths(date, offset) {
+  const next = new Date(date)
+  next.setHours(12, 0, 0, 0)
+  next.setDate(1)
+  next.setMonth(next.getMonth() + offset)
+  return next
+}
+
 function buildGuestKeys(guests) {
   const keys = []
   for (let i = 0; i < (guests.adultos || 1); i += 1) {
@@ -406,11 +414,17 @@ function Step1({
   rangeError,
   fieldErrors,
 }) {
-  const today = new Date()
-  const [year] = useState(today.getFullYear())
-  const [month1] = useState(today.getMonth())
-  const month2 = (month1 + 1) % 12
-  const year2 = month1 === 11 ? year + 1 : year
+  const today = useMemo(() => new Date(), [])
+  const [monthOffset, setMonthOffset] = useState(0)
+
+  const left = useMemo(() => addMonths(today, monthOffset), [today, monthOffset])
+  const right = useMemo(() => addMonths(today, monthOffset + 1), [today, monthOffset])
+  const maxOffset = useMemo(() => {
+    const currentMonth = today.getMonth()
+    return Math.max(0, 10 - currentMonth)
+  }, [today])
+  const canGoBack = monthOffset > 0
+  const canGoForward = monthOffset < maxOffset
 
   function handleSelect(date) {
     if (!range.start || (range.start && range.end)) {
@@ -438,17 +452,40 @@ function Step1({
 
       <FieldError error={fieldErrors.fechas} id="error-fechas" />
 
+      <div className={styles.calNavRow} aria-label="Navegación del calendario">
+        <button
+          type="button"
+          className={styles.calNextBtn}
+          onClick={() => setMonthOffset(current => Math.max(0, current - 1))}
+          aria-label="Ver meses anteriores"
+          title="Ver meses anteriores"
+          disabled={!canGoBack}
+        >
+          <MaterialIcon name="arrow_back" />
+        </button>
+        <button
+          type="button"
+          className={styles.calNextBtn}
+          onClick={() => setMonthOffset(current => Math.min(maxOffset, current + 1))}
+          aria-label="Ver meses siguientes"
+          title="Ver meses siguientes"
+          disabled={!canGoForward}
+        >
+          <MaterialIcon name="arrow_forward" />
+        </button>
+      </div>
+
       <div className={styles.calendars}>
         <MiniCalendar
-          year={year}
-          month={month1}
+          year={left.getFullYear()}
+          month={left.getMonth()}
           range={range}
           onSelect={handleSelect}
           blockedSet={blockedSet}
         />
         <MiniCalendar
-          year={year2}
-          month={month2}
+          year={right.getFullYear()}
+          month={right.getMonth()}
           range={range}
           onSelect={handleSelect}
           blockedSet={blockedSet}
