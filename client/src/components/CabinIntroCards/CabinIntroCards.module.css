@@ -1,6 +1,5 @@
-/* Solo La Cabaña — tamanos alineados con cards del Home (QuickAccess / KnowUs) */
 .section {
-  --max-width: 960px;
+  --max-width: 1200px;
 
   width: min(100% - 40px, var(--max-width));
   max-width: var(--max-width);
@@ -10,28 +9,38 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.85rem;
+  grid-template-columns: repeat(2, 580px);  /* igual al ancho de la card */
+  justify-content: center;
+  gap: 2rem;                                 /* gap de 10rem era excesivo */
   width: 100%;
-  min-width: 0;
 }
 
 .card {
+  width: 580px;
   min-height: 160px;
+
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
   gap: 0.65rem;
   align-items: flex-start;
+
   padding: var(--card-padding);
+
   border: 1px solid rgba(0, 0, 0, 0.16);
   border-radius: var(--radius-lg);
+
   background: var(--color-page-bg);
   color: var(--color-text-main);
+
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.16);
-  width: 100%;
-  min-width: 0;
+
   overflow: hidden;
-  transition: transform var(--transition), background var(--transition), box-shadow var(--transition), border-color var(--transition);
+
+  transition:
+    transform var(--transition),
+    background var(--transition),
+    box-shadow var(--transition),
+    border-color var(--transition);
 }
 
 .card:focus-visible {
@@ -55,18 +64,15 @@
   border-radius: 50%;
   background: var(--color-green);
   color: var(--color-text-light);
+
   font-family: 'Material Symbols Outlined';
-  font-weight: normal;
-  font-style: normal;
-  line-height: 1;
-  letter-spacing: normal;
-  text-transform: none;
-  white-space: nowrap;
-  direction: ltr;
-  -webkit-font-feature-settings: 'liga';
-  -webkit-font-smoothing: antialiased;
   font-size: 26px;
-  transition: transform var(--transition), background var(--transition), color var(--transition);
+  line-height: 1;
+
+  transition:
+    transform var(--transition),
+    background var(--transition),
+    color var(--transition);
 }
 
 .cardHovered .icon {
@@ -100,20 +106,21 @@
   overflow-wrap: break-word;
 }
 
-@media (max-width: 900px) {
-  .section {
-    width: calc(100% - 24px);
-    padding: 0 0.85rem 0.65rem;
-  }
-
+@media (max-width: 1100px) {
   .grid {
     grid-template-columns: 1fr;
-    gap: 0.85rem;
+    justify-items: center;
+    gap: 1.5rem;
+  }
+
+  .card {
+    width: min(100%, 580px);
   }
 }
 
 @media (max-width: 720px) {
   .card {
+    width: 100%;
     grid-template-columns: 1fr;
   }
 

@@ -1,14 +1,15 @@
 .wrap {
   width: 100%;
   max-width: 1100px;
-  margin: 1rem auto 0;
-  padding: 0.5rem 1.5rem;
+  margin: var(--home-component-gap) auto 0;
+  padding: 0 1.5rem;
 }
 
 .card {
   background: var(--color-orange-soft);
   border-radius: var(--radius-lg);
-  padding: 1.75rem;
+  padding-block: 1rem;
+  padding-inline: var(--card-padding);
 }
 
 .title {
@@ -16,12 +17,12 @@
   font-size: clamp(1.3rem, 2.5vw, 1.6rem);
   color: var(--color-text-light);
   letter-spacing: 0.04em;
-  margin: 0 0 1.25rem;
+  margin: 0 0 0.75rem;
   font-weight: var(--font-weight-regular);
   text-transform: capitalize;
   display: flex;
   align-items: center;
-  gap: 0.65rem;
+  gap: 0.5rem;
 }
 
 .titleIcon {
@@ -34,18 +35,18 @@
 .grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1rem;
+  gap: 0.75rem;
 }
 
 .item {
   background: var(--color-page-bg);
   border-radius: var(--radius-md);
-  padding: 1.5rem 1.25rem;
+  padding: 1rem 1rem 0.9rem;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.25rem;
   color: var(--color-text-main);
   transition: transform var(--transition), box-shadow var(--transition);
 }
@@ -57,12 +58,12 @@
 
 .itemIcon {
   color: var(--color-orange);
-  margin-bottom: 0.15rem;
+  margin-bottom: 0;
 }
 
 .itemTitle {
   font-family: var(--font-title);
-  font-size: 1.15rem;
+  font-size: 1.05rem;
   color: var(--color-text-main);
   letter-spacing: 0.04em;
   margin: 0;
@@ -72,9 +73,9 @@
 
 .itemDesc {
   font-family: var(--font-body);
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   color: var(--color-text-main);
-  line-height: 1.5;
+  line-height: 1.4;
   margin: 0;
   font-weight: var(--font-weight-extra-light);
 }

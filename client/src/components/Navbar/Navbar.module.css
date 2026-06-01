@@ -17,15 +17,6 @@
   --nav-link-color-hover: var(--color-orange-soft);
   --nav-link-underline-color: var(--color-orange-soft);
   --nav-gap: clamp(1rem, 1.4vw, 1.75rem);
-  --nav-cta-width: 164px;
-  --nav-cta-height: 54px;
-  --nav-cta-font-size: 17.2px;
-  --nav-cta-letter-spacing: 0.12em;
-  --nav-cta-bg: var(--color-green);
-  --nav-cta-bg-hover: var(--color-green-dark);
-  --nav-cta-shadow: 0 12px 24px rgba(73, 88, 33, 0.22);
-  --nav-cta-shine: rgba(255, 255, 255, 0.48);
-  --nav-cta-shine-duration: 0.62s;
 
   position: sticky;
   top: 0;
@@ -143,6 +134,7 @@
 .ctaItem a:hover,
 .ctaItem a:focus-visible {
   color: var(--color-text-light);
+  transform: translateY(-4px) scale(1.045);
 }
 
 .hamburger {
@@ -185,15 +177,36 @@
     --nav-link-font-size: 14.5px;
     --nav-link-letter-spacing: 0.15em;
     --nav-gap: clamp(0.72rem, 0.95vw, 1.05rem);
-    --nav-cta-width: 150px;
-    --nav-cta-font-size: 16.5px;
   }
 
 }
 
 @media (max-width: 1120px) {
+  .navbar {
+    --nav-height: 76px;
+    --nav-height-scrolled: 72px;
+    --nav-inline: clamp(16px, 4vw, 28px);
+    --nav-logo-width: auto;
+    --nav-logo-img-width: 132px;
+    --nav-logo-img-height: 52px;
+  }
+
+  .logo {
+    width: auto;
+    min-width: 0;
+    max-width: calc(100% - 56px);
+    flex: 0 1 auto;
+  }
+
+  .logoImg {
+    width: var(--nav-logo-img-width);
+    max-height: var(--nav-logo-img-height);
+  }
+
   .hamburger {
     display: flex;
+    margin-left: auto;
+    flex-shrink: 0;
   }
 
   .links {
@@ -252,7 +265,9 @@
     justify-content: center;
     width: 100%;
     min-width: 0;
+    max-width: none;
     min-height: var(--nav-cta-height);
+    height: var(--nav-cta-height);
     margin-top: 0.55rem;
   }
 }
@@ -260,15 +275,8 @@
 @media (max-width: 620px) {
   .navbar {
     --nav-inline: 16px;
-  }
-
-  .logo {
-    min-width: 0;
-  }
-
-  .logoImg {
-    width: var(--nav-logo-img-width);
-    max-height: var(--nav-logo-img-height);
+    --nav-logo-img-width: 120px;
+    --nav-logo-img-height: 48px;
   }
 
   .links,
@@ -292,18 +300,14 @@
 
 @media (max-width: 480px) {
   .navbar {
-    --nav-height: 76px;
-    --nav-height-scrolled: 72px;
-    --nav-inline: 16px;
-    --nav-logo-width: 0;
-    --nav-logo-img-width: min(52vw, 160px);
-    --nav-logo-img-height: 54px;
+    --nav-height: 72px;
+    --nav-height-scrolled: 68px;
+    --nav-inline: 14px;
+    --nav-logo-img-width: 112px;
+    --nav-logo-img-height: 44px;
     --nav-link-height: 50px;
     --nav-link-font-size: 17px;
     --nav-link-letter-spacing: 0.12em;
     --nav-gap: 0;
-    --nav-cta-width: 100%;
-    --nav-cta-height: 52px;
-    --nav-cta-font-size: 18px;
   }
 }

@@ -1,38 +1,47 @@
 /* Layout de pagina: contenedor principal y panel de equipamiento. */
+
 .page {
   display: flex;
   flex-direction: column;
   gap: var(--home-component-gap);
   width: 100%;
-  max-width: 100vw;
   background: var(--color-text-light);
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 :global(html.cabin-page-active),
 :global(body.cabin-page-active),
 :global(body.cabin-page-active #root) {
   width: 100%;
-  max-width: 100vw;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 .content {
-  --max-width: 960px;
+  /* Ancho general de la pagina (intro, video, distancias…) */
+  --panel-width: 1600px;
 
-  width: min(100% - 40px, var(--max-width));
-  max-width: var(--max-width);
+  width: min(100% - 40px, var(--panel-width));
+  max-width: var(--panel-width);
+
   margin: 0 auto;
+
   display: flex;
   flex-direction: column;
   gap: var(--home-component-gap);
+
   min-width: 0;
 }
 
+/* Fondo verde: mismo ancho que CabinIntroCards (--max-width: 1200px) */
 .equipmentPanel {
-  width: 100%;
-  margin: 0;
-  padding: var(--card-padding);
+  --equipment-panel-width: 1200px;
+  --equipment-panel-height: auto;
+
+  width: min(100% - 40px, var(--equipment-panel-width));
+  max-width: var(--equipment-panel-width);
+  height: var(--equipment-panel-height);
+  margin: 0 auto;
+  padding: 1rem 2rem 1.15rem;
   border-radius: var(--radius-card-md);
   background: var(--color-green-light);
   overflow: hidden;
@@ -40,12 +49,30 @@
 
 @media (max-width: 768px) {
   .content {
-    width: calc(100% - 24px);
+    width: min(100% - 32px, var(--max-width));
+  }
+
+  .equipmentPanel {
+    padding: 1.15rem;
+    border-radius: var(--radius-md);
+  }
+
+  .equipmentPanel {
+    padding: 1.5rem 2rem;
   }
 }
 
 @media (max-width: 480px) {
   .content {
-    width: calc(100% - 24px);
+    width: min(100% - 24px, var(--max-width));
+  }
+
+  .equipmentPanel {
+    padding: 0.9rem;
+    border-radius: var(--radius-md);
+  }
+
+  .equipmentPanel {
+    padding: 1.25rem 1.5rem;
   }
 }

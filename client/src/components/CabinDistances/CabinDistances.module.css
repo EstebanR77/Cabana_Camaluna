@@ -1,11 +1,18 @@
+/* Solo La Cabaña — Distancias y Acceso: edita medidas de toda la seccion aqui */
 .section {
+  --map-aspect-ratio: 16 / 9;
+  --map-max-height: 240px;
+  --distances-bar-height: 38px;
+
   width: 100%;
-  padding: 0.75rem 1rem 0.65rem;
+  max-width: 100%;
+  margin: 0;
+  padding: 0.5rem 1rem 0.55rem;
   background: var(--color-text-light);
 }
 
 .title {
-  margin: 0 0 0.75rem;
+  margin: 0 0 0.55rem;
   font-family: var(--font-title);
   font-size: clamp(1.5rem, 2.8vw, 2.15rem);
   font-weight: var(--font-weight-regular);
@@ -15,52 +22,62 @@
 
 .grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(240px, 0.95fr);
-  gap: 1rem;
+  grid-template-columns: minmax(0, 1.2fr) minmax(260px, 0.8fr);
+  gap: 0.85rem 1rem;
   align-items: stretch;
+}
+
+.mapCell {
+  display: flex;
+  min-height: 0;
 }
 
 .col {
   display: flex;
   flex-direction: column;
-  gap: 0.65rem;
+  gap: 0.35rem;
 }
 
 .colTitle {
-  margin: 0 0 0.35rem;
+  margin: 0 0 0.15rem;
   font-family: var(--font-title);
-  font-size: clamp(1.1rem, 1.8vw, 1.4rem);
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
   font-weight: var(--font-weight-regular);
-  line-height: 1;
+  line-height: 1.1;
   color: var(--color-orange-soft);
+}
+
+.col .colTitle:not(:first-child) {
+  margin-top: 0.35rem;
 }
 
 .item {
   width: 100%;
-  min-height: 46px;
+  min-height: var(--distances-bar-height);
   margin: 0;
-  padding: 0.72rem 0.9rem;
+  padding: 0.4rem 0.95rem;
   display: flex;
   align-items: center;
-  gap: 0.62rem;
-  border-radius: var(--radius-md);
-  background: rgba(150, 159, 116, 0.14);
+  gap: 0.5rem;
+  border-radius: 999px;
+  background: var(--color-page-oscuro);
   color: var(--color-text-main);
   font-family: var(--font-body);
-  font-size: clamp(0.82rem, 1.1vw, 0.92rem);
-  line-height: 1.25;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  font-size: clamp(0.78rem, 1vw, 0.88rem);
+  line-height: 1.2;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   transition: transform var(--transition), background var(--transition), box-shadow var(--transition);
 }
 
 .hoveredItem {
-  transform: translateX(4px);
-  background: rgba(150, 159, 116, 0.24);
+  transform: translateX(3px);
+  background: rgba(237, 237, 222, 0.95);
   box-shadow: var(--shadow-card);
 }
 
 .materialIcon,
 .mapPinIcon {
+  flex-shrink: 0;
   font-family: 'Material Symbols Outlined';
   font-weight: normal;
   font-style: normal;
@@ -74,21 +91,21 @@
 }
 
 .materialIcon {
-  /* Cambia aqui el tamano y color de los iconos de distancias/acceso. */
-  font-size: 24px;
+  font-size: 20px;
   color: var(--color-green);
 }
 
 .mapPlaceholder {
   position: relative;
-  display: block;
+  flex: 1;
   width: 100%;
-  aspect-ratio: 4 / 3;
+  height: 100%;
+  min-height: 0;
   overflow: hidden;
-  border: 1px solid rgba(73, 88, 33, 0.16);
+  border: 1px solid rgba(73, 88, 33, 0.12);
   border-radius: var(--radius-md);
   background: var(--color-page-oscuro);
-  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.1);
   transition: transform var(--transition), box-shadow var(--transition), filter var(--transition);
 }
 
@@ -98,7 +115,7 @@
 }
 
 .mapHovered {
-  transform: translateY(-3px);
+  transform: translateY(-2px);
   box-shadow: var(--shadow-soft);
   filter: saturate(1.06);
 }
@@ -113,7 +130,7 @@
 }
 
 .mapHovered .mapFrame {
-  transform: scale(1.025);
+  transform: scale(1.02);
 }
 
 .mapLink {
@@ -124,20 +141,37 @@
 
 @media (max-width: 900px) {
   .section {
-    width: calc(100% - 24px);
-    margin: 0 auto;
-    padding: 0.85rem 0.85rem 0.9rem;
+    padding: 0.55rem 0.85rem 0.65rem;
   }
 
   .grid {
     grid-template-columns: 1fr;
-    gap: 0.75rem;
+    gap: 0.65rem;
+    align-items: start;
   }
 
+  .mapCell {
+    display: block;
+  }
+
+  .mapPlaceholder {
+    flex: none;
+    height: auto;
+    aspect-ratio: var(--map-aspect-ratio);
+    max-height: var(--map-max-height);
+  }
 }
 
 @media (max-width: 480px) {
+  .section {
+    --map-aspect-ratio: 16 / 9;
+    --map-max-height: 200px;
+    --distances-bar-height: auto;
+  }
+
   .item {
     align-items: flex-start;
+    padding: 0.55rem 0.85rem;
+    border-radius: var(--radius-lg);
   }
 }

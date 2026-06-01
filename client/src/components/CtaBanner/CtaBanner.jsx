@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion'
-import { Link } from 'react-router-dom'
+import CabinReserveCTA from '../CabinReserveCTA/CabinReserveCTA'
 import styles from './CtaBanner.module.css'
 
-function CtaBanner({ title, subtitle, ctaText, ctaLink }) {
+function CtaBanner({ title, subtitle }) {
   return (
     <section className={styles.section}>
       <motion.div
@@ -13,7 +13,9 @@ function CtaBanner({ title, subtitle, ctaText, ctaLink }) {
       >
         <h3 className={styles.title}>{title}</h3>
         <p className={styles.subtitle}>{subtitle}</p>
-        <Link to={ctaLink} className={styles.btn}>{ctaText}</Link>
+        <div className={styles.ctaWrap}>
+          <CabinReserveCTA />
+        </div>
       </motion.div>
     </section>
   )

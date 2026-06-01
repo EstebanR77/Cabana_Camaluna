@@ -150,10 +150,19 @@
   }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 768px) {
+  .hero {
+    width: calc(100% - 32px);
+    min-height: 340px;
+  }
 }
 
 @media (max-width: 560px) {
+  .hero {
+    width: calc(100% - 24px);
+    min-height: 300px;
+  }
+
   .waves {
     opacity: 0.24;
   }
