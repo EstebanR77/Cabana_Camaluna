@@ -1,0 +1,17 @@
+.stack {
+  position: fixed;
+  right: 32px;
+  bottom: 32px;
+  z-index: 250;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: flex-end;
+  gap: 14px;
+}
+
+@media (max-width: 480px) {
+  .stack {
+    right: 18px;
+    bottom: 18px;
+  }
+}

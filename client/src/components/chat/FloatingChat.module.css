@@ -1,8 +1,5 @@
 .wrap {
-  position: fixed;
-  right: 32px;
-  bottom: 32px;
-  z-index: 250;
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -347,18 +344,13 @@
 }
 
 @media (max-width: 480px) {
-  .wrap {
-    right: 18px;
-    bottom: 18px;
-  }
-
   .window {
     width: calc(100vw - 36px);
   }
 
   .whatsappBtn {
     right: 18px;
-    bottom: 88px;
+    bottom: 152px;
     font-size: 1rem;
   }
 }

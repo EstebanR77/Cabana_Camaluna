@@ -46,6 +46,57 @@ router.get('/admin', requireAuth, (req, res) => {
   }
 });
 
+function toPublicReservation(reservation) {
+  return {
+    id: reservation.id,
+    name: reservation.name,
+    status: reservation.status,
+    accessCode: reservation.status === 'approved' ? reservation.accessCode : null,
+    checkIn: reservation.checkIn,
+    checkOut: reservation.checkOut,
+  };
+}
+
+function normalizeName(value) {
+  return String(value || '')
+    .trim()
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '');
+}
+
+// POST /api/reservations/lookup — consulta pública por titular y código
+router.post('/lookup', (req, res) => {
+  const { name, requestCode } = req.body || {};
+
+  const trimmedName = String(name || '').trim();
+  const trimmedCode = String(requestCode || '').trim();
+
+  if (!trimmedName || trimmedName.length < 2) {
+    return res.status(400).json({ error: 'Ingresa el nombre del titular (mínimo 2 caracteres).' });
+  }
+
+  if (!trimmedCode) {
+    return res.status(400).json({ error: 'Ingresa el código de solicitud.' });
+  }
+
+  if (!/^\d{8,20}$/.test(trimmedCode)) {
+    return res.status(400).json({ error: 'El código de solicitud no tiene un formato válido.' });
+  }
+
+  const reservation = getById(trimmedCode);
+
+  if (!reservation) {
+    return res.status(404).json({ error: 'No encontramos una reserva con ese código de solicitud.' });
+  }
+
+  if (normalizeName(reservation.name) !== normalizeName(trimmedName)) {
+    return res.status(404).json({ error: 'El nombre del titular no coincide con la reserva indicada.' });
+  }
+
+  res.json({ reservation: toPublicReservation(reservation) });
+});
+
 // GET /api/reservations/:id
 router.get('/:id', (req, res) => {
   const reservation = getById(req.params.id);

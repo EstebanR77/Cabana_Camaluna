@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { ReservationProvider } from './context/ReservationContext'
 import Navbar      from './components/Navbar/Navbar'
-import FloatingChat from './components/chat/FloatingChat'
+import FloatingActions from './components/FloatingActions/FloatingActions'
 import ScrollToTop from './components/ScrollToTop/ScrollToTop'
 import Home        from './pages/Home'
 import Cabin       from './pages/Cabin'
@@ -34,7 +34,7 @@ function App() {
           <Route path="/admin" element={<AdminLogin />} />
           <Route path="/admin/reservas" element={<AdminReservations />} />
         </Routes>
-        <FloatingChat />
+        <FloatingActions />
       </BrowserRouter>
     </ReservationProvider>
   )
