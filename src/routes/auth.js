@@ -1,12 +1,12 @@
 import { Router } from 'express';
 import { findByUsername, verifyPassword } from '../models/users.js';
-import { sanitize } from '../utils/security.js';
+import { sanitize, sanitizeEmail } from '../utils/security.js';
 
 const router = Router();
 
 // POST /api/login
 router.post('/login', (req, res) => {
-  const username = sanitize(req.body.username || '');
+  const username = sanitizeEmail(req.body.username || '') || sanitize(req.body.username || '');
   const password = req.body.password || '';
 
   if (!username || !password) {

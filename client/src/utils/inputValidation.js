@@ -97,6 +97,19 @@ export function validateEmail(email) {
   return ''
 }
 
+/** Usuario admin: correo o nombre de usuario (ej. admin). */
+export function validateAdminUsername(value) {
+  const trimmed = value?.trim() || ''
+  if (!trimmed) return 'Ingresa tu usuario o correo.'
+  if (containsInjectionAttempt(trimmed)) {
+    return 'Caracteres no permitidos.'
+  }
+  if (trimmed.length > LIMITS.email) return 'Usuario demasiado largo.'
+  if (EMAIL_REGEX.test(trimmed)) return ''
+  if (/^[a-zA-Z0-9._-]{3,32}$/.test(trimmed)) return ''
+  return 'Ingresa un correo válido o tu nombre de usuario.'
+}
+
 export function validatePhone(phone) {
   const value = phone?.trim() || ''
   if (!value) return 'Ingresa tu número de teléfono.'

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { login } from '../services/api'
-import { filterEmail, validateEmail } from '../utils/inputValidation'
+import { filterEmail, validateAdminUsername } from '../utils/inputValidation'
 import styles from './AdminLogin.module.css'
 
 function MaterialIcon({ name }) {
@@ -36,7 +36,7 @@ function AdminLogin() {
     const username = filterEmail(value)
     setForm(previous => ({ ...previous, username }))
     if (fieldErrors.username) {
-      const message = validateEmail(username)
+      const message = validateAdminUsername(username)
       setFieldErrors(previous => {
         const next = { ...previous }
         if (message) next.username = message
@@ -50,7 +50,7 @@ function AdminLogin() {
     event.preventDefault()
     setError('')
 
-    const usernameError = validateEmail(form.username)
+    const usernameError = validateAdminUsername(form.username)
     const passwordError = !form.password.trim()
       ? 'Ingresa tu contraseña.'
       : form.password.length < 4
@@ -98,17 +98,17 @@ function AdminLogin() {
           <form className={styles.form} onSubmit={handleSubmit} noValidate>
             <div className={styles.field}>
               <label className={styles.label} htmlFor="admin-username">
-                Correo o usuario
+                Usuario o correo
               </label>
               <input
                 id="admin-username"
                 className={`${styles.input} ${fieldErrors.username ? styles.inputInvalid : ''}`}
                 name="username"
-                type="email"
+                type="text"
                 value={form.username}
                 onChange={event => handleUsernameChange(event.target.value)}
                 onBlur={() => {
-                  const message = validateEmail(form.username)
+                  const message = validateAdminUsername(form.username)
                   setFieldErrors(previous => {
                     const next = { ...previous }
                     if (message) next.username = message
