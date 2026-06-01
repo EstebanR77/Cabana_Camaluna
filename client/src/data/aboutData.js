@@ -120,7 +120,7 @@ export const camalunaHistory = {
     'Lo que comenzó como un sueño familiar poco a poco tomó forma hasta convertirse en una cabaña diseñada con dedicación, calidez y amor por cada detalle. Queríamos construir un lugar acogedor, donde cada huésped pudiera desconectarse de la rutina, compartir momentos especiales y sentirse como en casa.',
   ],
   images: [
-    { src: '/images/81b38c95a8219a31a611b35c060ef713c498d3c2.png', alt: 'Exterior cabaña Camaluna' },
+    { src: '/images/Exterior2.jpg', alt: 'Exterior cabaña Camaluna' },
     { src: '/images/habitacion.png', alt: 'Habitación cabaña Camaluna' },
   ],
 }

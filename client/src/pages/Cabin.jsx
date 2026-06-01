@@ -29,6 +29,7 @@ function Cabin() {
         subtitle="Cabana Boutique"
         title="LA CABANA"
         description="Conoce cada espacio, sus comodidades y todo lo que necesitas para disfrutar una estadia unica en medio de la naturaleza."
+        bgImage="/images/Exterior2.jpg"
       />
 
       <section className={styles.content}>

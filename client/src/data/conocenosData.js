@@ -25,7 +25,7 @@ export const whoWeAre = {
 
 export const ourHistory = {
   title: 'Nuestra Historia',
-  image: '/images/Fachada.jpg',
+  image: '/images/Exterioir1.jpg',
   paragraphs: [
     'CAMALUNA nació del amor por Villa de Leyva, sus paisajes y la tranquilidad que se vive entre sus montañas. Creamos esta cabaña con la intención de ofrecer un espacio acogedor donde familias y viajeros puedan desconectarse de la rutina y sentirse como en casa.',
     'Todo comenzó con una idea sencilla: crear un espacio donde otras personas pudieran vivir la misma tranquilidad que nosotros sentimos cada vez que llegábamos aquí. Poco a poco, ese sueño se transformó en una cabaña diseñada con dedicación, cuidado y amor por cada detalle.',

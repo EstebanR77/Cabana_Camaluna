@@ -75,7 +75,7 @@ function CabinEquipment({ active = false }) {
               onBlur={() => setHoveredItem('')}
               tabIndex={0}
             >
-              <img src="/images/Cabana.jpg" alt="Interior de la cabaña Camaluna" className={styles.image} />
+              <img src="/images/Exterior2.jpg" alt="Exterior de la cabaña Camaluna" className={styles.image} />
             </div>
           </div>
 
