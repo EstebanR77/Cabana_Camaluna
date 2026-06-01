@@ -1,189 +1,160 @@
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { approveReservation, getAdminReservations, rejectReservation, logout } from '../services/api'
+import Footer from '../components/Footer/Footer'
+import RevealBlock from '../components/RevealBlock/RevealBlock'
+import { approveReservation, getAdminReservations, rejectReservation } from '../services/api'
 import styles from './AdminReservations.module.css'
 
-const STATUS_LABEL = {
-  pending_review: 'En revisión',
-  approved:       'Aprobada',
-  rejected:       'Rechazada',
+function statusLabel(status) {
+  const labels = {
+    pending_review: 'Pendiente de revisi\u00f3n',
+    approved: 'Aprobada',
+    rejected: 'Rechazada',
+    pending: 'Pendiente',
+  }
+
+  return labels[status] || status || 'Sin estado'
 }
 
 function AdminReservations() {
-  const navigate = useNavigate()
   const [reservations, setReservations] = useState([])
-  const [selected, setSelected] = useState(null)
-  const [status, setStatus] = useState('')
-  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
+  const [loading, setLoading] = useState(true)
 
   async function loadReservations() {
-    setLoading(true)
-    setStatus('')
+    setError('')
+
     try {
-      const response = await getAdminReservations()
-      setReservations(response.data?.reservations || [])
+      const { data } = await getAdminReservations()
+      setReservations(data.reservations || [])
     } catch (err) {
-      setStatus(err?.response?.data?.error || 'No se pudieron cargar las reservas')
-      if (err?.response?.status === 401) navigate('/admin')
+      setError(err.response?.data?.error || 'No se pudieron cargar las reservas.')
     } finally {
       setLoading(false)
     }
   }
 
-  useEffect(() => { loadReservations() }, [])
-
   async function handleApprove(id) {
-    await approveReservation(id)
-    await loadReservations()
-    setSelected(prev => prev?.id === id ? null : prev)
+    setError('')
+
+    try {
+      await approveReservation(id)
+      await loadReservations()
+    } catch (err) {
+      setError(err.response?.data?.error || 'No se pudo aprobar la reserva.')
+    }
   }
 
   async function handleReject(id) {
-    await rejectReservation(id)
-    await loadReservations()
-    setSelected(prev => prev?.id === id ? null : prev)
+    setError('')
+
+    try {
+      await rejectReservation(id)
+      await loadReservations()
+    } catch (err) {
+      setError(err.response?.data?.error || 'No se pudo rechazar la reserva.')
+    }
   }
 
-  async function handleLogout() {
-    await logout()
-    navigate('/admin')
-  }
+  useEffect(() => {
+    loadReservations()
+  }, [])
 
   return (
-    <main className={styles.page}>
-      <div className={styles.header}>
-        <div>
-          <p className={styles.kicker}>Panel Administrativo</p>
-          <h1>Comprobantes de reserva</h1>
-        </div>
-        <div style={{ display: 'flex', gap: '0.8rem', flexWrap: 'wrap' }}>
-          <button type="button" onClick={loadReservations}>
-            Actualizar
-          </button>
-          <button type="button" onClick={handleLogout}>
-            Cerrar sesión
-          </button>
-        </div>
-      </div>
+    <div className={styles.page}>
+      <RevealBlock as="section" className={styles.panel}>
+        <p className={styles.kicker}>Panel privado</p>
+        <h2 className={styles.title}>Reservas recibidas</h2>
 
-      {loading && <p>Cargando...</p>}
-      {status && <p className={styles.error}>{status}</p>}
+        {loading && <p className={styles.message}>Cargando reservas...</p>}
+        {error && <p className={styles.error}>{error}</p>}
 
-      <div className={styles.layout}>
-        {/* Lista de reservas */}
-        <aside className={styles.list}>
-          <h2>Reservas recibidas</h2>
+        <div className={styles.list}>
           {reservations.length === 0 && !loading && (
-            <p className={styles.empty}>No hay reservas registradas.</p>
-          )}
-          {reservations.map(item => (
-            <button
-              key={item.id}
-              type="button"
-              className={`${styles.item} ${selected?.id === item.id ? styles.active : ''}`}
-              onClick={() => setSelected(item)}
-            >
-              <strong>{item.name}</strong>
-              <span>{item.checkIn} → {item.checkOut}</span>
-              <small>{STATUS_LABEL[item.status] || item.status}</small>
-            </button>
-          ))}
-        </aside>
-
-        {/* Detalle de reserva seleccionada */}
-        <section className={styles.detail}>
-          {!selected && (
-            <p className={styles.empty}>
-              Selecciona una reserva para ver datos del cliente, fechas y comprobante.
-            </p>
+            <div className={styles.empty}>
+              {'A\u00fan no hay comprobantes por revisar.'}
+            </div>
           )}
 
-          {selected && (
-            <article>
-              <div className={styles.detailHeader}>
+          {reservations.map(reservation => (
+            <article key={reservation.id} className={styles.card}>
+              <header className={styles.cardHeader}>
                 <div>
-                  <h2>{selected.name}</h2>
-                  <span className={styles.badge}>
-                    {STATUS_LABEL[selected.status] || selected.status}
-                  </span>
+                  <h3>{reservation.name}</h3>
+                  <p>{statusLabel(reservation.status)}</p>
                 </div>
-              </div>
+                {reservation.status === 'pending_review' && (
+                  <span className={styles.badge}>{'Revisi\u00f3n'}</span>
+                )}
+              </header>
 
-              <div className={styles.grid}>
-                <div><p><b>Correo</b></p><p>{selected.email}</p></div>
-                <div><p><b>Teléfono</b></p><p>{selected.phone}</p></div>
-                <div><p><b>Check-in</b></p><p>{selected.checkIn}</p></div>
-                <div><p><b>Check-out</b></p><p>{selected.checkOut}</p></div>
-                <div><p><b>Huéspedes</b></p><p>{selected.guests}</p></div>
-                {selected.accessCode && (
-                  <div><p><b>Código de entrada</b></p><p>{selected.accessCode}</p></div>
+              <div className={styles.summary}>
+                <div>
+                  <span>Entrada</span>
+                  <strong>{reservation.checkIn}</strong>
+                </div>
+                <div>
+                  <span>Salida</span>
+                  <strong>{reservation.checkOut}</strong>
+                </div>
+                <div>
+                  <span>{'Tel\u00e9fono'}</span>
+                  <strong>{reservation.phone}</strong>
+                </div>
+                <div>
+                  <span>Correo</span>
+                  <strong>{reservation.email}</strong>
+                </div>
+                <div>
+                  <span>{'Hu\u00e9spedes'}</span>
+                  <strong>{reservation.guests}</strong>
+                </div>
+                {reservation.accessCode && (
+                  <div className={styles.highlight}>
+                    <span>{'C\u00f3digo de entrada'}</span>
+                    <strong>{reservation.accessCode}</strong>
+                  </div>
                 )}
               </div>
 
-              {selected.notes && (
-                <div className={styles.grid} style={{ gridTemplateColumns: '1fr' }}>
-                  <div><p><b>Solicitudes especiales</b></p><p>{selected.notes}</p></div>
-                </div>
+              {reservation.notes && (
+                <p className={styles.message}>Notas: {reservation.notes}</p>
               )}
 
-              {/* Comprobante de pago */}
-              {selected.paymentProof?.dataUrl && (
-                <div className={styles.proofBox}>
-                  <p><b>Comprobante de pago</b></p>
-                  {selected.paymentProof.fileType?.startsWith('image/') && (
+              {reservation.paymentProof?.dataUrl && (
+                <div className={styles.proof}>
+                  <p>Comprobante</p>
+                  {reservation.paymentProof.fileType?.includes('pdf') ? (
+                    <a href={reservation.paymentProof.dataUrl} target="_blank" rel="noreferrer">
+                      Ver comprobante PDF
+                    </a>
+                  ) : (
                     <img
-                      src={selected.paymentProof.dataUrl}
-                      alt="Comprobante de pago"
+                      src={reservation.paymentProof.dataUrl}
+                      alt={`Comprobante de ${reservation.name}`}
                     />
                   )}
-                  {selected.paymentProof.fileType === 'application/pdf' && (
-                    <a
-                      href={selected.paymentProof.dataUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      Abrir comprobante PDF
-                    </a>
-                  )}
                 </div>
               )}
 
-              {/* Resultado si ya fue procesada */}
-              {selected.status === 'approved' && (
-                <div className={styles.resultBox}>
-                  ✅ Reserva aprobada.
-                  {selected.accessCode && <> Código de entrada: <b>{selected.accessCode}</b></>}
-                </div>
-              )}
-              {selected.status === 'rejected' && (
-                <div className={styles.resultBox}>
-                  ❌ Reserva rechazada.
-                </div>
-              )}
-
-              {/* Acciones — solo si está pendiente */}
-              {selected.status === 'pending_review' && (
+              {reservation.status === 'pending_review' && (
                 <div className={styles.actions}>
-                  <button
-                    type="button"
-                    onClick={() => handleApprove(selected.id)}
-                  >
-                    ✅ Aceptar comprobante
+                  <button className={styles.reject} type="button" onClick={() => handleReject(reservation.id)}>
+                    Rechazar
                   </button>
-                  <button
-                    type="button"
-                    className={styles.reject}
-                    onClick={() => handleReject(selected.id)}
-                  >
-                    ❌ Rechazar comprobante
+                  <button type="button" onClick={() => handleApprove(reservation.id)}>
+                    Aceptar comprobante
                   </button>
                 </div>
               )}
             </article>
-          )}
-        </section>
-      </div>
-    </main>
+          ))}
+        </div>
+      </RevealBlock>
+
+      <RevealBlock>
+        <Footer />
+      </RevealBlock>
+    </div>
   )
 }
 
