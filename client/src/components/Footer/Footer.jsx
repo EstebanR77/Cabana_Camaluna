@@ -92,7 +92,7 @@ function Footer({ variant = 'green' }) {
         <div className={styles.col}>
           <Link to="/about">Quienes Somos?</Link>
           <Link to="/cabin">Reglas de la casa</Link>
-          <Link to="/cabin">Seguridad y Propiedad</Link>
+          <Link to="/admin">Administrador</Link>
         </div>
       </div>
     </footer>
