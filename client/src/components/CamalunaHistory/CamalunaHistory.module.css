@@ -7,7 +7,7 @@
 .card {
   width: 100%;
   max-width: 1100px;
-  background: var(--color-orange-soft);
+  background: color-mix(in srgb, var(--color-orange-soft) 60%, transparent);
   border-radius: var(--radius-lg);
   padding: var(--card-padding);
   display: grid;
@@ -25,7 +25,7 @@
 .title {
   font-family: var(--font-title);
   font-size: clamp(1.6rem, 3vw, 2.2rem);
-  color: var(--color-text-light);
+  color: var(--color-text-main);
   letter-spacing: 0.04em;
   margin: 0;
   font-weight: var(--font-weight-regular);
@@ -35,7 +35,7 @@
 .subtitle {
   font-family: var(--font-body);
   font-size: 0.95rem;
-  color: var(--color-text-light);
+  color: var(--color-text-main);
   margin: 0 0 0.35rem;
   font-weight: 500;
 }
@@ -43,7 +43,7 @@
 .paragraph {
   font-family: var(--font-body);
   font-size: 0.88rem;
-  color: rgba(249, 249, 240, 0.95);
+  color: var(--color-text-main);
   line-height: 1.55;
   margin: 0 0 0.5rem;
 }

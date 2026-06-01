@@ -22,7 +22,7 @@
 }
 
 .item {
-  background: var(--color-orange-soft);
+  background: var(--color-tourist-card);
   border-radius: var(--radius-lg);
   overflow: hidden;
   display: flex;
@@ -64,7 +64,7 @@
 .itemTitle {
   font-family: var(--font-title);
   font-size: 1.05rem;
-  color: var(--color-text-light);
+  color: var(--color-text-main);
   letter-spacing: 0.04em;
   margin: 0 0 0.3rem;
   font-weight: var(--font-weight-regular);
@@ -75,38 +75,9 @@
 .itemDesc {
   font-family: var(--font-body);
   font-size: 0.82rem;
-  color: rgba(249, 249, 240, 0.95);
+  color: var(--color-text-main);
   line-height: 1.45;
   margin: 0;
-}
-
-.map {
-  position: relative;
-  display: block;
-  margin-top: 1rem;
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  box-shadow: var(--shadow-card);
-  background: var(--color-page-oscuro);
-  height: 220px;
-  cursor: pointer;
-  transition: transform var(--transition), box-shadow var(--transition);
-}
-
-.map:hover,
-.map:focus-visible {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-soft);
-  outline: none;
-}
-
-.map iframe {
-  width: calc(100% + 80px);
-  height: calc(100% + 48px);
-  margin: -24px 0 0 -72px;
-  border: 0;
-  display: block;
-  pointer-events: none;
 }
 
 @media (max-width: 740px) {
@@ -118,7 +89,4 @@
     height: 120px;
   }
 
-  .map {
-    height: 200px;
-  }
 }

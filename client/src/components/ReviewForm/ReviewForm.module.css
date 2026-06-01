@@ -155,7 +155,7 @@
   margin-top: 1rem;
   padding: 0.65rem 1.5rem;
   border-radius: 5px;
-  background: var(--color-orange-soft);
+  background: var(--color-brown);
   color: var(--color-text-light);
   font-family: var(--font-title);
   font-size: 1.25rem;
@@ -164,9 +164,9 @@
 
 .submit:hover,
 .submit:focus {
-  background: var(--color-orange);
+  background: var(--color-brown-light);
   transform: translateY(-2px);
-  box-shadow: 0 12px 22px rgba(192, 124, 58, 0.24);
+  box-shadow: 0 12px 22px rgba(87, 59, 42, 0.24);
 }
 
 .submit:disabled {

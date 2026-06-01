@@ -33,7 +33,6 @@ function CabinDistances() {
 
   return (
     <section className={styles.section}>
-      <h2 className={styles.title}>Distancias y Acceso</h2>
       <div className={styles.grid}>
         <motion.div
           className={styles.mapCell}

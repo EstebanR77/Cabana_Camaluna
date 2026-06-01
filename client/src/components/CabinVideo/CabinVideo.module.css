@@ -17,7 +17,7 @@
   font-size: clamp(1.5rem, 2.8vw, 2.15rem);
   font-weight: var(--font-weight-regular);
   line-height: 1;
-  color: var(--color-brown);
+  color: var(--color-green);
 }
 
 .videoWrapper {

@@ -17,8 +17,8 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0.85rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
 }
 
 .item {
@@ -46,7 +46,7 @@
 
 .itemImg {
   width: 100%;
-  height: 110px;
+  height: 140px;
   overflow: hidden;
 }
 
@@ -58,13 +58,14 @@
 }
 
 .itemBody {
-  padding: 0.7rem 0.85rem 0.8rem;
+  min-height: 110px;
+  padding: 0.75rem 0.9rem 0.9rem;
 }
 
 .itemTitle {
   font-family: var(--font-title);
-  font-size: 0.95rem;
-  color: var(--color-text-light);
+  font-size: 1rem;
+  color: var(--color-text-main);
   letter-spacing: 0.04em;
   margin: 0 0 0.3rem;
   font-weight: var(--font-weight-regular);
@@ -74,8 +75,8 @@
 
 .itemDesc {
   font-family: var(--font-body);
-  font-size: 0.78rem;
-  color: rgba(249, 249, 240, 0.95);
+  font-size: 0.82rem;
+  color: var(--color-text-main);
   line-height: 1.4;
   margin: 0;
 }
@@ -123,13 +124,13 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  width: min(100%, 1040px);
+  width: min(100%, 1000px);
   max-height: min(88vh, 720px);
   overflow: hidden;
   padding: var(--card-padding);
   border-radius: var(--radius-lg);
-  background: var(--color-orange-soft);
-  color: var(--color-text-light);
+  background: var(--color-surface);
+  color: var(--color-text-main);
   box-shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
 }
 
@@ -166,10 +167,10 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(249, 249, 240, 0.55);
+  border: 1px solid var(--color-border-soft);
   border-radius: 50%;
-  background: rgba(249, 249, 240, 0.12);
-  color: var(--color-text-light);
+  background: var(--color-page-bg);
+  color: var(--color-text-main);
   font-family: var(--font-body);
   font-size: 1rem;
   font-weight: 800;
@@ -190,7 +191,7 @@
 
 .modalEyebrow {
   margin: 0 0 0.25rem;
-  color: rgba(249, 249, 240, 0.78);
+  color: var(--color-orange-soft);
   font-family: var(--font-body);
   font-size: 0.82rem;
   font-weight: 700;
@@ -198,7 +199,7 @@
 
 .modalTitle {
   margin: 0;
-  color: var(--color-text-light);
+  color: var(--color-text-main);
   font-family: var(--font-title);
   font-size: clamp(1.75rem, 3.5vw, 2.5rem);
   font-weight: var(--font-weight-regular);
@@ -207,7 +208,7 @@
 
 .modalText {
   margin: 0.5rem 0 0;
-  color: rgba(249, 249, 240, 0.92);
+  color: var(--color-text-main);
   font-family: var(--font-body);
   font-size: 0.92rem;
   line-height: 1.45;
@@ -216,7 +217,7 @@
 .modalGrid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.85rem;
+  gap: 1rem;
 }
 
 .modalItem {
@@ -224,19 +225,37 @@
   display: flex;
   flex-direction: column;
   min-height: 0;
-  border: 1px solid rgba(249, 249, 240, 0.35);
+  border: 1px solid var(--color-border-soft);
   border-radius: var(--radius-md);
   background: var(--color-orange-soft);
+  box-shadow: var(--shadow-card);
+}
+
+.modalItemLink {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform var(--transition), box-shadow var(--transition), filter var(--transition);
+}
+
+.modalItemLink:hover,
+.modalItemLink:focus-visible,
+.modalItemActive {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-soft);
+  filter: brightness(1.04);
+  outline: none;
 }
 
 .modalImage {
   width: 100%;
-  height: 110px;
-  min-height: 110px;
+  height: 128px;
+  min-height: 128px;
   object-fit: cover;
 }
 
 .modalItemBody {
+  min-height: 128px;
   padding: 0.7rem 0.85rem 0.85rem;
   display: flex;
   flex-direction: column;
@@ -246,7 +265,7 @@
 
 .modalItemTitle {
   margin: 0;
-  color: var(--color-text-light);
+  color: var(--color-text-main);
   font-family: var(--font-title);
   font-size: 1rem;
   font-weight: var(--font-weight-regular);
@@ -255,33 +274,48 @@
 
 .modalItemDesc {
   margin: 0;
-  color: rgba(249, 249, 240, 0.92);
+  color: var(--color-text-main);
   font-family: var(--font-body);
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   line-height: 1.4;
 }
 
-.modalAction {
-  width: max-content;
-  margin-top: auto;
-  padding: 0.45rem 0.95rem;
-  border-radius: 999px;
-  background: var(--color-orange);
-  color: var(--color-text-light);
-  font-family: var(--font-body);
-  font-size: 0.75rem;
-  font-weight: 700;
-  transition: transform var(--transition), background var(--transition);
+.map {
+  position: relative;
+  display: block;
+  margin-top: 1rem;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  background: var(--color-page-oscuro);
+  height: 220px;
+  cursor: pointer;
+  transition: transform var(--transition), box-shadow var(--transition);
 }
 
-.modalActionActive {
+.map:hover,
+.map:focus-visible {
   transform: translateY(-2px);
-  background: var(--color-orange-bright);
+  box-shadow: var(--shadow-soft);
+  outline: none;
+}
+
+.map iframe {
+  width: calc(100% + 80px);
+  height: calc(100% + 48px);
+  margin: -24px 0 0 -72px;
+  border: 0;
+  display: block;
+  pointer-events: none;
 }
 
 @media (max-width: 900px) {
   .grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .modalGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
 }
@@ -301,5 +335,9 @@
 
   .modalGrid {
     grid-template-columns: 1fr;
+  }
+
+  .map {
+    height: 200px;
   }
 }

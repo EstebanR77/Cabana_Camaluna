@@ -84,9 +84,9 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  background: transparent;
-  border: 1.5px solid var(--color-green-dark);
-  color: var(--color-green-dark);
+  background: var(--color-green);
+  border: 1.5px solid var(--color-green);
+  color: var(--color-text-light);
   font-family: var(--font-body);
   font-weight: 500;
   font-size: 0.9rem;
@@ -94,7 +94,7 @@
   border-radius: var(--radius-sm);
 }
 
-.tag svg { color: var(--color-green-dark); }
+.tag svg { color: currentColor; }
 
 @media (max-width: 900px) {
   .card {

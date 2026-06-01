@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import styles from './Restaurants.module.css'
 
-function Restaurants({ title, items = [], ctaText, ctaLink }) {
+function Restaurants({ title, items = [], ctaText, ctaLink, mapEmbed, mapUrl }) {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [hoveredItem, setHoveredItem] = useState('')
   const usesModal = ctaText?.toLowerCase().includes('ver mas')
@@ -40,10 +40,10 @@ function Restaurants({ title, items = [], ctaText, ctaLink }) {
     ].filter(Boolean).join(' ')
   )
 
-  const getModalActionClass = index => (
+  const getModalItemClass = index => (
     [
-      styles.modalAction,
-      hoveredItem === `modal-action-${index}` ? styles.modalActionActive : '',
+      styles.modalItem,
+      hoveredItem === `modal-card-${index}` ? styles.modalItemActive : '',
     ].filter(Boolean).join(' ')
   )
 
@@ -115,6 +115,25 @@ function Restaurants({ title, items = [], ctaText, ctaLink }) {
         </div>
       )}
 
+      {mapEmbed && (
+        <a
+          href={mapUrl || 'https://www.google.com/maps/search/?api=1&query=Villa+de+Leyva,+Boyac%C3%A1,+Colombia'}
+          target="_blank"
+          rel="noreferrer"
+          className={styles.map}
+          aria-label="Abrir mapa de Villa de Leyva en Google Maps"
+        >
+          <iframe
+            src={mapEmbed}
+            title=""
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            tabIndex={-1}
+            aria-hidden="true"
+          />
+        </a>
+      )}
+
       <AnimatePresence>
         {isModalOpen && (
           <motion.div
@@ -164,29 +183,41 @@ function Restaurants({ title, items = [], ctaText, ctaLink }) {
 
               <div className={styles.modalBody}>
                 <div className={styles.modalGrid}>
-                  {items.map((item, index) => (
-                    <article key={item.title} className={styles.modalItem}>
-                      <img src={item.image} alt={item.title} className={styles.modalImage} />
-                      <div className={styles.modalItemBody}>
-                        <h4 className={styles.modalItemTitle}>{item.title}</h4>
-                        <p className={styles.modalItemDesc}>{item.desc}</p>
-                        {item.href && (
-                          <a
-                            href={item.href}
-                            target="_blank"
-                            rel="noreferrer"
-                            className={getModalActionClass(index)}
-                            onMouseEnter={() => setHoveredItem(`modal-action-${index}`)}
-                            onMouseLeave={() => setHoveredItem('')}
-                            onFocus={() => setHoveredItem(`modal-action-${index}`)}
-                            onBlur={() => setHoveredItem('')}
-                          >
-                            Ver restaurante
-                          </a>
-                        )}
-                      </div>
-                    </article>
-                  ))}
+                  {items.map((item, index) => {
+                    const content = (
+                      <>
+                        <img src={item.image} alt={item.title} className={styles.modalImage} />
+                        <div className={styles.modalItemBody}>
+                          <h4 className={styles.modalItemTitle}>{item.title}</h4>
+                          <p className={styles.modalItemDesc}>{item.desc}</p>
+                        </div>
+                      </>
+                    )
+
+                    if (item.href) {
+                      return (
+                        <a
+                          key={item.title}
+                          href={item.href}
+                          target="_blank"
+                          rel="noreferrer"
+                          className={`${getModalItemClass(index)} ${styles.modalItemLink}`}
+                          onMouseEnter={() => setHoveredItem(`modal-card-${index}`)}
+                          onMouseLeave={() => setHoveredItem('')}
+                          onFocus={() => setHoveredItem(`modal-card-${index}`)}
+                          onBlur={() => setHoveredItem('')}
+                        >
+                          {content}
+                        </a>
+                      )
+                    }
+
+                    return (
+                      <article key={item.title} className={styles.modalItem}>
+                        {content}
+                      </article>
+                    )
+                  })}
                 </div>
               </div>
             </motion.div>

@@ -28,7 +28,7 @@ function Contact() {
       <EmergencyContacts {...emergencyContacts} />
       <FAQs              {...faqs} />
       <CtaBanner         {...contactCta} />
-      <Footer />
+      <Footer variant="orange" />
     </div>
   )
 }

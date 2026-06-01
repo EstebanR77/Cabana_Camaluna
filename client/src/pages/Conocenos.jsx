@@ -29,7 +29,7 @@ function Conocenos() {
       <Achievements  {...achievements} />
       <OurValues     {...ourValues} />
       <CtaBanner     {...ctaBanner} />
-      <Footer />
+      <Footer variant="greenDark" />
     </div>
   )
 }

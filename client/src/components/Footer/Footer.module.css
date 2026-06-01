@@ -10,6 +10,18 @@
   border-radius: var(--radius-lg);
 }
 
+.footerOrange {
+  background: var(--color-orange-soft);
+}
+
+.footerBrown {
+  background: var(--color-brown);
+}
+
+.footerGreenDark {
+  background: var(--color-green-dark);
+}
+
 .socials {
   padding: 0 1rem 1.75rem;
   display: flex;

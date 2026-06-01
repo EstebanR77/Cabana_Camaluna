@@ -134,7 +134,7 @@ function Experiences() {
       </div>
 
       <RevealBlock>
-        <Footer />
+        <Footer variant="brown" />
       </RevealBlock>
     </main>
   )

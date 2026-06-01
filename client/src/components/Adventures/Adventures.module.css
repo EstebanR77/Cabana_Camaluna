@@ -6,16 +6,16 @@
 
 .card {
   width: 100%;
-  max-width: 1100px;
-  background: var(--color-orange-soft);
+  max-width: 1120px;
+  background: color-mix(in srgb, var(--color-orange-soft) 65%, transparent);
   border-radius: var(--radius-lg);
-  padding: var(--card-padding);
+  padding: 1.35rem 1.45rem 1.55rem;
 }
 
 .title {
   font-family: var(--font-title);
   font-size: clamp(1.6rem, 3vw, 2.2rem);
-  color: var(--color-text-light);
+  color: var(--color-text-main);
   letter-spacing: 0.04em;
   margin: 0 0 0.35rem;
   font-weight: var(--font-weight-regular);
@@ -25,15 +25,15 @@
 .subtitle {
   font-family: var(--font-body);
   font-size: 0.95rem;
-  color: rgba(249, 249, 240, 0.92);
+  color: var(--color-text-main);
   margin: 0 0 1rem;
   font-weight: var(--font-weight-extra-light);
 }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0.85rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
 }
 
 .item {
@@ -57,7 +57,7 @@
 
 .itemImg {
   width: 100%;
-  height: 100px;
+  height: 154px;
   overflow: hidden;
 }
 
@@ -69,7 +69,8 @@
 }
 
 .itemBody {
-  padding: 0.6rem 0.7rem 0.7rem;
+  min-height: 118px;
+  padding: 0.7rem 0.8rem 0.85rem;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -78,13 +79,13 @@
 }
 
 .itemIcon {
-  color: var(--color-text-light);
+  color: var(--color-text-main);
 }
 
 .itemTitle {
   font-family: var(--font-title);
-  font-size: 0.95rem;
-  color: var(--color-text-light);
+  font-size: 1rem;
+  color: var(--color-text-main);
   letter-spacing: 0.04em;
   margin: 0;
   font-weight: var(--font-weight-regular);
@@ -94,8 +95,8 @@
 
 .itemDesc {
   font-family: var(--font-body);
-  font-size: 0.75rem;
-  color: rgba(249, 249, 240, 0.92);
+  font-size: 0.78rem;
+  color: var(--color-text-main);
   line-height: 1.35;
   margin: 0;
 }
@@ -142,13 +143,13 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  width: min(100%, 1180px);
-  max-height: min(88vh, 760px);
+  width: min(100%, 980px);
+  max-height: min(86vh, 690px);
   overflow: hidden;
   padding: var(--card-padding);
   border-radius: var(--radius-lg);
-  background: var(--color-orange-soft);
-  color: var(--color-text-light);
+  background: color-mix(in srgb, var(--color-orange-soft) 65%, var(--color-page-bg));
+  color: var(--color-text-main);
   box-shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
 }
 
@@ -187,8 +188,8 @@
   justify-content: center;
   border: 1px solid rgba(249, 249, 240, 0.55);
   border-radius: 50%;
-  background: rgba(249, 249, 240, 0.12);
-  color: var(--color-text-light);
+  background: var(--color-page-bg);
+  color: var(--color-text-main);
   font-family: var(--font-body);
   font-size: 1rem;
   font-weight: 800;
@@ -210,7 +211,7 @@
 
 .modalEyebrow {
   margin: 0 0 0.25rem;
-  color: rgba(249, 249, 240, 0.78);
+  color: var(--color-text-main);
   font-family: var(--font-body);
   font-size: 0.82rem;
   font-weight: 700;
@@ -218,7 +219,7 @@
 
 .modalTitle {
   margin: 0;
-  color: var(--color-text-light);
+  color: var(--color-text-main);
   font-family: var(--font-title);
   font-size: clamp(1.5rem, 3vw, 2.2rem);
   font-weight: var(--font-weight-regular);
@@ -227,7 +228,7 @@
 
 .modalText {
   margin: 0.4rem 0 0;
-  color: rgba(249, 249, 240, 0.92);
+  color: var(--color-text-main);
   font-family: var(--font-body);
   font-size: 0.88rem;
   line-height: 1.4;
@@ -235,8 +236,8 @@
 
 .modalGrid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.65rem;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 0.85rem;
 }
 
 .modalItem {
@@ -247,17 +248,35 @@
   border: 1px solid rgba(249, 249, 240, 0.35);
   border-radius: var(--radius-md);
   background: var(--color-orange-soft);
+  box-shadow: var(--shadow-card);
+}
+
+.modalItemLink {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform var(--transition), box-shadow var(--transition), filter var(--transition);
+}
+
+.modalItemLink:hover,
+.modalItemLink:focus-visible,
+.modalItemActive {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-soft);
+  filter: brightness(1.04);
+  outline: none;
 }
 
 .modalImage {
   width: 100%;
-  height: 88px;
-  min-height: 88px;
+  height: 128px;
+  min-height: 128px;
   object-fit: cover;
 }
 
 .modalItemBody {
-  padding: 0.5rem 0.65rem 0.65rem;
+  min-height: 112px;
+  padding: 0.55rem 0.7rem 0.7rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -266,47 +285,33 @@
 }
 
 .modalIcon {
-  color: var(--color-text-light);
+  color: var(--color-text-main);
 }
 
 .modalItemTitle {
   margin: 0;
-  color: var(--color-text-light);
+  color: var(--color-text-main);
   font-family: var(--font-title);
-  font-size: 0.88rem;
+  font-size: 0.95rem;
   font-weight: var(--font-weight-regular);
   line-height: 1.1;
 }
 
 .modalItemDesc {
   margin: 0;
-  color: rgba(249, 249, 240, 0.92);
+  color: var(--color-text-main);
   font-family: var(--font-body);
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   line-height: 1.35;
-}
-
-.modalAction {
-  width: max-content;
-  margin-top: 0.35rem;
-  padding: 0.35rem 0.75rem;
-  border-radius: 999px;
-  background: var(--color-orange);
-  color: var(--color-text-light);
-  font-family: var(--font-body);
-  font-size: 0.7rem;
-  font-weight: 700;
-  transition: transform var(--transition), background var(--transition);
-}
-
-.modalActionActive {
-  transform: translateY(-2px);
-  background: var(--color-orange-bright);
 }
 
 @media (max-width: 900px) {
   .grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .itemImg {
+    height: 140px;
   }
 
 }

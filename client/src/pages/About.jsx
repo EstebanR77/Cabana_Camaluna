@@ -35,10 +35,17 @@ function About() {
       <FeaturedFestival {...featuredFestival} />
       <FestivalsList    items={festivalsList} />
       <CamalunaHistory  {...camalunaHistory} />
-      <TouristSites     {...touristSites} />
-      <Restaurants      {...restaurants} />
+      <TouristSites
+        title={touristSites.title}
+        items={touristSites.items}
+      />
+      <Restaurants
+        {...restaurants}
+        mapEmbed={touristSites.mapEmbed}
+        mapUrl={touristSites.mapUrl}
+      />
       <CtaBanner        {...aboutCta} />
-      <Footer />
+      <Footer variant="orange" />
     </div>
   )
 }

@@ -17,7 +17,7 @@
   font-size: clamp(1.5rem, 2.8vw, 2.15rem);
   font-weight: var(--font-weight-regular);
   line-height: 1;
-  color: var(--color-brown);
+  color: var(--color-green);
 }
 
 .grid {
@@ -44,7 +44,7 @@
   font-size: clamp(1rem, 1.5vw, 1.25rem);
   font-weight: var(--font-weight-regular);
   line-height: 1.1;
-  color: var(--color-orange-soft);
+  color: var(--color-green);
 }
 
 .col .colTitle:not(:first-child) {
@@ -59,7 +59,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  border-radius: 999px;
+  border-radius: var(--radius-md);
   background: var(--color-page-oscuro);
   color: var(--color-text-main);
   font-family: var(--font-body);
@@ -69,9 +69,15 @@
   transition: transform var(--transition), background var(--transition), box-shadow var(--transition);
 }
 
+.item:nth-of-type(even) {
+  background: var(--color-green);
+  color: var(--color-text-light);
+}
+
 .hoveredItem {
   transform: translateX(3px);
-  background: rgba(237, 237, 222, 0.95);
+  background: var(--color-green);
+  color: var(--color-text-light);
   box-shadow: var(--shadow-card);
 }
 
@@ -92,7 +98,7 @@
 
 .materialIcon {
   font-size: 20px;
-  color: var(--color-green);
+  color: currentColor;
 }
 
 .mapPlaceholder {

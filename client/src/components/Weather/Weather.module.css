@@ -8,6 +8,7 @@
   width: 100%;
   max-width: 1100px;
   background: var(--color-page-oscuro);
+  border: 1px solid var(--color-orange-soft);
   border-radius: var(--radius-lg);
   padding: var(--card-padding);
 }
