@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { ReservationProvider } from './context/ReservationContext'
+import { ReservationStatusProvider } from './context/ReservationStatusContext'
 import Navbar      from './components/Navbar/Navbar'
 import FloatingActions from './components/FloatingActions/FloatingActions'
 import ScrollToTop from './components/ScrollToTop/ScrollToTop'
@@ -42,6 +43,7 @@ function AppRoutes() {
 function App() {
   return (
     <ReservationProvider>
+      <ReservationStatusProvider>
       <BrowserRouter>
         <ScrollToTop />
         <Navbar />
@@ -60,6 +62,7 @@ function App() {
         </Routes>
         <FloatingActions />
       </BrowserRouter>
+      </ReservationStatusProvider>
     </ReservationProvider>
   )
 }
