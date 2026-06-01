@@ -1,6 +1,26 @@
 import { Router } from 'express';
 import { getAll, getById, create, update, remove } from '../models/reservations.js';
-import { sanitize, requireAuth } from '../utils/security.js';
+import {
+  sanitize,
+  sanitizePersonName,
+  sanitizeEmail,
+  sanitizePhone,
+  sanitizeDocument,
+  requireAuth,
+} from '../utils/security.js';
+
+function sanitizeGuestRoster(roster) {
+  if (!Array.isArray(roster)) return [];
+
+  return roster.slice(0, 8).map(entry => ({
+    key: sanitize(entry?.key || '').slice(0, 24),
+    label: sanitize(entry?.label || '').slice(0, 40),
+    nombreCompleto: sanitizePersonName(entry?.nombreCompleto || '', 80),
+    tipoDocumento: sanitize(entry?.tipoDocumento || '').slice(0, 20),
+    numeroDocumento: sanitizeDocument(entry?.numeroDocumento || ''),
+    edad: String(entry?.edad || '').replace(/\D/g, '').slice(0, 3),
+  }));
+}
 import { broadcast } from '../utils/broadcast.js';
 
 const router = Router();
@@ -90,7 +110,8 @@ router.post('/lookup', (req, res) => {
     return res.status(404).json({ error: 'No encontramos una reserva con ese código de solicitud.' });
   }
 
-  if (normalizeName(reservation.name) !== normalizeName(trimmedName)) {
+  const normalizedInput = normalizeName(sanitizePersonName(trimmedName, 80))
+  if (normalizeName(reservation.name) !== normalizedInput) {
     return res.status(404).json({ error: 'El nombre del titular no coincide con la reserva indicada.' });
   }
 
@@ -118,7 +139,12 @@ router.post('/', (req, res) => {
     phone,
     guests,
     notes,
-    paymentProof
+    paymentProof,
+    guestDetails,
+    guestRoster,
+    holderFirstName,
+    holderLastName,
+    estimatedTotal,
   } = req.body;
 
   if (!checkIn || !checkOut || !name || !email || !phone) {
@@ -141,11 +167,16 @@ router.post('/', (req, res) => {
     const reservation = create({
       checkIn,
       checkOut,
-      name: sanitize(name),
-      email: sanitize(email),
-      phone: sanitize(phone),
-      guests: parseInt(guests) || 1,
+      name: sanitizePersonName(name, 80),
+      email: sanitizeEmail(email),
+      phone: sanitizePhone(phone),
+      guests: parseInt(guests, 10) || 1,
       notes: sanitize(notes || ''),
+      guestDetails: guestDetails || null,
+      guestRoster: sanitizeGuestRoster(guestRoster),
+      holderFirstName: sanitizePersonName(holderFirstName || '', 50),
+      holderLastName: sanitizePersonName(holderLastName || '', 50),
+      estimatedTotal: Number(estimatedTotal) || 0,
       paymentProof: {
         fileName: sanitize(paymentProof.fileName || 'comprobante'),
         fileType: sanitize(paymentProof.fileType || ''),
