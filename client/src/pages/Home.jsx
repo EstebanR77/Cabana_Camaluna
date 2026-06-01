@@ -20,6 +20,7 @@ function Home() {
           subtitle={'Caba\u00f1a Boutique'}
           title="CAMALUNA"
           description={'Escapa de la rutina y vive una experiencia \u00fanica rodeada de naturaleza, tranquilidad y comodidad en Villa de Leyva.'}
+          bgImage="/images/Plaza5.jpg"
         />
       </RevealBlock>
 

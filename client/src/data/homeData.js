@@ -5,14 +5,14 @@ export const quickAccess = [
 ]
 
 export const galleryPreview = [
-  { url: '/images/Area social.jpg', alt: '\u00c1rea social y terraza' },
-  { url: '/images/Fachada.jpg', alt: 'Fachada y entorno' },
+  { url: '/images/AreaSocial1.jpg', alt: '\u00c1rea social y terraza' },
+  { url: '/images/Exterior2.jpg', alt: 'Exterior de la caba\u00f1a' },
   { url: '/images/Habitaciones.jpg', alt: 'Habitaciones' },
 ]
 
 export const aboutVilla = {
   description: 'A 3 horas de Bogot\u00e1, Villa de Leyva es uno de los pueblos m\u00e1s hermosos de Colombia, declarado monumento nacional. Calles empedradas, cielos despejados y paisajes que enamoran.',
-  image: '/images/Fachada.jpg',
+  image: '/images/villa.jpg',
   link: '/about',
 }
 
