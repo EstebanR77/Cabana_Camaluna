@@ -1,195 +1,511 @@
 # Cabaña Boutique Camaluna
 
-Sitio web oficial de Camaluna, cabaña boutique ubicada en Villa de Leyva, Boyacá. Permite a los visitantes conocer el alojamiento, hacer reservas y subir comprobantes de pago. Incluye panel de administración para gestionar reservas.
+## Descripción del proyecto
+
+Cabaña Boutique Camaluna es una página web desarrollada para promocionar y gestionar la reserva de una cabaña ubicada en Villa de Leyva, Boyacá. El proyecto permite mostrar información general del alojamiento, galería de imágenes, experiencias, información turística, contacto, reservas y funciones de administración.
+
+La aplicación tiene una estructura cliente-servidor. El frontend se encarga de mostrar la interfaz visual al usuario y el backend gestiona la lógica de reservas, usuarios administradores, comprobantes de pago y almacenamiento de datos.
 
 ---
 
-## Instrucciones de despliegue (ngrok)
+## Página desplegada
 
-### Requisitos previos
+Para la presentación del proyecto se puede desplegar temporalmente la página mediante **ngrok**, permitiendo acceder al sitio desde otros dispositivos mediante una URL pública.
 
-- Node.js v18 o superior
-- ngrok instalado ([descargar](https://ngrok.com/download))
+### Pasos para desplegar con ngrok
 
-### Pasos
-
-**1. Instalar dependencias**
+1. Ejecutar el backend:
 
 ```bash
-# Dependencias del servidor
-npm install
-
-# Dependencias del cliente
-cd client
-npm install
-cd ..
+npm run dev
 ```
 
-**2. Configurar variables de entorno**
-
-Copia el archivo `.env.example` a `.env` en la raíz del proyecto y completa los valores:
-
-```bash
-cp .env.example .env
-```
-
-```
-PORT=3000
-SESSION_SECRET=cambia_esta_clave_secreta
-NODE_ENV=development
-WHATSAPP_NUMBER=+573000000000
-INSTAGRAM_URL=https://instagram.com/camaluna
-FACEBOOK_URL=https://facebook.com/camaluna
-CONTACT_EMAIL=info@camaluna.com
-```
-
-**3. Iniciar el servidor (Terminal 1)**
-
-```bash
-npm start
-```
-
-**4. Iniciar el frontend (Terminal 2)**
+2. Ejecutar el frontend:
 
 ```bash
 cd client
 npm run dev
 ```
 
-**5. Exponer con ngrok (Terminal 3)**
+3. Exponer el frontend con ngrok:
 
 ```bash
-ngrok http 5173 --host-header="localhost:5173"
+ngrok http 5173
 ```
 
-El link generado (ej: `https://abc123.ngrok-free.dev`) es el que se comparte para acceder al sitio desde cualquier dispositivo.
+4. Copiar la URL pública generada por ngrok y compartirla para acceder a la página.
+
+Ejemplo:
+
+```txt
+https://xxxx-xxxx-xxxx.ngrok-free.app
+```
+
+---
+
+## Estructura general del proyecto
+
+```txt
+Cabana_Camaluna/
+├── client/                  # Frontend React + Vite
+│   ├── public/              # Imágenes, videos y archivos públicos
+│   ├── src/
+│   │   ├── components/      # Componentes reutilizables
+│   │   ├── pages/           # Páginas principales
+│   │   ├── services/        # Conexión con API
+│   │   ├── data/            # Datos usados por el frontend
+│   │   ├── context/         # Contextos globales
+│   │   └── App.jsx          # Rutas principales
+│   └── package.json
+│
+├── src/                     # Backend Node.js + Express
+│   ├── server.js            # Archivo principal del servidor
+│   ├── routes/              # Rutas API
+│   ├── models/              # Lógica de manejo de datos
+│   ├── data/                # Archivos JSON de almacenamiento
+│   ├── utils/               # Funciones auxiliares
+│   └── web/                 # Configuración adicional del servidor
+│
+├── package.json
+├── .env.example
+└── README.md
+```
+
+---
+
+## Modelo cliente-servidor
+
+El proyecto funciona bajo un modelo cliente-servidor.
+
+El **cliente** corresponde al frontend desarrollado con React y Vite, ubicado en la carpeta `client/`. Esta parte se encarga de mostrar las páginas, formularios, navegación, calendario de reserva e interfaz visual.
+
+El **servidor** corresponde al backend desarrollado con Node.js y Express, ubicado en la carpeta `src/`. Esta parte se encarga de recibir las peticiones del frontend, validar datos, manejar reservas, administrar sesiones y guardar información en archivos JSON.
+
+### Flujo básico de datos
+
+```txt
+Usuario interactúa con la página
+        ↓
+Frontend React captura los datos
+        ↓
+Axios/fetch envía una petición HTTP al backend
+        ↓
+Backend Express recibe y valida la información
+        ↓
+Los datos se guardan o consultan en archivos JSON
+        ↓
+Backend responde al frontend
+        ↓
+El usuario visualiza el resultado en pantalla
+```
+
+### Ejemplo de flujo de reserva
+
+```txt
+Usuario selecciona fechas y huéspedes
+        ↓
+Completa datos personales
+        ↓
+Sube comprobante de pago
+        ↓
+Frontend envía la reserva al backend
+        ↓
+Backend guarda la reserva como pendiente
+        ↓
+Administrador revisa el comprobante
+        ↓
+Administrador aprueba o rechaza
+        ↓
+Si aprueba, se genera código de entrada
+        ↓
+Usuario visualiza confirmación de reserva
+```
+
+---
+
+## Tecnologías usadas
+
+### Frontend
+
+| Tecnología | Función | Forma de integración |
+|---|---|---|
+| React | Construcción de la interfaz por componentes | Se usa en `client/src` para crear páginas y componentes |
+| Vite | Servidor de desarrollo y empaquetado | Permite ejecutar el frontend en `localhost:5173` |
+| React Router DOM | Manejo de navegación por rutas | Se usa en `client/src/App.jsx` para rutas como `/`, `/reserve`, `/admin` |
+| Axios / Fetch | Comunicación con el backend | Se usa en `client/src/services/api.js` |
+| Framer Motion | Animaciones y transiciones | Se usa en componentes visuales y transiciones de página |
+| React Calendar | Selección de fechas | Se usa en el sistema de reservas |
+| CSS Modules | Estilos por componente | Se usa en archivos `.module.css` |
+| CSS global | Variables, colores y estilos base | Se usa en `index.css` o `global.css` |
+
+### Backend
+
+| Tecnología | Función | Forma de integración |
+|---|---|---|
+| Node.js | Entorno de ejecución del backend | Ejecuta el servidor del proyecto |
+| Express | Creación del servidor y rutas API | Se usa en `src/server.js` |
+| express-session | Manejo de sesión del administrador | Permite mantener sesión activa después del login |
+| dotenv | Manejo de variables de entorno | Lee datos desde `.env` |
+| ws | WebSocket para comunicación en tiempo real | Se usa para funciones como chat o calendario |
+| Nodemon | Reinicio automático en desarrollo | Se usa con `npm run dev` |
+| JSON | Almacenamiento local de datos | Se usa en `src/data/` para reservas, usuarios y otros registros |
+
+---
+
+## Librerías usadas
+
+| Librería | Propósito |
+|---|---|
+| `react` | Permite crear interfaces dinámicas mediante componentes |
+| `react-dom` | Renderiza la aplicación React en el navegador |
+| `react-router-dom` | Gestiona las rutas internas de la aplicación |
+| `axios` | Permite enviar y recibir datos desde el backend |
+| `framer-motion` | Añade animaciones y transiciones visuales |
+| `react-calendar` | Permite seleccionar fechas en el sistema de reservas |
+| `vite` | Compila y ejecuta el frontend en desarrollo |
+| `@vitejs/plugin-react` | Integra React con Vite |
+| `express` | Permite crear el servidor backend |
+| `express-session` | Maneja sesiones del administrador |
+| `dotenv` | Permite usar variables de entorno |
+| `ws` | Permite conexiones WebSocket |
+| `nodemon` | Reinicia automáticamente el servidor durante desarrollo |
 
 ---
 
 ## Rutas API usadas
 
-Todas las rutas tienen el prefijo `/api`.
-
-| Nombre | Ruta completa | Método | Función | Conexión |
+| Nombre | Ruta | Método | Función | Conexión |
 |---|---|---|---|---|
-| Login | `/api/login` | POST | Autenticar al administrador con usuario y contraseña | REST |
-| Logout | `/api/logout` | POST | Cerrar sesión del administrador | REST |
-| Sesión activa | `/api/me` | GET | Verificar si hay sesión activa | REST |
-| Crear reserva | `/api/reservations` | POST | Recibir datos del huésped, fechas y comprobante de pago en base64 | REST |
-| Listar reservas (admin) | `/api/reservations/admin` | GET | Obtener todas las reservas — requiere sesión | REST |
-| Ver reserva | `/api/reservations/:id` | GET | Consultar el estado de una reserva por ID | REST |
-| Aprobar reserva | `/api/reservations/:id/approve` | PATCH | Marcar comprobante como aprobado — requiere sesión | REST |
-| Rechazar reserva | `/api/reservations/:id/reject` | PATCH | Marcar comprobante como rechazado — requiere sesión | REST |
-| Eliminar reserva | `/api/reservations/:id` | DELETE | Eliminar reserva — requiere sesión | REST |
-| Contacto / FAQ | `/api/contact` | GET | Retornar preguntas frecuentes y datos de contacto | REST |
-| Health check | `/api/health` | GET | Verificar que el servidor está activo | REST |
-| Calendario (WS) | `/ws/calendar` | WebSocket | Sincronizar disponibilidad de fechas en tiempo real | WebSocket |
-| Chat (WS) | `/ws/chat` | WebSocket | Canal de mensajería del chat en tiempo real | WebSocket |
+| Login administrador | `/api/auth/login` | POST | Valida correo/usuario y contraseña del administrador | REST |
+| Verificar sesión | `/api/auth/me` | GET | Consulta si el administrador tiene sesión activa | REST |
+| Cerrar sesión | `/api/auth/logout` | POST | Finaliza la sesión del administrador | REST |
+| Crear reserva | `/api/reservations` | POST | Registra una nueva reserva con datos, fechas, huéspedes y comprobante | REST |
+| Consultar reserva | `/api/reservations/:id` | GET | Consulta el estado de una reserva específica | REST |
+| Listar reservas admin | `/api/reservations/admin` | GET | Lista las reservas recibidas para revisión del administrador | REST |
+| Aprobar reserva | `/api/reservations/:id/approve` | PATCH | Aprueba una reserva y genera código de entrada | REST |
+| Rechazar reserva | `/api/reservations/:id/reject` | PATCH | Rechaza una reserva enviada | REST |
+| Calendario | `/ws/calendar` | WebSocket | Permite sincronizar disponibilidad de fechas | WebSocket |
+| Chat | `/ws/chat` | WebSocket | Permite comunicación mediante chat interactivo | WebSocket |
 
-### APIs externas no usadas
-
-| API | Razón |
-|---|---|
-| Google Maps Embed | Se usaron enlaces directos a Google Maps en lugar de embeber el mapa, para evitar la necesidad de una API key adicional |
-| Pasarela de pago (PayU, Wompi, etc.) | El proyecto maneja el pago de forma manual — el huésped transfiere y sube el comprobante |
-| MongoDB / base de datos externa | Los datos se almacenan en archivos JSON locales (`src/data/`) para simplificar el despliegue sin infraestructura adicional |
+> Nota: Las rutas pueden variar ligeramente según la implementación final del backend. Se deben verificar en la carpeta `src/routes/`.
 
 ---
 
-## Lista de librerías
+## Funcionalidades principales
 
-### Frontend (`client/`)
+### Página informativa
 
-| Nombre | Función | Integración |
-|---|---|---|
-| React 18 | Librería principal de UI basada en componentes | `npm install react react-dom` |
-| React Router DOM v6 | Navegación entre páginas (SPA) | `npm install react-router-dom` |
-| Axios | Llamadas HTTP al backend | `npm install axios` |
-| Framer Motion | Animaciones y transiciones de página | `npm install framer-motion` |
-| react-calendar | Componente base de calendario (adaptado para selección de rango) | `npm install react-calendar` |
-| IM Fell English SC / Lato | Tipografías del proyecto | CDN — Google Fonts (enlace en `index.html`) |
+La página muestra información sobre la cabaña, su ubicación, servicios, experiencias, galería, contacto y recomendaciones para visitantes.
 
-### Backend (`src/`)
+### Sistema de reservas
 
-| Nombre | Función | Integración |
-|---|---|---|
-| Express | Framework HTTP del servidor | `npm install express` |
-| express-session | Manejo de sesiones para el panel admin | `npm install express-session` |
-| ws | Servidor WebSocket para calendario y chat | `npm install ws` |
-| dotenv | Carga de variables de entorno desde `.env` | `npm install dotenv` |
+El sistema de reservas funciona por pasos:
+
+1. Selección de fechas y cantidad de huéspedes.
+2. Registro de información del cliente y acompañantes.
+3. Información de pago, política de anticipo y carga de comprobante.
+4. Estado de espera, aprobación o confirmación de reserva.
+
+### Selector de huéspedes
+
+El sistema permite seleccionar diferentes tipos de huéspedes:
+
+```txt
+- Adultos
+- Niños
+- Bebés
+- Mascotas
+```
+
+Esto permite calcular y registrar mejor la información de la estadía.
+
+### Comprobante de pago
+
+El usuario puede subir un comprobante de pago durante el proceso de reserva. Este comprobante queda guardado junto con los datos del registro para que el administrador lo revise.
+
+### Estado de espera
+
+Después de enviar el comprobante, la reserva queda en estado pendiente mientras el administrador la revisa.
+
+### Panel de administrador
+
+El administrador puede iniciar sesión y acceder a una interfaz donde ve las reservas recibidas. En esta interfaz puede:
+
+```txt
+- Ver datos del cliente.
+- Ver fechas de reserva.
+- Ver cantidad de huéspedes.
+- Visualizar comprobante de pago.
+- Aprobar reserva.
+- Rechazar reserva.
+```
+
+### Código de entrada
+
+Cuando el administrador aprueba una reserva, el sistema genera un código aleatorio de entrada para el usuario. Este código se muestra cuando la reserva queda confirmada.
 
 ---
 
-## Modelo Cliente-Servidor
+## Usuario administrador de prueba
 
-### Tecnologías por lado
-
-| Lado | Tecnologías |
-|---|---|
-| **Cliente** | React 18, Vite, React Router DOM, Axios, Framer Motion |
-| **Servidor** | Node.js, Express, express-session, ws (WebSocket) |
-| **Datos** | Archivos JSON locales (`src/data/reservations.json`, `src/data/users.json`) |
-
-### Comunicación entre cliente y servidor
-
-- **REST (HTTP):** El cliente usa `axios` para hacer peticiones a las rutas `/api/...` del servidor. Vite tiene configurado un proxy en `vite.config.js` que redirige todas las peticiones `/api` y `/ws` al backend en `localhost:3000`.
-- **WebSocket:** El cliente abre una conexión directa a `/ws/calendar` y `/ws/chat` para recibir actualizaciones en tiempo real sin necesidad de hacer polling.
-
-### Ejemplo de flujo — Envío de reserva
-
-```
-Usuario llena el formulario (fechas, huéspedes, datos personales, comprobante)
-        ↓
-Cliente convierte el comprobante a base64 (FileReader API)
-        ↓
-Cliente hace POST /api/reservations con todos los datos en JSON
-        ↓
-Servidor valida los campos, genera un ID único y guarda en reservations.json
-        ↓
-Servidor responde con { reservation: { id, status: "pending_review" } }
-        ↓
-Cliente muestra pantalla de espera y consulta el estado cada 5 segundos (GET /api/reservations/:id)
-        ↓
-Admin entra al panel (/admin), ve el comprobante y aprueba o rechaza (PATCH /api/reservations/:id/approve)
-        ↓
-El estado cambia en reservations.json y el cliente detecta el cambio en la siguiente consulta
-        ↓
-Si aprobada → se muestra el código de entrada al huésped
-Si rechazada → se muestra mensaje de rechazo
+```txt
+Correo: admin@camaluna.com
+Usuario alterno: admin
+Contraseña: admin123
 ```
 
-### Diagrama cliente-servidor
+Ruta de acceso:
 
+```txt
+http://localhost:5173/admin
 ```
-┌─────────────────────────────────────┐
-│           CLIENTE (React)           │
-│                                     │
-│  Páginas: Home, Cabaña, Reserva,    │
-│  Galería, Contacto, Admin Login,    │
-│  Panel Admin                        │
-│                                     │
-│  axios → /api/*   (REST HTTP)       │
-│  WebSocket → /ws/calendar           │
-│  WebSocket → /ws/chat               │
-└────────────┬────────────────────────┘
-             │ proxy Vite (dev)
-             │ ngrok (despliegue)
-             ▼
-┌─────────────────────────────────────┐
-│         SERVIDOR (Node + Express)   │
-│                                     │
-│  Rutas: /api/login, /api/logout,    │
-│  /api/reservations, /api/contact    │
-│                                     │
-│  Sesión: express-session            │
-│  WebSocket: ws                      │
-└────────────┬────────────────────────┘
-             │ lectura / escritura
-             ▼
-┌─────────────────────────────────────┐
-│       DATOS (archivos JSON)         │
-│                                     │
-│  src/data/reservations.json         │
-│  src/data/users.json                │
-└─────────────────────────────────────┘
+
+Panel de reservas:
+
+```txt
+http://localhost:5173/admin/reservas
 ```
+
+---
+
+## Instalación del proyecto
+
+### 1. Clonar el repositorio
+
+```bash
+git clone <URL_DEL_REPOSITORIO>
+```
+
+### 2. Entrar a la carpeta principal
+
+```bash
+cd Cabana_Camaluna
+```
+
+### 3. Instalar dependencias del backend
+
+```bash
+npm install
+```
+
+### 4. Instalar dependencias del frontend
+
+```bash
+cd client
+npm install
+```
+
+### 5. Volver a la carpeta principal
+
+```bash
+cd ..
+```
+
+---
+
+## Ejecución del proyecto
+
+### Ejecutar backend
+
+Desde la carpeta principal:
+
+```bash
+npm run dev
+```
+
+El backend se ejecuta en:
+
+```txt
+http://localhost:3000
+```
+
+### Ejecutar frontend
+
+En otra terminal:
+
+```bash
+cd client
+npm run dev
+```
+
+El frontend se ejecuta en:
+
+```txt
+http://localhost:5173
+```
+
+---
+
+## Variables de entorno
+
+El proyecto puede utilizar un archivo `.env` para configurar variables del backend.
+
+Ejemplo:
+
+```env
+PORT=3000
+SESSION_SECRET=camaluna_secret
+WHATSAPP_NUMBER=573107777579
+CONTACT_EMAIL=contacto@camaluna.com
+```
+
+También puede existir un archivo `.env.example` como guía para el equipo.
+
+---
+
+## Scripts disponibles
+
+### Backend
+
+```bash
+npm run dev
+```
+
+Ejecuta el servidor backend con nodemon.
+
+```bash
+npm start
+```
+
+Ejecuta el servidor backend en modo normal.
+
+### Frontend
+
+```bash
+cd client
+npm run dev
+```
+
+Ejecuta el frontend con Vite.
+
+```bash
+cd client
+npm run build
+```
+
+Genera la versión de producción del frontend.
+
+```bash
+cd client
+npm run preview
+```
+
+Permite previsualizar la versión compilada.
+
+---
+
+## Conexión entre frontend y backend
+
+El frontend se comunica con el backend mediante funciones ubicadas en:
+
+```txt
+client/src/services/api.js
+```
+
+Estas funciones permiten centralizar las peticiones HTTP para:
+
+```txt
+- Crear reservas.
+- Consultar reservas.
+- Iniciar sesión como administrador.
+- Cerrar sesión.
+- Aprobar reservas.
+- Rechazar reservas.
+- Consultar reseñas u otros datos.
+```
+
+Ejemplo general:
+
+```js
+fetch('/api/reservations', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(data)
+})
+```
+
+---
+
+## Almacenamiento de datos
+
+El proyecto utiliza archivos JSON como almacenamiento local de datos durante el desarrollo.
+
+Ejemplos:
+
+```txt
+src/data/reservations.json
+src/data/users.json
+src/data/reviews.json
+```
+
+Esto permite simular una base de datos sin necesidad de instalar un motor externo.
+
+---
+
+## Flujo de reserva y administración
+
+```txt
+1. Usuario ingresa a la página de reserva.
+2. Selecciona fechas y número de huéspedes.
+3. Llena los formularios solicitados.
+4. Revisa información de pago.
+5. Sube comprobante.
+6. La reserva queda pendiente.
+7. Administrador inicia sesión.
+8. Administrador revisa el comprobante.
+9. Administrador acepta o rechaza.
+10. Si acepta, se genera código de entrada.
+11. Usuario visualiza confirmación.
+```
+
+---
+
+## Consideraciones de usabilidad y accesibilidad
+
+El proyecto busca que la navegación sea clara y que el proceso de reserva sea comprensible para el usuario. Para ello se implementa un flujo por pasos, mensajes de estado y separación entre la vista del cliente y la vista del administrador.
+
+También se recomienda mantener:
+
+```txt
+- Botones visibles.
+- Textos claros.
+- Contraste adecuado.
+- Formularios organizados.
+- Mensajes de error comprensibles.
+- Validaciones antes de enviar datos.
+```
+
+---
+
+## Recomendaciones para futuras mejoras
+
+```txt
+- Conectar el sistema a una base de datos real.
+- Implementar autenticación más segura.
+- Mejorar la gestión de archivos de comprobantes.
+- Agregar envío automático de correo.
+- Mejorar control de disponibilidad de fechas.
+- Implementar panel administrativo completo.
+- Añadir roles de usuario.
+- Optimizar accesibilidad.
+- Desplegar en un servidor permanente.
+```
+
+---
+
+## Integrantes
+
+```txt
+- Jaime Esteban Rodríguez Sánchez
+- Sara Jimena Barrera Mora
+- Paula Ximena Antonio Franco
+- Mery Helen Ortiz Suarez
+```
+
+---
+
+## Conclusión
+
+El proyecto Cabaña Boutique Camaluna integra una página informativa con funcionalidades interactivas de reserva y administración. Su arquitectura cliente-servidor permite separar la interfaz visual del manejo de datos, facilitando el mantenimiento del sistema y la incorporación de nuevas funcionalidades.
