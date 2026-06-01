@@ -46,9 +46,9 @@ export const socialNetworks = {
 export const emergencyContacts = {
   title: 'Contactos de Emergencia',
   items: [
-    { icon: 'siren',     title: 'Policia Nacional', number: '123', placeholder: 'Número' },
-    { icon: 'hospital',  title: 'Hospital',         number: '125', placeholder: 'Número' },
-    { icon: 'firetruck', title: 'Bomberos',         number: '119', placeholder: 'Número' },
+    { icon: 'siren',     title: 'Policia Nacional', number: '320 2251707', placeholder: 'Número' },
+    { icon: 'hospital',  title: 'Hospital',         number: '333 033 3125', placeholder: 'Número' },
+    { icon: 'firetruck', title: 'Bomberos',         number: '322 416 3975', placeholder: 'Número' },
   ],
 }
 

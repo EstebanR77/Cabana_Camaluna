@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { motion } from 'framer-motion'
 import styles from './EmergencyContacts.module.css'
 
@@ -42,10 +41,6 @@ const ICONS = {
 }
 
 function EmergencyContacts({ title, items = [] }) {
-  const [revealedIndex, setRevealedIndex] = useState(null)
-
-  const toggle = (i) => setRevealedIndex(revealedIndex === i ? null : i)
-
   return (
     <section className={styles.wrap}>
       <h2 className={styles.title}>
@@ -54,28 +49,22 @@ function EmergencyContacts({ title, items = [] }) {
       </h2>
 
       <div className={styles.grid}>
-        {items.map((item, i) => {
-          const isRevealed = revealedIndex === i
-          return (
-            <motion.button
-              key={i}
-              type="button"
-              onClick={() => toggle(i)}
-              className={`${styles.item} ${isRevealed ? styles.itemRevealed : ''}`}
-              aria-pressed={isRevealed}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: i * 0.08 }}
-              viewport={{ once: true }}
-            >
-              <div className={styles.icon}>{ICONS[item.icon]}</div>
-              <h3 className={styles.itemTitle}>{item.title}</h3>
-              <p className={styles.itemValue}>
-                {isRevealed ? item.number : item.placeholder}
-              </p>
-            </motion.button>
-          )
-        })}
+        {items.map((item, i) => (
+          <motion.div
+            key={i}
+            className={styles.item}
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: i * 0.08 }}
+            viewport={{ once: true }}
+          >
+            <div className={styles.icon}>{ICONS[item.icon]}</div>
+            <h3 className={styles.itemTitle}>{item.title}</h3>
+            <p className={styles.itemValue}>
+              {item.number}
+            </p>
+          </motion.div>
+        ))}
       </div>
     </section>
   )
