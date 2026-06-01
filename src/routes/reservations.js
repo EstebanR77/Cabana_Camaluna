@@ -6,6 +6,7 @@ import {
   sanitizeEmail,
   sanitizePhone,
   sanitizeDocument,
+  containsInjectionAttempt,
   requireAuth,
 } from '../utils/security.js';
 
@@ -92,6 +93,10 @@ router.post('/lookup', (req, res) => {
   const trimmedName = String(name || '').trim();
   const trimmedCode = String(requestCode || '').trim();
 
+  if (containsInjectionAttempt(trimmedName)) {
+    return res.status(400).json({ error: 'El nombre contiene caracteres no permitidos.' });
+  }
+
   if (!trimmedName || trimmedName.length < 2) {
     return res.status(400).json({ error: 'Ingresa el nombre del titular (mínimo 2 caracteres).' });
   }
@@ -149,6 +154,15 @@ router.post('/', (req, res) => {
 
   if (!checkIn || !checkOut || !name || !email || !phone) {
     return res.status(400).json({ error: 'Faltan campos requeridos' });
+  }
+
+  if (
+    containsInjectionAttempt(name) ||
+    containsInjectionAttempt(email) ||
+    containsInjectionAttempt(phone) ||
+    containsInjectionAttempt(notes || '')
+  ) {
+    return res.status(400).json({ error: 'Los datos contienen caracteres no permitidos.' });
   }
 
   if (!paymentProof || !paymentProof.dataUrl) {

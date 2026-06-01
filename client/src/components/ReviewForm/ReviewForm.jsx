@@ -1,8 +1,15 @@
 import { useEffect, useMemo, useState } from 'react'
+import {
+  filterReviewName,
+  filterReviewText,
+  validateReviewForm,
+  validateReviewName,
+  validateReviewStayDate,
+  validateReviewText,
+  validateReviewStars,
+} from '../../utils/inputValidation'
 import styles from './ReviewForm.module.css'
 
-const REVIEW_MAX_LENGTH = 500
-const NAME_MAX_LENGTH = 70
 const initialForm = {
   name: '',
   stayDate: '',
@@ -12,48 +19,6 @@ const initialForm = {
 
 function getTodayValue() {
   return new Date().toISOString().split('T')[0]
-}
-
-function hasUnsafeCharacters(value) {
-  return /[<>{}$\\]/.test(value)
-}
-
-function validateForm(form) {
-  const errors = {}
-  const cleanName = form.name.trim()
-  const cleanText = form.text.trim()
-
-  if (!cleanName) {
-    errors.name = 'Escribe tu nombre.'
-  } else if (cleanName.length < 3) {
-    errors.name = 'El nombre debe tener al menos 3 caracteres.'
-  } else if (cleanName.length > NAME_MAX_LENGTH) {
-    errors.name = `El nombre no puede superar ${NAME_MAX_LENGTH} caracteres.`
-  } else if (hasUnsafeCharacters(cleanName)) {
-    errors.name = 'Evita caracteres como <, >, {, } o $.'
-  }
-
-  if (!form.stayDate) {
-    errors.stayDate = 'Selecciona la fecha de estadía.'
-  } else if (new Date(`${form.stayDate}T00:00:00`) > new Date()) {
-    errors.stayDate = 'La fecha de estadía no puede ser futura.'
-  }
-
-  if (!cleanText) {
-    errors.text = 'Escribe tu reseña.'
-  } else if (cleanText.length < 20) {
-    errors.text = 'La reseña debe tener al menos 20 caracteres.'
-  } else if (cleanText.length > REVIEW_MAX_LENGTH) {
-    errors.text = `La reseña no puede superar ${REVIEW_MAX_LENGTH} caracteres.`
-  } else if (hasUnsafeCharacters(cleanText)) {
-    errors.text = 'Evita caracteres como <, >, {, } o $.'
-  }
-
-  if (!form.stars) {
-    errors.stars = 'Selecciona una valoración.'
-  }
-
-  return errors
 }
 
 function ReviewForm({ onSubmit, isSubmitting = false }) {
@@ -68,40 +33,62 @@ function ReviewForm({ onSubmit, isSubmitting = false }) {
     setDisplayStars(hoveredStars || form.stars)
   }, [hoveredStars, form.stars])
 
-  const updateField = (field, value) => {
+  function setFieldError(field, message) {
+    setErrors(previous => {
+      const next = { ...previous }
+      if (message) next[field] = message
+      else delete next[field]
+      return next
+    })
+  }
+
+  function updateField(field, value) {
     let nextValue = value
 
     if (field === 'text') {
-      nextValue = value.slice(0, REVIEW_MAX_LENGTH)
+      nextValue = filterReviewText(value)
     } else if (field === 'name') {
-      nextValue = value.slice(0, NAME_MAX_LENGTH)
+      nextValue = filterReviewName(value)
+    } else if (field === 'stars') {
+      nextValue = Number(value) || 0
     }
 
-    setForm((current) => ({
+    setForm(current => ({
       ...current,
       [field]: nextValue,
     }))
-    setErrors((current) => ({ ...current, [field]: '' }))
+    setFieldError(field, '')
     setAlert('')
   }
 
-  const handleSubmit = async (event) => {
+  function handleBlur(field) {
+    let message = ''
+    if (field === 'name') message = validateReviewName(form.name)
+    if (field === 'stayDate') message = validateReviewStayDate(form.stayDate)
+    if (field === 'text') message = validateReviewText(form.text)
+    if (field === 'stars') message = validateReviewStars(form.stars)
+    setFieldError(field, message)
+  }
+
+  async function handleSubmit(event) {
     event.preventDefault()
 
-    const nextErrors = validateForm(form)
+    const nextErrors = validateReviewForm(form)
     setErrors(nextErrors)
 
-    if (Object.keys(nextErrors).length) {
+    if (Object.keys(nextErrors).length > 0) {
       setAlert('Revisa los campos marcados en rojo antes de enviar tu reseña.')
       return
     }
 
-    const saved = await onSubmit({
-      name: form.name.trim(),
+    const payload = {
+      name: filterReviewName(form.name).trim(),
       stayDate: form.stayDate,
-      text: form.text.trim(),
-      stars: form.stars,
-    })
+      text: filterReviewText(form.text).trim(),
+      stars: Number(form.stars),
+    }
+
+    const saved = await onSubmit(payload)
 
     if (saved) {
       setForm(initialForm)
@@ -124,12 +111,14 @@ function ReviewForm({ onSubmit, isSubmitting = false }) {
             <span>Nombre</span>
             <input
               value={form.name}
-              onChange={(event) => updateField('name', event.target.value)}
+              onChange={event => updateField('name', event.target.value)}
+              onBlur={() => handleBlur('name')}
               placeholder="Escribe tu nombre completo"
-              maxLength={NAME_MAX_LENGTH}
+              autoComplete="name"
+              maxLength={70}
               aria-invalid={Boolean(errors.name)}
             />
-            {errors.name && <small>{errors.name}</small>}
+            {errors.name && <small role="alert">{errors.name}</small>}
           </label>
 
           <label className={`${styles.field} ${errors.stayDate ? styles.fieldError : ''}`}>
@@ -137,11 +126,12 @@ function ReviewForm({ onSubmit, isSubmitting = false }) {
             <input
               type="date"
               value={form.stayDate}
-              onChange={(event) => updateField('stayDate', event.target.value)}
+              onChange={event => updateField('stayDate', event.target.value)}
+              onBlur={() => handleBlur('stayDate')}
               max={today}
               aria-invalid={Boolean(errors.stayDate)}
             />
-            {errors.stayDate && <small>{errors.stayDate}</small>}
+            {errors.stayDate && <small role="alert">{errors.stayDate}</small>}
           </label>
         </div>
 
@@ -149,13 +139,15 @@ function ReviewForm({ onSubmit, isSubmitting = false }) {
           <span>Tu reseña</span>
           <textarea
             value={form.text}
-            onChange={(event) => updateField('text', event.target.value)}
+            onChange={event => updateField('text', event.target.value)}
+            onBlur={() => handleBlur('text')}
             rows={5}
-            maxLength={REVIEW_MAX_LENGTH}
+            maxLength={500}
+            placeholder="Cuéntanos tu experiencia en Camaluna..."
             aria-invalid={Boolean(errors.text)}
           />
-          <span className={styles.counter}>{form.text.length}/{REVIEW_MAX_LENGTH}</span>
-          {errors.text && <small>{errors.text}</small>}
+          <span className={styles.counter}>{form.text.length}/500</span>
+          {errors.text && <small role="alert">{errors.text}</small>}
         </label>
 
         <div className={`${styles.rating} ${errors.stars ? styles.ratingError : ''}`}>
@@ -171,7 +163,10 @@ function ReviewForm({ onSubmit, isSubmitting = false }) {
                   onMouseEnter={() => setHoveredStars(value)}
                   onMouseLeave={() => setHoveredStars(0)}
                   onFocus={() => setHoveredStars(value)}
-                  onBlur={() => setHoveredStars(0)}
+                  onBlur={() => {
+                    setHoveredStars(0)
+                    handleBlur('stars')
+                  }}
                   onClick={() => updateField('stars', value)}
                   aria-label={`${value} estrellas`}
                   aria-pressed={form.stars === value}
@@ -181,7 +176,7 @@ function ReviewForm({ onSubmit, isSubmitting = false }) {
               )
             })}
           </div>
-          {errors.stars && <small>{errors.stars}</small>}
+          {errors.stars && <small role="alert">{errors.stars}</small>}
         </div>
 
         {alert && <p className={styles.alert} role="alert">{alert}</p>}
