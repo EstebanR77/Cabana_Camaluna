@@ -278,7 +278,7 @@
   border-radius: var(--radius-lg);
   padding: clamp(1rem, 2.5vw, 1.5rem);
   box-shadow: var(--shadow-card);
-  min-height: 420px;
+  min-height: 280px;
 }
 
 .empty {
