@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import Footer from '../components/Footer/Footer'
+import RevealBlock from '../components/RevealBlock/RevealBlock'
 import { login } from '../services/api'
 import styles from './AdminLogin.module.css'
 
@@ -9,62 +11,65 @@ function AdminLogin() {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
-  function handleChange(e) {
-    setForm(prev => ({ ...prev, [e.target.name]: e.target.value }))
-  }
-
   async function handleSubmit(e) {
     e.preventDefault()
-    setLoading(true)
     setError('')
+    setLoading(true)
+
     try {
       await login(form)
       navigate('/admin/reservas')
     } catch (err) {
-      setError(err?.response?.data?.error || 'No se pudo iniciar sesión')
+      setError(err.response?.data?.error || 'No se pudo iniciar sesi\u00f3n.')
     } finally {
       setLoading(false)
     }
   }
 
   return (
-    <main className={styles.page}>
-      <section className={styles.card}>
-        <p className={styles.kicker}>Panel Administrativo</p>
-        <h1 className={styles.title}>Administrador</h1>
-        <p className={styles.text}>Ingreso al panel de reservas</p>
-
+    <div className={styles.page}>
+      <RevealBlock as="section" className={styles.card}>
+        <p className={styles.kicker}>Panel privado</p>
+        <h2 className={styles.title}>Administrador</h2>
         <form className={styles.form} onSubmit={handleSubmit}>
-          <label>
-            Correo o usuario
-            <input
-              name="username"
-              value={form.username}
-              onChange={handleChange}
-              placeholder="admin@camaluna.com"
-              required
-            />
-          </label>
-          <label>
-            Contraseña
-            <input
-              name="password"
-              type="password"
-              value={form.password}
-              onChange={handleChange}
-              placeholder="Contraseña"
-              required
-            />
-          </label>
+          <p className={styles.text}>Ingreso al panel de reservas</p>
 
           {error && <p className={styles.error}>{error}</p>}
 
-          <button type="submit" disabled={loading}>
-            {loading ? 'Ingresando...' : 'Ingresar'}
-          </button>
+          <div className={styles.fields}>
+            <div className={styles.field}>
+              <label>Correo o usuario</label>
+              <input
+                type="text"
+                value={form.username}
+                onChange={e => setForm(prev => ({ ...prev, username: e.target.value }))}
+                placeholder="admin@camaluna.com"
+              />
+            </div>
+
+            <div className={styles.field}>
+              <label>{'Contrase\u00f1a'}</label>
+              <input
+                type="password"
+                value={form.password}
+                onChange={e => setForm(prev => ({ ...prev, password: e.target.value }))}
+                placeholder={'Contrase\u00f1a'}
+              />
+            </div>
+          </div>
+
+          <div className={styles.actions}>
+            <button type="submit" disabled={loading}>
+              {loading ? 'Ingresando...' : 'Ingresar'}
+            </button>
+          </div>
         </form>
-      </section>
-    </main>
+      </RevealBlock>
+
+      <RevealBlock>
+        <Footer />
+      </RevealBlock>
+    </div>
   )
 }
 
