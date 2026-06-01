@@ -6,74 +6,98 @@ import Footer from '../components/Footer/Footer'
 import RevealBlock from '../components/RevealBlock/RevealBlock'
 import styles from './Gallery.module.css'
 
-const categories = ['Area Social', 'Habitaciones', 'Terraza', 'Baños']
+const categories = ['Área Social', 'Habitaciones', 'Baños', 'Exterior', 'Cocina']
 
 const galleryImages = [
   {
-    url: '/images/Fachada.jpg',
-    alt: 'Entrada principal iluminada',
-    category: 'Area Social',
+    url: '/images/AreaSocial1.jpg',
+    alt: 'Área social principal',
+    category: 'Área Social',
     layout: 'entrance',
   },
   {
-    url: '/images/habitacion.png',
-    alt: 'Habitacion con vista natural',
+    url: '/images/Habitacion1 (1).jpg',
+    alt: 'Habitación con vista natural',
     category: 'Habitaciones',
     layout: 'bedroom',
   },
   {
-    url: '/images/34337b17d92bc46343f555c176196d8895da80b3.png',
-    alt: 'Lamparas y arte interior',
-    category: 'Area Social',
+    url: '/images/Exterioir1.jpg',
+    alt: 'Exterior de la cabaña',
+    category: 'Exterior',
     layout: 'detail',
   },
   {
-    url: '/images/81b38c95a8219a31a611b35c060ef713c498d3c2.png',
-    alt: 'Terraza exterior',
-    category: 'Terraza',
+    url: '/images/Exterior2.jpg',
+    alt: 'Fachada exterior',
+    category: 'Exterior',
     layout: 'terrace',
   },
   {
-    url: '/images/habitacion.png',
-    alt: 'Bano artesanal',
+    url: '/images/Baño1.jpg',
+    alt: 'Baño artesanal',
     category: 'Baños',
     layout: 'bath',
   },
   {
-    url: '/images/Area social.jpg',
+    url: '/images/AreaSocial2.jpg',
     alt: 'Sala y comedor',
-    category: 'Area Social',
+    category: 'Área Social',
     layout: 'social',
   },
   {
-    url: '/images/Cabana.jpg',
+    url: '/images/AreaSocial3.jpg',
     alt: 'Sala de descanso',
-    category: 'Area Social',
+    category: 'Área Social',
     layout: 'sofa',
   },
   {
-    url: '/images/home.jpg',
-    alt: 'Fachada nocturna',
-    category: 'Terraza',
+    url: '/images/Habitacion2 (1).jpg',
+    alt: 'Habitación acogedora',
+    category: 'Habitaciones',
     layout: 'pet',
   },
   {
-    url: '/images/Habitaciones.jpg',
+    url: '/images/Cocina Y AreaSocial.jpg',
     alt: 'Cocina equipada',
-    category: 'Area Social',
+    category: 'Cocina',
     layout: 'kitchen',
   },
   {
-    url: '/images/Fonfo home.jpeg',
-    alt: 'Vista natural desde Camaluna',
-    category: 'Terraza',
+    url: '/images/Habitacion3.jpg',
+    alt: 'Habitación principal',
+    category: 'Habitaciones',
     layout: 'stairs',
   },
   {
-    url: '/images/Area social.jpg',
-    alt: 'Ingreso a la cabana',
-    category: 'Area Social',
+    url: '/images/Baño2.jpg',
+    alt: 'Baño moderno',
+    category: 'Baños',
     layout: 'door',
+  },
+  {
+    url: '/images/Baño3.jpg',
+    alt: 'Baño detallado',
+    category: 'Baños',
+    layout: 'extra1',
+  },
+  {
+    url: '/images/Cocina1 (2).jpg',
+    alt: 'Cocina',
+    category: 'Cocina',
+    layout: 'extra2',
+  },
+  {
+    url: '/images/Cocina2.jpg',
+    alt: 'Cocina espaciosa',
+    category: 'Cocina',
+    layout: 'extra3',
+  },
+  {
+    url: '/images/Cocina3.jpg',
+    alt: 'Detalle de cocina',
+    category: 'Cocina',
+    layout: 'extra4',
   },
 ]
 
@@ -118,6 +142,7 @@ function Gallery() {
         subtitle="Cabaña Boutique"
         title="Galería"
         description="Vive la cabaña antes de llegar."
+        bgImage="/images/Galeria.jpg"
       />
       </RevealBlock>
 
