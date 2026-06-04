@@ -1,6 +1,11 @@
 import { useEffect, useState } from 'react'
 import styles from './ReviewCard.module.css'
 
+function isSafeReviewImage(image) {
+  if (typeof image !== 'string') return false
+  return /^\/images\/[^"'<>]+\.(jpg|jpeg|png|webp|gif)$/i.test(image.trim())
+}
+
 export default function ReviewCard({
   name = 'Hu\u00e9sped',
   text = 'Rese\u00f1a',
@@ -29,6 +34,8 @@ export default function ReviewCard({
     onLeave?.()
   }
 
+  const safeImage = isSafeReviewImage(image) ? image : null
+
   return (
     <article
       className={[
@@ -45,7 +52,7 @@ export default function ReviewCard({
       <div className={styles.header}>
         <div
           className={styles.avatar}
-          style={image ? { backgroundImage: `url(${image})` } : {}}
+          style={safeImage ? { backgroundImage: `url(${safeImage})` } : {}}
         />
         <div>
           <h3 className={styles.title}>{name}</h3>

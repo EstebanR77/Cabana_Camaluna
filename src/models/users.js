@@ -6,7 +6,7 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const FILE = path.join(__dirname, '../data/users.json');
 
-function hashPassword(password) {
+export function hashPassword(password) {
   return crypto.createHash('sha256').update(password).digest('hex');
 }
 
@@ -22,5 +22,10 @@ export function findByUsername(username) {
 }
 
 export function verifyPassword(user, password) {
-  return user.passwordHash === hashPassword(password);
+  const stored = user.passwordHash || '';
+  const hashed = hashPassword(password);
+  if (stored === hashed) return true;
+  // Compatibilidad si en users.json quedó la contraseña en texto plano por error
+  if (stored.length < 64 && stored === password) return true;
+  return false;
 }

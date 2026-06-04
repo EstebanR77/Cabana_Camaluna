@@ -5,6 +5,9 @@ export const LIMITS = {
   email: 120,
   phone: 20,
   notes: 500,
+  reviewName: 70,
+  reviewTextMin: 20,
+  reviewTextMax: 500,
   documentNumber: 16,
   requestCode: 20,
   ageMax: 120,
@@ -68,6 +71,17 @@ export function filterNotes(value) {
     .slice(0, LIMITS.notes)
 }
 
+export function filterReviewName(value) {
+  return filterPersonName(value, LIMITS.reviewName)
+}
+
+export function filterReviewText(value) {
+  return String(value || '')
+    .replace(INJECTION_PATTERN, '')
+    .replace(/[^\w\sáéíóúÁÉÍÓÚñÑüÜ.,!?¿¡()\-@#%&+/:]/g, '')
+    .slice(0, LIMITS.reviewTextMax)
+}
+
 export function filterDocumentType(value) {
   return VALID_DOCUMENT_TYPES.includes(value) ? value : 'CC'
 }
@@ -97,6 +111,19 @@ export function validateEmail(email) {
   return ''
 }
 
+/** Usuario admin: correo o nombre de usuario (ej. admin). */
+export function validateAdminUsername(value) {
+  const trimmed = value?.trim() || ''
+  if (!trimmed) return 'Ingresa tu usuario o correo.'
+  if (containsInjectionAttempt(trimmed)) {
+    return 'Caracteres no permitidos.'
+  }
+  if (trimmed.length > LIMITS.email) return 'Usuario demasiado largo.'
+  if (EMAIL_REGEX.test(trimmed)) return ''
+  if (/^[a-zA-Z0-9._-]{3,32}$/.test(trimmed)) return ''
+  return 'Ingresa un correo válido o tu nombre de usuario.'
+}
+
 export function validatePhone(phone) {
   const value = phone?.trim() || ''
   if (!value) return 'Ingresa tu número de teléfono.'
@@ -116,6 +143,71 @@ export function validateNotes(notes) {
     return 'El texto contiene caracteres no permitidos por seguridad.'
   }
   return ''
+}
+
+export function validateReviewName(value) {
+  const trimmed = value?.trim() || ''
+  if (!trimmed) return 'Escribe tu nombre.'
+  if (containsInjectionAttempt(trimmed)) {
+    return 'El nombre contiene caracteres no permitidos por seguridad.'
+  }
+  if (trimmed.length < 3) return 'El nombre debe tener al menos 3 caracteres.'
+  if (trimmed.length > LIMITS.reviewName) {
+    return `El nombre no puede superar ${LIMITS.reviewName} caracteres.`
+  }
+  if (!PERSON_NAME_REGEX.test(trimmed)) {
+    return 'El nombre solo puede incluir letras, espacios y guiones.'
+  }
+  return ''
+}
+
+export function validateReviewText(value) {
+  const trimmed = value?.trim() || ''
+  if (!trimmed) return 'Escribe tu reseña.'
+  if (containsInjectionAttempt(trimmed)) {
+    return 'La reseña contiene caracteres no permitidos por seguridad.'
+  }
+  if (trimmed.length < LIMITS.reviewTextMin) {
+    return `La reseña debe tener al menos ${LIMITS.reviewTextMin} caracteres.`
+  }
+  if (trimmed.length > LIMITS.reviewTextMax) {
+    return `La reseña no puede superar ${LIMITS.reviewTextMax} caracteres.`
+  }
+  return ''
+}
+
+export function validateReviewStayDate(value) {
+  if (!value) return 'Selecciona la fecha de estadía.'
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(String(value))) {
+    return 'Selecciona una fecha de estadía válida.'
+  }
+  const date = new Date(`${value}T00:00:00`)
+  if (Number.isNaN(date.getTime())) return 'Selecciona una fecha de estadía válida.'
+  if (date > new Date()) return 'La fecha de estadía no puede ser futura.'
+  return ''
+}
+
+export function validateReviewStars(value) {
+  const stars = Number(value)
+  if (!Number.isInteger(stars) || stars < 1 || stars > 5) {
+    return 'Selecciona una valoración de 1 a 5 estrellas.'
+  }
+  return ''
+}
+
+export function validateReviewForm(form) {
+  const errors = {}
+  const nameError = validateReviewName(form?.name)
+  const dateError = validateReviewStayDate(form?.stayDate)
+  const textError = validateReviewText(form?.text)
+  const starsError = validateReviewStars(form?.stars)
+
+  if (nameError) errors.name = nameError
+  if (dateError) errors.stayDate = dateError
+  if (textError) errors.text = textError
+  if (starsError) errors.stars = starsError
+
+  return errors
 }
 
 export function validateAge(ageStr, guestKey) {
@@ -276,6 +368,14 @@ export function validateSingleField(fieldKey, value, context = {}) {
       return validatePhone(value)
     case 'solicitudes':
       return validateNotes(value)
+    case 'review.name':
+      return validateReviewName(value)
+    case 'review.text':
+      return validateReviewText(value)
+    case 'review.stayDate':
+      return validateReviewStayDate(value)
+    case 'review.stars':
+      return validateReviewStars(value)
     default:
       break
   }
