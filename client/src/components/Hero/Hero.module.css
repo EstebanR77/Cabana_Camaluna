@@ -116,6 +116,35 @@
   color: var(--color-text-light);
 }
 
+.reserveLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  margin-top: 18px;
+  padding: 0.7rem 1.45rem;
+  border: 1px solid rgba(238, 220, 170, 0.72);
+  border-radius: var(--radius-md);
+  background: rgba(249, 249, 240, 0.16);
+  color: var(--color-text-light);
+  font-family: var(--font-body);
+  font-size: 0.96rem;
+  font-weight: 800;
+  line-height: 1;
+  text-decoration: none;
+  box-shadow: 0 12px 28px rgba(30, 20, 14, 0.2);
+  backdrop-filter: blur(8px);
+  transition: transform var(--transition), background var(--transition), border-color var(--transition), box-shadow var(--transition);
+}
+
+.reserveLink:hover,
+.reserveLink:focus-visible {
+  border-color: rgba(238, 220, 170, 0.94);
+  background: rgba(249, 249, 240, 0.24);
+  box-shadow: 0 16px 34px rgba(30, 20, 14, 0.28);
+  transform: translateY(-2px);
+}
+
 @keyframes heroWaveDrift {
   to {
     stroke-dashoffset: -170;
@@ -179,6 +208,13 @@
   .content {
     width: 92%;
     padding: 28px 12px;
+  }
+
+  .reserveLink {
+    min-height: 40px;
+    margin-top: 14px;
+    padding: 0.62rem 1.15rem;
+    font-size: 0.88rem;
   }
 
 }

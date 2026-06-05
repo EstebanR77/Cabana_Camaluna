@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom'
 import { Link } from 'react-router-dom'
 import Hero from '../components/Hero/Hero'
 import Footer from '../components/Footer/Footer'
+import PaymentMethods from '../components/PaymentMethods/PaymentMethods'
 import RevealBlock from '../components/RevealBlock/RevealBlock'
 import { createReservation, getReservation } from '../services/api'
 import { useCalendar } from '../hooks/useCalendar'
@@ -760,15 +761,12 @@ function Step3({
           </p>
         </article>
 
-        <article className={styles.infoCard}>
+        <article className={`${styles.infoCard} ${styles.infoCardWide}`}>
           <h4 className={styles.infoCardTitle}>Medios de pago</h4>
           <p className={styles.infoCardText}>
-            Transferencia, Nequi y pagos digitales disponibles.
+            Realiza tu anticipo por Nequi, Daviplata o transferencia Bancolombia.
           </p>
-          <ul className={styles.paymentMethodsList}>
-            <li>Nequi / Daviplata: <strong>310 777 7579</strong></li>
-            <li>Bancolombia — Ahorros: <strong>123-456789-00</strong></li>
-          </ul>
+          <PaymentMethods />
         </article>
 
         <article className={styles.infoCard}>

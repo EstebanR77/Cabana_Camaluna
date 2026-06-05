@@ -68,6 +68,8 @@
   background: var(--color-green-light);
   cursor: pointer;
   box-shadow: none;
+  font: inherit;
+  text-align: left;
   transition: transform var(--transition), box-shadow var(--transition), filter var(--transition);
 }
 
@@ -167,6 +169,11 @@
   filter: saturate(1.08);
 }
 
+.item:focus-visible {
+  outline: 3px solid rgba(176, 196, 143, 0.78);
+  outline-offset: 3px;
+}
+
 .img {
   width: 100%;
   height: 100%;
@@ -254,10 +261,61 @@
 
 .lightboxCaption {
   padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
   color: var(--color-text-main);
   font-family: var(--font-body);
   font-size: 0.92rem;
   font-weight: 700;
+}
+
+.lightboxCounter {
+  flex: 0 0 auto;
+  padding: 0.22rem 0.55rem;
+  border-radius: var(--radius-sm);
+  background: rgba(176, 196, 143, 0.22);
+  color: var(--color-green);
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.navBtn {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid rgba(249, 249, 240, 0.36);
+  background: rgba(249, 249, 240, 0.16);
+  color: var(--color-text-light);
+  font-family: var(--font-body);
+  font-size: 1.8rem;
+  font-weight: 300;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(-50%);
+  transition: background var(--transition), transform var(--transition), border-color var(--transition);
+}
+
+.prevBtn {
+  left: max(1rem, calc((100vw - min(92vw, 980px)) / 2 - 72px));
+}
+
+.nextBtn {
+  right: max(1rem, calc((100vw - min(92vw, 980px)) / 2 - 72px));
+}
+
+.navBtn:hover,
+.navBtn:focus-visible {
+  border-color: rgba(249, 249, 240, 0.56);
+  background: rgba(249, 249, 240, 0.28);
+  transform: translateY(-50%) scale(1.06);
 }
 
 .closeBtn {
@@ -448,6 +506,26 @@
   .lightboxImg {
     max-height: 72vh;
     object-fit: contain;
+  }
+
+  .lightboxCaption {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+
+  .navBtn {
+    width: 42px;
+    height: 42px;
+    font-size: 1.45rem;
+  }
+
+  .prevBtn {
+    left: 1.15rem;
+  }
+
+  .nextBtn {
+    right: 1.15rem;
   }
 
   .imgOverlay {

@@ -103,7 +103,7 @@ const galleryImages = [
 
 function Gallery() {
   const [active, setActive] = useState('')
-  const [selected, setSelected] = useState(null)
+  const [selectedIndex, setSelectedIndex] = useState(null)
   const [hoveredItem, setHoveredItem] = useState('')
 
   useEffect(() => {
@@ -116,6 +116,56 @@ function Gallery() {
   const filtered = !active
     ? galleryImages
     : galleryImages.filter(image => image.category === active)
+
+  const selected = selectedIndex === null ? null : filtered[selectedIndex]
+  const totalImages = filtered.length
+  const selectedPosition = selectedIndex === null ? 0 : selectedIndex + 1
+
+  useEffect(() => {
+    if (selectedIndex === null) return undefined
+
+    const handleKeyDown = event => {
+      if (event.key === 'Escape') {
+        setSelectedIndex(null)
+        return
+      }
+
+      if (event.key === 'ArrowLeft') {
+        setSelectedIndex(current => (
+          current === null ? current : (current - 1 + totalImages) % totalImages
+        ))
+      }
+
+      if (event.key === 'ArrowRight') {
+        setSelectedIndex(current => (
+          current === null ? current : (current + 1) % totalImages
+        ))
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }, [selectedIndex, totalImages])
+
+  useEffect(() => {
+    if (selectedIndex !== null && selectedIndex >= totalImages) {
+      setSelectedIndex(null)
+    }
+  }, [selectedIndex, totalImages])
+
+  const showPreviousImage = event => {
+    event.stopPropagation()
+    setSelectedIndex(current => (
+      current === null ? current : (current - 1 + totalImages) % totalImages
+    ))
+  }
+
+  const showNextImage = event => {
+    event.stopPropagation()
+    setSelectedIndex(current => (
+      current === null ? current : (current + 1) % totalImages
+    ))
+  }
 
   const getFilterClass = category => (
     [
@@ -171,15 +221,16 @@ function Gallery() {
       >
         <AnimatePresence>
           {filtered.map((image, index) => (
-            <motion.div
+            <motion.button
               key={image.alt + index}
+              type="button"
               className={getItemClass(image)}
               layout
               initial={{ opacity: 0, y: 18, scale: 0.96 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 10, scale: 0.96 }}
               transition={{ duration: 0.28, delay: index * 0.035 }}
-              onClick={() => setSelected(image)}
+              onClick={() => setSelectedIndex(index)}
               onMouseEnter={() => setHoveredItem(image.alt)}
               onMouseLeave={() => setHoveredItem('')}
               onFocus={() => setHoveredItem(image.alt)}
@@ -190,7 +241,7 @@ function Gallery() {
                 <span className={styles.imgCategory}>{image.category}</span>
                 <span className={styles.imgCaption}>{image.alt}</span>
               </span>
-            </motion.div>
+            </motion.button>
           ))}
         </AnimatePresence>
       </RevealBlock>
@@ -206,9 +257,18 @@ function Gallery() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={() => setSelected(null)}
+            onClick={() => setSelectedIndex(null)}
           >
+            <button
+              type="button"
+              className={`${styles.navBtn} ${styles.prevBtn}`}
+              onClick={showPreviousImage}
+              aria-label="Ver imagen anterior"
+            >
+              {'<'}
+            </button>
             <motion.figure
+              key={selected.url}
               className={styles.lightboxFigure}
               initial={{ scale: 0.92, y: 12 }}
               animate={{ scale: 1, y: 0 }}
@@ -216,12 +276,25 @@ function Gallery() {
               onClick={event => event.stopPropagation()}
             >
               <img src={selected.url} alt={selected.alt} className={styles.lightboxImg} />
-              <figcaption className={styles.lightboxCaption}>{selected.alt}</figcaption>
+              <figcaption className={styles.lightboxCaption}>
+                <span>{selected.alt}</span>
+                <span className={styles.lightboxCounter}>
+                  {selectedPosition} / {totalImages}
+                </span>
+              </figcaption>
             </motion.figure>
             <button
               type="button"
+              className={`${styles.navBtn} ${styles.nextBtn}`}
+              onClick={showNextImage}
+              aria-label="Ver imagen siguiente"
+            >
+              {'>'}
+            </button>
+            <button
+              type="button"
               className={styles.closeBtn}
-              onClick={() => setSelected(null)}
+              onClick={() => setSelectedIndex(null)}
               aria-label="Cerrar imagen"
             >
               x

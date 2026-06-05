@@ -649,7 +649,7 @@
 
 .infoCardStack {
   width: 100%;
-  max-width: 420px;
+  max-width: 520px;
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
@@ -694,20 +694,8 @@
   color: var(--color-brown);
 }
 
-.paymentMethodsList {
-  margin: 0.5rem 0 0;
-  padding: 0;
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-}
-
-.paymentMethodsList li {
-  font-family: var(--font-body);
-  font-size: 0.86rem;
-  color: var(--color-text-main);
-  line-height: 1.45;
+.infoCardWide {
+  width: 100%;
 }
 
 .uploadZone {

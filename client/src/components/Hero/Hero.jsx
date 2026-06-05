@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import styles from './Hero.module.css'
 
 const HERO_IMAGES = {
@@ -14,6 +14,7 @@ const HERO_IMAGES = {
 function Hero({ title, subtitle, description, bgImage, variant = 'default' }) {
   const { pathname } = useLocation()
   const heroImage = bgImage || HERO_IMAGES[pathname] || HERO_IMAGES['/']
+  const showReservationCta = pathname !== '/reserve'
 
   const heroClass = [styles.hero, variant !== 'default' ? styles[variant] : '']
     .filter(Boolean)
@@ -69,6 +70,11 @@ function Hero({ title, subtitle, description, bgImage, variant = 'default' }) {
         {subtitle && <p className={styles.subtitle}>{subtitle}</p>}
         <h1 className={styles.title}>{title}</h1>
         {description && <p className={styles.description}>{description}</p>}
+        {showReservationCta && (
+          <Link className={styles.reserveLink} to="/reserve">
+            {'Reserva tu estad\u00eda'}
+          </Link>
+        )}
       </div>
     </section>
   )

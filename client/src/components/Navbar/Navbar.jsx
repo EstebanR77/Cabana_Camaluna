@@ -8,9 +8,9 @@ const NAV_LINKS = [
   { label: 'Reservar', to: '/reserve' },
   { label: 'Sobre Villa de Leyva', to: '/about' },
   { label: 'Galería', to: '/gallery' },
-  { label: 'Conócenos', to: '/conocenos' },
   { label: 'Reseñas', to: '/experiences' },
   { label: 'Ayuda', to: '/contact' },
+  { label: 'Conócenos', to: '/conocenos' },
 ];
 
 function Navbar() {

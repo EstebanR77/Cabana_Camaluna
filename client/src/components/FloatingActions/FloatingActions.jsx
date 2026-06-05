@@ -1,12 +1,12 @@
 import ReservationStatusFab from '../ReservationStatus/ReservationStatusFab'
-import FloatingChat from '../chat/FloatingChat'
+import FloatingWhatsApp from '../FloatingWhatsApp/FloatingWhatsApp'
 import styles from './FloatingActions.module.css'
 
 function FloatingActions() {
   return (
     <div className={styles.stack}>
       <ReservationStatusFab />
-      <FloatingChat />
+      <FloatingWhatsApp />
     </div>
   )
 }

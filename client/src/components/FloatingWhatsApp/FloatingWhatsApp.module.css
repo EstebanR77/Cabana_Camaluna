@@ -1,0 +1,42 @@
+.fab {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #25d366;
+  color: #ffffff;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 10px 22px rgba(37, 211, 102, 0.35);
+  transition:
+    transform var(--transition),
+    box-shadow var(--transition),
+    background var(--transition);
+  text-decoration: none;
+}
+
+.fab:hover {
+  transform: translateY(-3px) scale(1.04);
+  box-shadow: 0 14px 28px rgba(37, 211, 102, 0.42);
+  background: #20bd5a;
+}
+
+.fab:active {
+  transform: translateY(-1px) scale(1.01);
+}
+
+.icon {
+  width: 32px;
+  height: 32px;
+}
+
+@media (max-width: 480px) {
+  .fab {
+    width: 56px;
+    height: 56px;
+  }
+
+  .icon {
+    width: 30px;
+    height: 30px;
+  }
+}
